@@ -1,4 +1,4 @@
-<div class="wrapper-1440 scroll-reveal">
+<div class="wrapper-1440 ">
 	<section class="home__training">
 		<h2 class="title">Un entraînement à votre échelle </h2>
 		<p>Définissons ensemble le chemin à prendre pour répondre à vos besoins et atteindre les résultats auxquels vous aspirez.</p>

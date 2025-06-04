@@ -1,5 +1,5 @@
 <footer>
-	<div class="wrapper-982 scroll-reveal">
+	<div class="wrapper-982 ">
 		<section id="contact__info " class="contact__info section-height90">
 			<h2 class="title">Contactez-moi</h2>
 			<p>Pour toutes informations, voici les coordonnées de SBG Coaching :</p>
@@ -32,7 +32,7 @@
 	<?php
 	includeComponent('__form');
 	?>
-	<div class="wrapper-982 scroll-reveal">
+	<div class="wrapper-982 ">
 		<section class="footer__nav">
 			<img src="img/logo-black.svg" alt="logo de l'entreprise SBG Coaching" class="footer__logo">
 			<div class="footer__nav-col1">

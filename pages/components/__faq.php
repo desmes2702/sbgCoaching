@@ -1,5 +1,5 @@
 <div class="wrapper-982-black ">
-	<section class="faq section-height90 scroll-reveal" itemscope itemtype="https://schema.org/FAQPage">
+	<section class="faq section-height90 " itemscope itemtype="https://schema.org/FAQPage">
 		<h2 class="faq__title subTitle">FAQ</h2>
 		<h3 class="faq__subTitle title">Questions fréquentes</h3>
 		<div class="faq__list">

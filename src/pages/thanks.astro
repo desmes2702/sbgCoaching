@@ -1,36 +1,20 @@
-<article>
-      <h2><Link href={`/articles/${article.slug}`}>{article.title}</Link></h2>
-      <p>{article.date}</p>
-    </article>
-  );
-}
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
 
-function Category({ category }) {
-  return (
-    <li>
-      <Link href={`/categories/${category.slug}`}>{category.name}</Link>
-    </li>
-  );
-}
-
-function Index() {
-  return (
-    <main>
-      <h1>Bienvenue sur mon blog</h1>
-      <ul>
-        {articles.map((article) => (
-          <Article key={article.slug} article={article} />
-        ))}
-      </ul>
-      <h2>Catégories</h2>
-      <ul>
-        {categories.map((category) => (
-          <Category key={category.slug} category={category} />
-        ))}
-      </ul>
-    </main>
-  );
-}
-
-export default Index;
-```
+<BaseLayout title="Merci pour votre message" description="Confirmation d'envoi – SBG Coaching"
+dataVariant="white"
+dataPage="thanks"
+>
+  <section class="wrapper-1440-black">
+    <div class="thanks__container">
+      <h1 class="thanks__title title">Merci pour votre message !</h1>
+      <p class="thanks__subtitle">
+        Nous avons bien reçu votre demande.<br />
+        L’équipe SBG Coaching vous répondra très rapidement.<br /><br />
+        <!-- <strong>Un email de confirmation vient de vous être envoyé.</strong> -->
+      </p>
+      <a href="/" class="button button-red thanks__cta">Retour à l’accueil</a>
+    </div>
+  </section>
+</BaseLayout>

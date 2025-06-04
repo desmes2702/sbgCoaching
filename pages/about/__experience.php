@@ -1,4 +1,4 @@
-<div class="wrapper-1440 scroll-reveal" id="wrapper-experience">
+<div class="wrapper-1440 " id="wrapper-experience">
 	<section class="parcours">
 		<h2 class="parcours__title title">MON PARCOURS</h2>
 

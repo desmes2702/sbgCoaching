@@ -1,5 +1,5 @@
 <div class="wrapper-982-black ">
-	<section class="convictions scroll-reveal">
+	<section class="convictions ">
 		<div class="convictions__container">
 			<h2 class="convictions__title title">MES CONVICTIONS</h2>
 

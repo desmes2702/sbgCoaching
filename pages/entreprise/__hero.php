@@ -1,5 +1,5 @@
 <div class="wrapper-1440 " id="page__coaching__wrapper__hero">
-	<section class="coaching__hero scroll-reveal">
+	<section class="coaching__hero ">
 
 		<div class="coaching__hero-col1">
 			<div id="content-main" class="coaching__hero__content">

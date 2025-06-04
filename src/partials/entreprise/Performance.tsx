@@ -38,7 +38,7 @@ const Performance = () => {
 
   return (
     <div className="wrapper-1440-black">
-      <section className="coaching__entrerpise__perfo section-height90 scroll-reveal" aria-label="Amélioration des performances en entreprise">
+      <section className="coaching__entrerpise__perfo section-height90 " aria-label="Amélioration des performances en entreprise">
         <h2>Une amélioration de vos performances en entreprise</h2>
 
         <div className="coaching__entrerpise__perfo__col1">

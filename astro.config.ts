@@ -11,7 +11,6 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   integrations: [react()],
-  output: "server", // <--- important !
   vite: {
     ...viteConfig,
   },

@@ -15,7 +15,7 @@
 	include $base . 'components/__menu.php';
 	?>
 
-	<main class="main wrapper-1440 scroll-reveal">
+	<main class="main wrapper-1440 ">
 		<section id="legal-dynamic-content">
 			<?php include $base . 'legal__mentions/__mentions-noscript.php'; ?>
 		</section>

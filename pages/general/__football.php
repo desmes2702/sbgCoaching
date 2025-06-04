@@ -1,4 +1,4 @@
-<div class="wrapper-1440 scroll-reveal">
+<div class="wrapper-1440 ">
 	<section class="jeune__footballer section-height90">
 		<h2 class="jeune__footballer__title">
 			<span class="title">PRÉPARATION PHYSIQUE</span>

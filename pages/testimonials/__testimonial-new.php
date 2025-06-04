@@ -1,4 +1,4 @@
-<div class="wrapper-1440 scroll-reveal" id="wrapper-1440__testimonial-new">
+<div class="wrapper-1440 " id="wrapper-1440__testimonial-new">
 	<section class="testimonial-new">
 		<h2 class="testimonial-new__title title">Des témoignages authentiques</h2>
 		<h3 class="testimonial-new__subtitle ">Des résultats concrets</h3>

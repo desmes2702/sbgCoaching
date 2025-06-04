@@ -1,7 +1,9 @@
 ---
 import Menu from "@partials/components/Menu"
 import Footer from "@partials/components/Footer.astro";
+import FooterMenu from "@partials/components/FooterMenu.astro";
 import Seo from "@partials/components/Seo.astro";
+
 
 export interface Props {
   title: string;
@@ -13,7 +15,7 @@ export interface Props {
   seo?: {
     url: string;
     image?: string;
-   schemaType?: "LocalBusiness" | "Organization" | "Article" | "Review";
+    schemaType?: "LocalBusiness" | "Organization" | "Article" | "Review";
   };
 }
 
@@ -55,11 +57,13 @@ const {
   >
     <Menu client:visible variant={dataVariant as "white" | "black"} />
 
-    <slot />
+      <slot />
 
-    {!["contact", "legal", "privacy-policy"].includes   (dataPage ?? "") && (
-      <Footer />
-    )}
+    {["contact", "legal", "privacy-policy", "thanks"].includes(dataPage ?? "") ? (
+  <FooterMenu />
+) : (
+  <Footer />
+)}
 
     <link rel="stylesheet" href="/style/css/main.css" />
     <script type="module" src="/src/js/main.ts"></script>

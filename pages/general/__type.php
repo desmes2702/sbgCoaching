@@ -1,4 +1,4 @@
-<div class="wrapper-1440-black scroll-reveal" id="page__coaching__wrapper__types">
+<div class="wrapper-1440-black " id="page__coaching__wrapper__types">
 	<section class="coaching__types section-height90">
 		<h2 class="coaching__types__title">Nos types de coaching</h2>
 		<div class="coaching__types__grid">

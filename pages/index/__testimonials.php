@@ -1,4 +1,4 @@
-<div class="wrapper-1440 scroll-reveal">
+<div class="wrapper-1440 ">
 	<section id="testimonials-index" class="testimonials">
 		<h2 class="testimonials__title subTitle">Témoignages</h2>
 		<h3 class="testimonials__subtitle title">Des résultats qui parlent</h3>

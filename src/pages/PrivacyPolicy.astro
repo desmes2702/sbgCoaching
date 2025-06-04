@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { companyInfos } from "@/js/data/__data";
-import FooterMenu from "@partials/components/FooterMenu.astro";
 ---
 
 <BaseLayout
@@ -17,7 +16,7 @@ import FooterMenu from "@partials/components/FooterMenu.astro";
     schemaType: "Organization"
   }}
 >
-  <main class="main wrapper-1440-black scroll-reveal">
+  <main class="main wrapper-1440-black ">
     <section aria-labelledby="privacy-title" class="legal">
       <h1 id="privacy-title" class="title">Politique de confidentialité</h1>
       <p>
@@ -91,6 +90,4 @@ import FooterMenu from "@partials/components/FooterMenu.astro";
       </p>
     </section>
   </main>
-
-  <FooterMenu />
 </BaseLayout>

@@ -67,6 +67,8 @@ function ContactForm() {
     validateField(name, fieldValue);
   };
 
+  const [showRedirectMsg, setShowRedirectMsg] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -90,37 +92,43 @@ function ContactForm() {
     }
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    const result = await res.json();
+    if (result.success) {
+      setSuccess(true);
+      setShowRedirectMsg(true); // 👈 Affiche le message de confirmation
+      setForm({
+        lastname: "",
+        firstname: "",
+        phone: "",
+        email: "",
+        message: "",
+        terms: false,
+        honeypot: ""
       });
-      const result = await res.json();
-      if (result.success) {
-        setSuccess(true);
-        setForm({
-          lastname: "",
-          firstname: "",
-          phone: "",
-          email: "",
-          message: "",
-          terms: false,
-          honeypot: ""
-        });
-        localStorage.removeItem(AUTO_SAVE_KEY);
-      } else {
-        setSuccess(false);
-        setError(result.error || "Erreur lors de l’envoi.");
-      }
-    } catch (err) {
+      localStorage.removeItem(AUTO_SAVE_KEY);
+
+      setTimeout(() => {
+        window.location.href = "/thanks";
+      }, 1800); // Redirection après 1,8 seconde
+      return;
+    } else {
       setSuccess(false);
-      setError("Erreur réseau, veuillez réessayer.");
+      setError(result.error || "Erreur lors de l’envoi.");
     }
-  };
+  } catch (err) {
+    setSuccess(false);
+    setError("Erreur réseau, veuillez réessayer.");
+  }
+};
 
   return (
     <div className="wrapper-982-black">
-      <section id="footer-contact-form" className="contact__form section-height90 scroll-reveal">
+      <section id="footer-contact-form" className="contact__form section-height90 ">
         <h2 className="contact__title title">Formulaire de contact</h2>
         <p className="contact__time-estimate" aria-hidden="true">{COMPLETION_TIME}</p>
         <p className="contact__intro">Toutes les informations inscrites dans ce formulaire seront directement envoyées à notre boîte mail.</p>

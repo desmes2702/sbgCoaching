@@ -1,5 +1,5 @@
 <div class="wrapper-982-black ">
-	<section id="footer-contact-form" class="contact__form section-height90 scroll-reveal">
+	<section id="footer-contact-form" class="contact__form section-height90 ">
 		<h2 class="contact__title title">Formulaire de contact</h2>
 		<p>Toutes les informations qui seront inscrites dans ce formulaire seront directement envoyer à notre boîte mail.</p>
 		<form action="/submit" method="post">

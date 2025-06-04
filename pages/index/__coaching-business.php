@@ -1,5 +1,5 @@
 <div class="wrapper-1440-black ">
-	<section id="business-coaching" class="business-coaching scroll-reveal">
+	<section id="business-coaching" class="business-coaching ">
 		<h2 class="business-coaching__title subTitle">
 			Coaching <span class="business-coaching__highlight title">Entreprise</span>
 		</h2>

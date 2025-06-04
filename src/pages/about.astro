@@ -5,6 +5,7 @@ import Experience from "@partials/about/Experience.astro";
 import Slogan from "@partials/about/Slogan.astro";
 import Message from "@partials/about/Message.astro";
 import Faq from "@partials/components/Faq.astro";
+import LazyFadeIn from "@partials/performance/LazyFadeIn";
 ---
 
 <BaseLayout
@@ -20,11 +21,25 @@ import Faq from "@partials/components/Faq.astro";
     schemaType: "LocalBusiness"
   }}
 >
-  <main>
-    <Hero />
-    <Experience />
-    <Slogan />
-    <Message />
-    <Faq />
+    <main>
+    <LazyFadeIn client:load>
+      <Hero />
+    </LazyFadeIn>
+
+    <LazyFadeIn client:load>
+      <Experience />
+    </LazyFadeIn>
+
+    <LazyFadeIn client:load>
+      <Slogan />
+    </LazyFadeIn>
+
+    <LazyFadeIn client:load>
+      <Message />
+    </LazyFadeIn>
+
+    <LazyFadeIn client:load>
+      <Faq />
+    </LazyFadeIn>
   </main>
 </BaseLayout>
