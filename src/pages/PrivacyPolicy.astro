@@ -17,9 +17,9 @@ import FooterMenu from "@partials/components/FooterMenu.astro";
     schemaType: "Organization"
   }}
 >
-  <main class="main wrapper-1440 scroll-reveal">
-    <section aria-labelledby="privacy-title">
-      <h1 id="privacy-title">Politique de confidentialité</h1>
+  <main class="main wrapper-1440-black scroll-reveal">
+    <section aria-labelledby="privacy-title" class="legal">
+      <h1 id="privacy-title" class="title">Politique de confidentialité</h1>
       <p>
         SBG Coaching attache une grande importance à la protection de vos données personnelles et au respect de votre vie privée, conformément au Règlement Général sur la Protection des Données (RGPD).
       </p>
@@ -55,8 +55,8 @@ import FooterMenu from "@partials/components/FooterMenu.astro";
       <p>
         Vos données ne sont jamais transmises à des tiers à des fins commerciales. Elles peuvent être partagées uniquement avec des prestataires nécessaires à la gestion du site ou des services (hébergeur, outils de gestion, etc.), tenus au respect de la confidentialité.
       </p>
-
-      <h2>6. Vos droits</h2>
+      <div class="legal__droits">
+      <h2 >6. Vos droits</h2>
       <p>Conformément au RGPD, vous disposez des droits suivants :</p>
       <ul>
         <li>Droit d’accès à vos données</li>
@@ -69,6 +69,7 @@ import FooterMenu from "@partials/components/FooterMenu.astro";
         Pour exercer vos droits, il vous suffit de nous contacter à l’adresse :<br />
         <a href={`mailto:${companyInfos.email}`}>{companyInfos.email}</a>
       </p>
+      </div>
 
       <h2>7. Cookies</h2>
       <p>

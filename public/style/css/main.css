@@ -4788,6 +4788,27 @@ label {
 }
 
 /* @forward "testimonials"; */
+.legal > h2 {
+  margin-top: 3rem;
+}
+.legal h1, .legal h2, .legal p, .legal li {
+  color: white;
+}
+.legal li {
+  padding-left: 1rem;
+  position: relative;
+}
+.legal li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1rem;
+}
+.legal__droits li:last-child {
+  margin-bottom: 1rem;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;/*# sourceMappingURL=main.css.map */
