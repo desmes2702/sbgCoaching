@@ -1,9 +1,11 @@
 ---
 import LinksSocial from "@partials/components/LinksSocial";
 import ContactForm from "@partials/components/ContactForm.tsx";
+import LazyFadeIn from "@partials/performance/LazyFadeIn";
 ---
 
 <footer>
+  <LazyFadeIn client:load>
   <div class="wrapper-982 ">
     <section id="contact__info" class="contact__info section-height90">
       <h2 class="title">Contactez-moi</h2>
@@ -39,10 +41,13 @@ import ContactForm from "@partials/components/ContactForm.tsx";
       </div>
     </section>
   </div>
+  </LazyFadeIn>
 
   <!-- 📨 Formulaire React dynamique -->
+  <LazyFadeIn client:load>
   <ContactForm client:load />
-
+  </LazyFadeIn>
+  <LazyFadeIn client:load>
   <div class="wrapper-982 ">
     <section class="footer__nav">
       <img
@@ -92,4 +97,5 @@ import ContactForm from "@partials/components/ContactForm.tsx";
       </div>
     </section>
   </div>
+  </LazyFadeIn>
 </footer>

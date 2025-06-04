@@ -7,19 +7,20 @@ export default function LazyFadeIn({
   children: React.ReactNode;
   className?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = wrapperRef.current;
     if (!el) return;
 
-    const markFirstChild = () => {
-      const firstChild = el.firstElementChild;
-      if (firstChild) {
-        firstChild.classList.add("fade-child-visible");
-      }
-    };
+    const page = typeof document !== "undefined" ? document.body.dataset.page : "";
+
+    // ❌ Désactiver l’animation pour la page "contact"
+    if (page === "contact") {
+      setIsVisible(true);
+      return;
+    }
 
     requestAnimationFrame(() => {
       const rect = el.getBoundingClientRect();
@@ -27,7 +28,6 @@ export default function LazyFadeIn({
 
       if (isInView) {
         setIsVisible(true);
-        markFirstChild();
       } else {
         const observer = new IntersectionObserver(
           ([entry]) => {
@@ -45,7 +45,7 @@ export default function LazyFadeIn({
 
   return (
     <div
-      ref={ref}
+      ref={wrapperRef}
       className={`fade-in-section ${isVisible ? "is-visible" : ""} ${className}`}
     >
       {children}

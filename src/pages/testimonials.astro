@@ -3,6 +3,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import TestimonialNew from "@partials/testimonials/TestimonialNew.astro";
 import TestimonialsLast from "@partials/testimonials/TestimonialsLast.astro";
 import TestimonialsSubmit from "@partials/testimonials/TestimonialsSubmit.astro";
+import LazyFadeIn from "@partials/performance/LazyFadeIn";
 ---
 
 <BaseLayout
@@ -21,8 +22,12 @@ import TestimonialsSubmit from "@partials/testimonials/TestimonialsSubmit.astro"
 
   <main class="main">
     <TestimonialNew />
+    <LazyFadeIn client:load>
     <TestimonialsLast />
+    </LazyFadeIn>
+    <LazyFadeIn client:load>
     <TestimonialsSubmit />
+    </LazyFadeIn>
   </main>
 
 </BaseLayout>

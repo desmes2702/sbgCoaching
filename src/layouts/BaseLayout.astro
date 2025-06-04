@@ -59,9 +59,9 @@ const {
 
       <slot />
 
-    {["contact", "legal", "privacy-policy", "thanks"].includes(dataPage ?? "") ? (
+{["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "") ? (
   <FooterMenu />
-) : (
+) : dataPage === "contact" ? null : (
   <Footer />
 )}
 

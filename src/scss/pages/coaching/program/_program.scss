@@ -9,6 +9,8 @@
 	padding: 0 2rem;
 	text-align: center;
 
+	@include height100-section;
+
 	h1 {
 	  color: white;
 	  font-size: 10vw !important;

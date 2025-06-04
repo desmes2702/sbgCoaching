@@ -4,6 +4,7 @@ import CoachingHero from '@partials/components/CoachingHero.tsx';
 import Performance from "@partials/entreprise/Performance";
 import Improve from "@partials/entreprise/Improve.astro";
 import Faq from "@partials/components/Faq.astro";
+import LazyFadeIn from "@partials/performance/LazyFadeIn";
 
 ---
 
@@ -23,9 +24,15 @@ import Faq from "@partials/components/Faq.astro";
   <main class="main">
     <h1 class="visually-hidden">Coaching sportif pour les entreprises et professionnels</h1>
     <CoachingHero client:visible page="entreprise" />
+    
     <Performance client:idle />
+    
+    <LazyFadeIn client:load>
     <Improve />
+    </LazyFadeIn>
   </main>
+  <LazyFadeIn client:load>
   <Faq />
+  </LazyFadeIn>
 </BaseLayout>
 

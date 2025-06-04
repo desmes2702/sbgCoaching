@@ -6,6 +6,7 @@ import CoachingBusiness from "@partials/index/CoachingBusiness.astro";
 import Testimonials from "@partials/index/Testimonials.astro";
 /* import OfflineInfo from "@partials/index/OfflineInfo.astro"; */
 import FAQ from "@partials/components/Faq.astro";
+import LazyFadeIn from "@partials/performance/LazyFadeIn";
 ---
 
 <BaseLayout
@@ -23,11 +24,18 @@ import FAQ from "@partials/components/Faq.astro";
 >
   <main class="main">
     <Hero currentPage="index" />
+    <LazyFadeIn client:load>
     <Program currentPage="index" />
+    </LazyFadeIn>
+    <LazyFadeIn client:load>
     <CoachingBusiness currentPage="index" />
+    </LazyFadeIn>
+    <LazyFadeIn client:load>
     <Testimonials currentPage="index" />
+    </LazyFadeIn>
     <!-- <OfflineInfo currentPage="index" /> -->
   </main>
-
+ <LazyFadeIn client:load>
   <FAQ />
+  </LazyFadeIn>
 </BaseLayout>
