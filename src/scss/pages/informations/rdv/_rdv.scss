@@ -1,0 +1,374 @@
+@use "../../../abstracts" as *;
+
+
+.form__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	max-width: 600px !important;
+
+	@include height100-section;
+
+
+
+
+	.form__question__group,fieldset{
+		border: none;
+
+		input[type="radio"] {
+			position: relative;
+			width: 16px;
+			height: 16px;
+			border: 1px solid  $primary-color;
+			border-radius: 3px;
+			background-color: rgb(255 255 255 / 0%);
+			appearance: none;
+		  }
+
+		  input[type="radio"]:checked::before {
+			content: "";
+			position: absolute;
+			top: -6px;
+			left:2px;
+			width: 22px;
+			height: 22px;
+			background-image: url("../../img/icon__form__check__rdv.svg");
+			background-size: contain;
+			background-repeat: no-repeat;
+			border-radius: 3px;
+
+		  }
+
+
+	}
+
+	.form__question__summary{
+		text-align: left;
+	}
+
+	h1{
+		width: 100%;
+		color: white;
+		text-align: left;
+		margin-bottom: 3rem;
+	}
+
+	h2{
+		width: 100%;
+		color: white;
+		font-size: 1rem;
+		font-weight: 300;
+		text-align: left;
+		font-style: normal ;
+
+		span{
+			color: $primary-color;
+			font-weight: 500;
+			text-transform: none;
+			font-family: $font-primary;
+			font-style: italic;
+		}
+	}
+
+
+  .form__timeline {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto 3rem;
+	color: #fff;
+	font-size: 1rem;
+	text-align: center;
+  }
+
+  .form__wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 100px;
+	border: $border-secondary-color;
+	border-radius: 5px;
+	text-align: center;
+
+	 *{
+		color: white;
+	}
+
+	// Questions
+	.form__question{
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		min-height: 200px;
+		padding: 1rem;
+		flex-direction: column;
+
+		&__header{
+			position: absolute;
+			top: 12px;
+			left: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 14px;
+
+			span{
+			width: 100%;
+			height: 100%;
+			color: rgb(255 255 255 / 20%);
+			font-size: 12px;
+			}
+		}
+
+		&__choice{
+			input{
+				margin-right: 5px;
+				position: relative;
+				top: 1px;
+			}
+
+			&:not(:last-child){
+				margin-right: 1rem;
+			}
+		}
+
+		.form__legend{
+			margin-bottom: 1.5rem;
+			font-style: italic;
+		}
+
+		.form__label{
+			width: 100%;
+			text-align: left;
+			font-style: italic;
+			margin-bottom: 12px;
+		}
+
+		&--error{
+			animation: shake 0.3s;
+
+			@keyframes shake {
+				0% { transform: translateX(0); }
+				25% { transform: translateX(-5px); }
+				50% { transform: translateX(5px); }
+				75% { transform: translateX(-5px); }
+				100% { transform: translateX(0); }
+			}
+		}
+	}
+
+	// Question-2
+	.form__question__group{
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+		height: 100%;
+		margin-top: 2rem;
+		transition: opacity 0.3s ease-in-out;
+
+		.form__legend{
+			width: 100%;
+			text-align: left;
+			margin-bottom: 12px;
+		}
+	}
+
+	input[type="text"], input[type="number"],input[type="tel"], input[type="email"],
+	textarea{
+		width: 100%;
+		height: 100%;
+		padding: 12px;
+		border: $border-secondary-color;
+		border-radius: 5px;
+		background-color: #1e1e1e3d;
+
+		&:focus, &:focus-visible, &:hover {
+			border: 1px solid rgb(255 255 255 / 30%);
+			transition: border 0.3s ease-in-out, box-shadow 0.4s ease-in-out;
+		}
+	}
+
+	textarea{
+	height: 100%;
+	}
+
+
+  }
+
+  .form__navigation {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	gap: 2rem;
+	margin-top: 2rem;
+
+	.form__back,
+	.form__next {
+	  width: 65px;
+	  height: 60px;
+	  border: none;
+	  background-color: transparent;
+	  transition: transform 0.3s ease;
+	  cursor: pointer;
+	  background-size: contain;
+	  background-repeat: no-repeat;
+	  background-position: center;
+
+	  &:hover {
+		transform: scale(1.1);
+	  }
+	}
+
+	.form__back {
+		display: block;
+	  background-image: url("../../img/icon__back__rdv.svg");
+	  max-width: 24px;
+	}
+
+	.form__next {
+		display: block;
+	  background-image: url("../../img/icon__next__rdv.svg");
+	}
+  }
+
+
+  // Timeline
+
+  .form__timeline {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+
+	&__step {
+	  display: flex;
+	  align-items: center;
+
+	  &:last-child .form__timeline__line {
+		display: none;
+	  }
+	}
+
+	&__circle {
+	  position: relative;
+	  width: 5px;
+	  height: 5px;
+	  margin: 0 16px;
+	  border-radius: 50%;
+	  background-color: white;
+	  opacity: 0.2;
+
+	  &::before {
+		content: "";
+		position: absolute;
+		top: -5px;
+		left: -5px;
+		width: 15px;
+		height: 15px;
+		border: 1px solid rgb(255 255 255 / 50%); // $secondary-color, opacity .2
+		border-radius: 50%;
+	  }
+	}
+
+	&__line {
+	  height: 1px;
+	  background-color: white;
+	  opacity: 0.2;
+
+
+	}
+
+	// États
+	&__circle-viewed {
+	  background-color: #fff;
+	  opacity: 1;
+	}
+
+	&__circle-reading {
+	  background-color: $primary-color;
+	  opacity: 1;
+
+	}
+
+	&__circle-reading, &__circle-viewed{
+		transition: background-color .5s ease-in-out;
+
+		&::before {
+			border: 1px solid rgb(255 255 255 / 0%) !important;
+
+			/* transition: border .5s ease-in-out; */
+		  }
+	  }
+	}
+
+	@media (width <= 450px) {
+		.form__question__choices-grid{
+			display: grid;
+			align-items: center;
+			justify-content: center;
+			grid-template-columns: auto auto;
+			grid-row-gap: 5px;
+
+			.form__question__choice{
+				display: flex;
+				align-items: center;
+				justify-content: flex-start;
+
+				span{
+					text-align: left;
+				}
+
+				input{
+					top: -1px;
+					margin-right: 8px;
+				}
+			}
+		}
+	}
+
+	@media (width >= 451px) {
+		h1{
+			text-align: center ;
+		}
+	}
+
+	@media (max-width: $breakpoint-mobile-max) {
+		.form__timeline__line{
+			width: 25px;
+	  }
+	}
+
+	  @media (min-width: $breakpoint-mobile) {
+		.form__timeline__line{
+			width: 50px;
+	  }
+	}
+
+	.form__edit-highlight {
+		animation: highlightBorder 1.5s ease forwards;
+	  }
+
+	  @keyframes highlightBorder {
+		0% {
+		  border: 1px solid rgb(255 255 255 / 0%);
+		  box-shadow: 0 5px 30px rgb(0 0 0 / 0%);
+		}
+
+		50% {
+		  border: 1px solid rgb(255 255 255 / 35%);
+		  box-shadow: 0 5px 30px rgb(0 0 0 / 500%);
+		}
+
+		100% {
+		  border: 1px solid rgb(255 255 255 / 0%);
+		  box-shadow: 0 5px 30px rgb(0 0 0 / 0%);
+		}
+	  }
+	}

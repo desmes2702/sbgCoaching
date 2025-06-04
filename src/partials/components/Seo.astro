@@ -1,0 +1,65 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  schemaType?: "LocalBusiness" | "Organization" | "Article" | "Review";
+}
+
+const {
+  title,
+  description,
+  url,
+  image = "/img/og-home.jpg",
+  schemaType = "LocalBusiness"
+} = Astro.props;
+
+const siteName = "SBG Coaching";
+const logoUrl = "/img/logo.svg";
+const fullImageUrl = `https://sbgcoaching.be${image}`;
+---
+
+<!-- Canonical -->
+<link rel="canonical" href={url} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={url} />
+<meta property="og:image" content={fullImageUrl} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullImageUrl} />
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+  {JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": schemaType,
+    name: siteName,
+    url,
+    logo: `https://sbgcoaching.be${logoUrl}`,
+    image: fullImageUrl,
+    description,
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "BE"
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "contact@sbgcoaching.be",
+      contactType: "customer support"
+    },
+    sameAs: [
+      "https://www.instagram.com/toncompte",
+      "https://www.facebook.com/toncompte",
+      "https://www.linkedin.com/in/tonprofil"
+    ]
+  })}
+</script>

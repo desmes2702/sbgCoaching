@@ -1,0 +1,243 @@
+// ===============================
+// FOOTER STYLES
+// ===============================
+.contact__info{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	>h2{
+		margin: 0;
+	}
+	&__item{
+		padding-left: 2rem;
+		position: relative;
+		
+		&:last-child{
+			margin: 0.8rem 0 0.9rem 0 ;
+
+		}
+
+		&::before{
+			@include before__icon-contain;
+			bottom: 0;
+			left: 0;
+		}
+	}
+
+	&__mail{
+		margin-bottom: 5px;
+		a{
+			text-decoration: underline;
+		}
+
+		&::before{
+			background-image: url("../../img/icon__mail-black.svg");
+			bottom: 2px !important;
+		}
+	}
+
+	&__phone{
+		&::before{
+			background-image: url('../../img/icon__phone-black.svg');
+			bottom: 8px !important;
+		}
+	}
+
+	&__map{
+		&::before{
+			background-image: url('../../img/icon__map-black.svg');
+			bottom: 5px !important;
+		}
+		
+	}
+
+	&__social{
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		margin-top: 1rem;
+
+		p{
+			margin: 0 1.2rem 0 0;
+			font-weight: 600;
+		}
+	}
+}
+
+.footer {
+	background-color: $background-color;
+
+	&__nav {
+	  &-col1 {
+		margin-bottom: $spacing-lg;
+	  }
+  
+	  > img {
+		margin-bottom: $spacing-md;
+	  }
+  
+	  > h2 {
+		font-family: $font-secondary;
+		text-transform: uppercase;
+		margin-bottom: $spacing-sm;
+		
+	  }
+  
+	  nav {
+		display: flex;
+		padding-bottom: 2.5rem;
+		border-bottom: $border-color;
+		margin-bottom: $spacing-sm;
+		
+		ul {
+		  h3 {
+			font-family: $font-primary;
+			font-weight: bold;
+			font-size: 0.75rem;
+			text-transform: uppercase;
+			margin-bottom: 1.5rem;
+		  }
+  
+		  li:not(:last-child) {
+			margin-bottom: 0.5rem;
+		  }
+
+		  a{
+			color: $secondary-color;
+			font-weight: 400;
+		  }
+
+		  .footer__nav__rdv a strong{
+			color: $primary-color !important;
+		  }
+		}
+	  }
+  
+	  &__coaching {
+		padding-right: 3rem;
+  
+		h3 {
+		  color: $primary-color;
+		}
+	  }
+  
+	  &__informations {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+  
+		h3 {
+		  grid-row: 1;
+		}
+
+		.nav__informations__item1{
+			grid-row: 2;
+			grid-column: 1;
+		}
+		.nav__informations__item2{
+			grid-row: 3;
+			grid-column: 1;
+		}
+		.nav__informations__item3{
+			grid-row: 2;
+			grid-column: 2;
+		}
+		.nav__informations__item4{
+			grid-row: 3;
+			grid-column: 2;
+		}
+  
+		.footer__nav__rdv {
+		  grid-column: 1/3;
+		  grid-row: 4;
+  
+		  a {
+			text-decoration: underline;
+			color: $primary-color !important;
+			font-weight: bold;
+		  }
+		}
+	  }
+	}
+  
+	&__copyright {
+	  font-family: $font-primary;
+	  font-weight: 400;
+	  margin-bottom: .5rem;
+	}
+  
+	&__legal {
+	  font-size: 0.75rem;
+	  font-family: $font-primary;
+	  display: flex;
+	  flex-direction: column;
+  
+	  a {
+		text-decoration: underline;
+		color: $secondary-color;
+		font-weight: 400;
+		font-size: 12px;
+  
+		&:not(:last-child) {
+		  margin-bottom: 0.2rem;
+		}
+	  }
+	}
+  }
+
+  .footer__nav__slogan{
+		font-weight: 800 !important;
+  }
+
+ 
+  
+  // ===============================
+  // RESPONSIVE FOOTER
+  // ===============================
+  @include responsive(mobile) {
+	.footer__nav-col3{
+		position: relative;
+	}
+	.footer__social{
+		position: absolute;
+		bottom: 3px;
+		right: 0;
+	}
+  }
+
+  @include responsive(tablet) {
+	.footer__nav {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		
+	  &-col1 {
+		grid-column: 1;
+		max-width: 25rem;
+		p{
+			margin: 0;
+		}
+      } 
+
+	  &-col2 {
+		grid-column: 2;
+		max-width: 25rem;
+		padding: 0!important;
+		margin: 0!important;
+		border-bottom: transparent !important;
+
+		.footer__nav__coaching{
+			display: grid;
+			grid-template-rows: 40px 30px 30px 24px;
+		}
+
+		.footer__nav__informations{
+			grid-template-rows: 40px 30px 30px 24px;
+		}
+      } 
+
+	  &-col3{
+		grid-column: 1/3;
+		border-top: $border-color;
+		padding-top: 1rem;
+	  }
+    }
+  }

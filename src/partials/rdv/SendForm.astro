@@ -1,0 +1,69 @@
+<form onSubmit=${handleSubmit}>
+      <label>
+        Nom :
+        <input type="text" name="nom" required />
+      </label>
+      <br />
+      <label>
+        Prénom :
+        <input type="text" name="prenom" required />
+      </label>
+      <br />
+      <label>
+        Téléphone :
+        <input type="tel" name="telephone" required />
+      </label>
+      <br />
+      <label>
+        Email :
+        <input type="email" name="email" required />
+      </label>
+      <br />
+      <label>
+        Type de coaching :
+        <select name="type">
+          <option value="">Choisissez un type</option>
+          <!-- Ajouter les options ici -->
+        </select>
+      </label>
+      <br />
+      <label>
+        Durée souhaitée :
+        <input type="number" name="duree" required />
+      </label>
+      <br />
+      <label>
+        Objectif :
+        <textarea name="objectif" required></textarea>
+      </label>
+      <br />
+      <label>
+        Précisions (facultatif) :
+        <input type="text" name="precision" />
+      </label>
+      <br />
+      <label>
+        Précision sur la durée (facultatif) :
+        <input type="text" name="precisionDuree" />
+      </label>
+      <br />
+      <label>
+        Âge :
+        <input type="number" name="age" required />
+      </label>
+      <br />
+      <label>
+        Fragilité :
+        <select name="fragile">
+          <option value="">Choisissez une option</option>
+          <!-- Ajouter les options ici -->
+        </select>
+      </label>
+      <br />
+      <button type="submit">Envoyer</button>
+    </form>
+  `;
+}
+
+export default Formulaire;
+```

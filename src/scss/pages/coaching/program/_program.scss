@@ -1,0 +1,52 @@
+@use "../../../abstracts" as *;
+
+
+.program__hero {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	padding: 0 2rem;
+	text-align: center;
+
+	h1 {
+	  color: white;
+	  font-size: 10vw !important;
+	  line-height: 1.1;
+	  white-space: nowrap;
+
+
+	  span {
+		display: inline-block;
+		animation: fadeInLetter 0.6s ease-in forwards;
+		opacity: 0;
+
+		// Animation décalée lettre par lettre
+		@for $i from 1 through 10 {
+		  &:nth-child(#{$i}) {
+			animation-delay: #{0.1 * $i}s;
+		  }
+		}
+	  }
+	}
+
+	@media (max-width: $breakpoint-menu-max) {
+	  height: calc(100vh - 230.19px - 96px);
+	}
+
+	@media (min-width: $breakpoint-menu) {
+	  height: calc(100vh - 156.59px - 96px);
+	}
+  }
+
+  @keyframes fadeInLetter {
+	0% {
+	  transform: translateY(1rem);
+	  opacity: 0;
+	}
+
+	100% {
+	  transform: translateY(0);
+	  opacity: 1;
+	}
+  }

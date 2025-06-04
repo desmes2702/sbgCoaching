@@ -1,0 +1,30 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import CoachingHero from '@partials/components/CoachingHero.tsx';
+import Type from '@partials/general/Type.tsx';
+import Football from '@partials/general/Football.astro';
+import Faq from "@partials/components/Faq.astro";
+---
+
+<BaseLayout
+  title="Coaching Sportif Général | SBG Coaching – Santé, Bien-être et Performance"
+  description="Découvrez nos programmes de coaching sportif général adaptés à tous les niveaux. SBG Coaching vous accompagne dans votre transformation physique et mentale."
+  pageClass="page"
+  dataPage="general"
+  dataModules="coaching faq links scrollReveal"
+  dataVariant="black"
+  seo={{
+    url: "https://sbgcoaching.be/general",
+   /*  image: "/img/og-general.jpg", */ // à créer ou personnaliser
+    schemaType: "LocalBusiness"
+  }}
+>
+  <main class="main">
+    <h1 class="visually-hidden">Coaching sportif général</h1>
+    <CoachingHero client:visible page="general" />
+    <Type client:idle />
+    <Football />
+  </main>
+
+  <Faq />
+</BaseLayout>

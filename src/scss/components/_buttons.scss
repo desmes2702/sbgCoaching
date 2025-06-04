@@ -1,0 +1,69 @@
+@use "../abstracts" as *;
+
+
+// ===============================
+// BUTTONS GLOBAUX
+// ===============================
+
+.button {
+  position: relative;
+  display: inline-block;
+  max-width: fit-content;
+  padding: 0.7rem 70px 0.7rem 3rem;
+  border-radius: 5px;
+  font-weight: 500;
+  font-style: italic;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    right: 49px;
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+    transform: translateY(-50%);
+    content: "";
+    background-image: url('../../img/icon__button__arrow.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  &:hover {
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+    transform: translateY(-2px);
+
+    &::before {
+      transform: translate(4px, -50%); // flèche glisse subtilement vers la droite
+    }
+  }
+
+
+	&-red {
+	  background-color: $primary-color;
+	  color: white;
+	}
+
+	&-black {
+	  background-color: $secondary-color;
+	  color: white;
+	}
+
+	&-darker{
+		background-color: $darker-color;
+	}
+
+	&-disabled{
+		border: $border-secondary-color;
+		background-color: transparent;
+		opacity: 0.5;
+	}
+}
+
+
+.no-hover:hover {
+	background: inherit;
+	color: inherit;
+	cursor: default;
+}

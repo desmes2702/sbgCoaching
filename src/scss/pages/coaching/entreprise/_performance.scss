@@ -1,0 +1,189 @@
+@use "../../../abstracts" as *;
+
+
+// ENTREPRISE__PERFO
+.coaching__entrerpise__perfo {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	flex-direction: column;
+
+
+	h2 {
+		margin: 0 0 2rem;
+		color: white;
+		font-size: 24px;
+		text-align: center;
+		font-family: $font-secondary;
+	}
+
+	&__col1 {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-bottom: 3rem;
+
+		img {
+			width: 100%;
+			max-width: 350px;
+		}
+	}
+
+	&__col2 {
+		ul {
+			max-width: 500px;
+		}
+
+		li {
+			margin-bottom: 4rem;
+			padding-right: 48px;
+			position: relative;
+
+			&:not(:last-child)::after {
+				position: absolute;
+				bottom: -32px;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				background-color: rgb(255 255 255 / 20%);
+				content: "";
+			}
+		}
+
+		h3 {
+			position: relative;
+			padding: 0 0 0 16px;
+			margin: 0;
+			color: white;
+			font-size: 16px;
+			font-weight: 700;
+			text-transform: uppercase;
+			font-family: $font-secondary;
+
+			&::before {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 24px;
+				height: 24px;
+				color: $primary-color;
+				font-size: 12px;
+			}
+		}
+
+		p {
+			height: auto;
+			padding: 0 0 0 16px;
+			color: white;
+			opacity: 1;
+			margin-bottom: 0;
+
+			&:nth-child(1){
+				margin: 1rem 0;
+			}
+		}
+
+		button {
+			position: absolute;
+			top: -3px;
+			right: 0;
+			width: 30px;
+			height: 30px;
+			background-color: transparent;
+			background-image: url("../../img/icon__show.svg");
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+			transition: transform 0.3s ease-in-out;
+
+			&:hover{
+				transform: scale(1.1);
+			}
+
+			&.rotate{
+				transform: rotate(180deg);
+			}
+
+
+
+		}
+
+		.entreprise__perfo__item {
+			&-active {
+				h3 {
+					margin: 0 0 24px;
+				}
+
+				p {
+					height: auto;
+					opacity: 1;
+
+					&:not(:last-child) {
+						margin-bottom: 12px;
+					}
+				}
+			}
+
+			&:last-child {
+				margin: 0;
+			}
+		}
+
+		.entreprise__perfo__item > div {
+			display: block;
+			max-height: 0;
+			transition: max-height 0.5s ease-out, opacity 0.3s ease-out, transform 0.3s ease-out;
+			transform: translateY(20px); /* Effet de décalage vers le bas au départ */
+			opacity: 0;
+			overflow: hidden;
+		}
+
+		.entreprise__perfo__item > div.open {
+			max-height: 500px;
+			transform: translateY(0); /* Réinitialisation du décalage pour un effet fluide */
+			opacity: 1;
+		}
+
+		/* .entreprise__perfo__item h3::before {
+			content: attr(data-index);
+		} */
+	}
+}
+
+// ENTREPRISE__PERFO-768
+
+/* @media (min-width: $breakpoint-mobile) {
+	.coaching__entrerpise__perfo {}
+}
+ */
+// ENTREPRISE__PERFO-1024
+@media (min-width: $breakpoint-tablet) {
+	.coaching__entrerpise__perfo {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: min-content min-content;
+		place-content: center flex-start;
+
+		>h2 {
+			max-width: 100%;
+			margin: 0 0 4rem;
+			font-size: 36px;
+			text-align: left;
+			grid-column: 1/3;
+		}
+
+		&__col1 {
+			grid-column: 1;
+		}
+
+		&__col2 {
+			grid-column: 2;
+		}
+
+		&__col1,
+		&__col2 {
+			grid-row: 2;
+		}
+	}
+}

@@ -1,0 +1,47 @@
+// ===============================
+// BUTTONS GLOBAUX
+// ===============================
+
+.button {
+	padding: .7rem 70px .7rem 3rem;
+	font-weight: 500;
+	font-style: italic;
+	border-radius: 5px;
+	max-width: fit-content;
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	&::before{
+		content: "";
+		position: absolute;
+		background-image: url('../../img/icon__button__arrow.svg');
+		background-repeat: no-repeat;
+		background-size: contain;
+		top: 19px;
+		right: 49px;
+		width: 12px;
+		height: 12px;
+	}
+
+	&-red {
+	  background-color: $primary-color;
+	  color: white;
+	}
+  
+	&-black {
+	  background-color: $secondary-color;
+	  color: white;
+	}
+	&-darker{
+		background-color: $darker-color;
+	}
+	
+  }
+
+  
+.no-hover:hover {
+	background: inherit;
+	color: inherit;
+	cursor: default;
+}
+  

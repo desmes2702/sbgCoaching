@@ -1,0 +1,36 @@
+<article>
+      <h2><Link href={`/articles/${article.slug}`}>{article.title}</Link></h2>
+      <p>{article.date}</p>
+    </article>
+  );
+}
+
+function Category({ category }) {
+  return (
+    <li>
+      <Link href={`/categories/${category.slug}`}>{category.name}</Link>
+    </li>
+  );
+}
+
+function Index() {
+  return (
+    <main>
+      <h1>Bienvenue sur mon blog</h1>
+      <ul>
+        {articles.map((article) => (
+          <Article key={article.slug} article={article} />
+        ))}
+      </ul>
+      <h2>Catégories</h2>
+      <ul>
+        {categories.map((category) => (
+          <Category key={category.slug} category={category} />
+        ))}
+      </ul>
+    </main>
+  );
+}
+
+export default Index;
+```

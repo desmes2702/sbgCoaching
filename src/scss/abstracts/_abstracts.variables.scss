@@ -1,0 +1,51 @@
+
+// ===============================
+// COULEURS
+// ===============================
+$primary-color: #F0A;
+$secondary-color: #2F2F2F;
+$darker-color: #222;
+$background-color: #F0F0F0;
+$secondary-background-color: #2F2F2F;
+$border-color: 1px solid rgb(47 47 47 / 20%);
+$border-secondary-color: 1px solid rgb(240 240 240 / 20%);
+
+// ===============================
+// TYPOGRAPHIE
+// ===============================
+$font-primary: 'Roboto', nexa, sans-serif;
+$font-secondary: nexa, 'Roboto', sans-serif;
+
+// ===============================
+// ESPACEMENTS
+// ===============================
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 2rem;
+
+// ===============================
+// BREAKPOINTS RESPONSIVE
+// ===============================
+$breakpoint-menu: 40.625rem; // 650px
+$breakpoint-mobile: 48rem;   // 768px
+$breakpoint-tablet: 64rem;   // 1024px
+$breakpoint-desktop: 90rem;  // 1440px
+
+$breakpoint-menu-max: 40.5625rem;   // 649px
+$breakpoint-mobile-max: 47.9375rem; // 767px
+$breakpoint-tablet-max: 63.9375rem; // 1023px
+$breakpoint-desktop-max: 89.9375rem; // 1439px
+
+// ===============================
+// PADDINGS RESPONSIVE
+// ===============================
+$padding-x-mobile: 1.5rem;
+$padding-y-mobile: 3rem;
+$padding-x-menu-mobile: 1.5rem;
+$padding-y-menu-mobile: 1.5rem;
+$padding-x-tablet: 2.5rem;
+$padding-y-tablet: 3rem;
+$padding-x-menu-tablet: 2.5rem;
+$padding-y-menu-tablet: 2.5rem;
+$padding-x-desktop: 2.5rem;
+$padding-y-desktop: 3rem;

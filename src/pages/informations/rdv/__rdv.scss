@@ -1,0 +1,358 @@
+.form__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	max-width: 600px !important;
+	@include height100-section;
+	
+
+	
+
+	.form__question__group,fieldset{
+		border: none;
+		input[type="radio"] {
+			appearance: none;
+			-webkit-appearance: none;
+			background-color: rgba(255, 255, 255, 0);
+			border: 1px solid  $primary-color;
+			border-radius: 50%;
+			width: 16px;
+			height: 16px;
+			position: relative;
+			border-radius: 3px;
+		  }
+		  
+		  input[type="radio"]:checked::before {
+			content: "";
+			position: absolute;
+			top: -6px;
+			left:2px;
+			width: 22px;
+			height: 22px;
+			background-image: url("../../img/icon__form__check__rdv.svg");
+			background-size: contain;
+			background-repeat: no-repeat;
+			border-radius: 3px;
+			
+		  }
+
+		
+	}
+
+	.form__question__summary{
+		text-align: left;
+	}
+
+	h1{
+		color: white;
+		width: 100%;
+		text-align: left;
+		margin-bottom: 3rem;
+	}
+
+	h2{
+		color: white;
+		width: 100%;
+		text-align: left;
+		font-size: 1rem;
+		font-weight: 300;
+		font-style: normal ;
+		span{
+			color: $primary-color;
+			text-transform: none;
+			font-family: $font-primary;
+			font-style: italic;
+			font-weight: 500;
+		}
+	}
+ 
+  
+  .form__timeline {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto 3rem auto;
+	display: flex;
+	justify-content: center;
+	font-size: 1rem;
+	color: #ffffff;
+	text-align: center;
+  }
+  
+  .form__wrapper {
+	width: 100%;
+	min-height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	border: $border-secondary-color;
+	border-radius: 5px;
+	 *{
+		color: white;
+	}
+
+	// Questions
+	.form__question{
+		width: 100%;
+		min-height: 200px;
+		height: 100%;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		padding: 1rem;
+		&__header{
+			position: absolute;
+			height: 14px;
+			left: 12px;
+			top: 12px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			
+			span{
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.2);
+			width: 100%;
+			height: 100%;
+			}	
+		}
+
+		&__choice{
+			input{
+				margin-right: 5px;
+				position: relative;
+				top: 1px;
+			}
+			&:not(:last-child){
+				margin-right: 1rem;
+			}
+		}
+		.form__legend{
+			margin-bottom: 1.5rem;
+			font-style: italic;
+		}
+
+		.form__label{
+			font-style: italic;
+			text-align: left;
+			width: 100%;
+			margin-bottom: 12px;
+		}
+
+		&--error{
+			animation: shake 0.3s;
+			  
+			@keyframes shake {
+				0% { transform: translateX(0); }
+				25% { transform: translateX(-5px); }
+				50% { transform: translateX(5px); }
+				75% { transform: translateX(-5px); }
+				100% { transform: translateX(0); }
+			}
+		}
+	}
+
+	//Question-2
+	.form__question__group{
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+		height: 100%;
+		margin-top: 2rem;
+		transition: opacity 0.3s ease-in-out;
+
+		.form__legend{
+			width: 100%;
+			text-align: left;
+			margin-bottom: 12px;
+		}
+	}
+
+	input[type="text"], input[type="number"],input[type="tel"], input[type="email"],
+	textarea{
+		background-color: #1e1e1e3d;
+		border: $border-secondary-color;
+		border-radius: 5px;
+		padding: 12px;
+		width: 100%;
+		height: 100%;
+		&:focus, &:focus-visible, &:hover {
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			transition: border 0.3s ease-in-out, box-shadow 0.4s ease-in-out;
+		}
+	}
+
+	textarea{
+	height: 100%;	
+	}
+
+	
+  }
+  
+  .form__navigation {
+	width: 100%;
+	margin-top: 2rem;
+	display: flex;
+	justify-content: space-between;
+	gap: 2rem;
+	
+	.form__back,
+	.form__next {
+	  width: 65px;
+	  height: 60px;
+	  background-size: contain;
+	  background-repeat: no-repeat;
+	  background-position: center;
+	  background-color: transparent;
+	  border: none;
+	  cursor: pointer;
+	  transition: transform 0.3s ease;
+  
+	  &:hover {
+		transform: scale(1.1);
+	  }
+	}
+  
+	.form__back {
+		display: block;
+	  background-image: url("../../img/icon__back__rdv.svg");
+	  max-width: 24px;
+	}
+  
+	.form__next {
+		display: block;
+	  background-image: url("../../img/icon__next__rdv.svg");
+	}
+  }
+
+
+  // Timeline
+
+  .form__timeline {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	
+	&__step {
+	  display: flex;
+	  align-items: center;
+	  
+	  &:last-child .form__timeline__line {
+		display: none;
+	  }
+	}
+  
+	&__circle {
+	  width: 5px;
+	  height: 5px;
+	  background-color: white;
+	  opacity: 0.2;
+	  border-radius: 50%;
+	  position: relative;
+	  margin: 0 16px;
+  
+	  &::before {
+		content: "";
+		position: absolute;
+		top: -5px;
+		left: -5px;
+		
+		width: 15px;
+		height: 15px;
+		border: 1px solid rgba(255, 255, 255, 0.5); // $secondary-color, opacity .2
+		border-radius: 50%;
+	  }
+	}
+  
+	&__line {
+	  height: 1px;
+	  background-color: white;
+	  opacity: 0.2;
+	  
+	  
+	}
+  
+	// États
+	&__circle-viewed {
+	  background-color: #ffffff;
+	  opacity: 1;
+	}
+  
+	&__circle-reading {
+	  background-color: $primary-color;
+	  opacity: 1;
+	  
+	}
+	&__circle-reading, &__circle-viewed{
+		transition: background-color .5s ease-in-out;
+		&::before {
+			border: 1px solid rgba(255, 255, 255, 0) !important;
+			/* transition: border .5s ease-in-out; */
+		  }
+	  }
+	}
+
+	@media (max-width: 450px) {
+		.form__question__choices-grid{
+			display: grid;
+			grid-template-columns: auto auto;
+			grid-row-gap: 5px;
+			justify-content: center;
+			align-items: center;
+
+			.form__question__choice{
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				span{
+					text-align: left;
+				}
+				input{
+					top: -1px;
+					margin-right: 8px;
+				}
+			}
+		}
+	}
+
+	@media (min-width: 451px) {
+		h1{
+			text-align: center ;
+		}
+	}
+
+	@media (max-width: $breakpoint-mobile-max) {
+		.form__timeline__line{
+			width: 25px;
+	  }
+	}
+	  @media (min-width: $breakpoint-mobile) {
+		.form__timeline__line{
+			width: 50px;
+	  }
+	}
+
+	.form__edit-highlight {
+		animation: highlightBorder 1.5s ease forwards;
+	  }
+	  
+	  @keyframes highlightBorder {
+		0% {
+		  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.0);
+		  border: 1px solid rgba(255, 255, 255, 0.0);
+		}
+		50% {
+		  box-shadow: 0 5px 30px rgba(0, 0, 0, 5);
+		  border: 1px solid rgba(255, 255, 255, 0.35);
+		}
+		100% {
+		  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.0);
+		  border: 1px solid rgba(255, 255, 255, 0.0);
+		}
+	  }
+	}

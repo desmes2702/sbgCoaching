@@ -1,0 +1,32 @@
+// 1. Abstracts
+@import 'abstracts/__font.scss';
+@import 'abstracts/__variables.scss';
+@import 'abstracts/__mixins.scss';
+
+// 2. Base
+@import 'base/__reset.scss';
+@import 'base/__animations.scss';
+@import 'base/__typography.scss';
+@import 'base/__global.scss';
+@import 'base/__forms.scss';
+
+// 3. Layout
+@import 'layout/__layout.scss';  
+@import 'layout/__containers.scss';  
+
+// 4. Components
+@import 'components/__menu.scss';
+@import 'components/__buttons.scss';
+@import 'components/__social__icons.scss';
+@import 'components/__footer.scss';
+
+
+// 5. Pages
+@import 'pages/index/__index.scss';
+@import 'pages/coaching/entreprise/__entreprise.scss';
+@import 'pages/coaching/general/__general.scss';
+@import 'pages/coaching/program/__program.scss';
+@import 'pages/informations/rdv/__rdv.scss';
+@import 'pages/informations/rdv/__summary.scss';
+@import 'pages/informations/about/__about.scss';
+@import 'pages/informations/testimonials/__testimonials.scss';

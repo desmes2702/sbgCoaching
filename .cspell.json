@@ -1,0 +1,40 @@
+{
+  "version": "0.2",
+  "language": "fr",
+  "dictionaries": ["fr_FR"],
+  "enableFiletypes": ["html", "markdown", "plaintext", "astro"],
+  "ignorePaths": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.scss",
+    "**/*.css",
+    "**/*.json",
+    "**/*.yml",
+    "**/*.yaml",
+    "**/node_modules",
+    "**/dist",
+    "**/.astro"
+  ],
+  "ignoreRegExpList": [
+    "/class=['\"].*?['\"]/",
+    "/id=['\"].*?['\"]/",
+    "/src=['\"].*?['\"]/",
+    "/href=['\"].*?['\"]/",
+    "/data-[a-zA-Z0-9-]+=['\"].*?['\"]/",
+    "/aria-[a-zA-Z0-9-]+=['\"].*?['\"]/",
+    "/@[a-zA-Z]+/",
+    "/\\$[a-zA-Z0-9_]+/",
+    "/\\.[a-zA-Z0-9_-]+/",
+    "/[A-Za-z0-9_]+\\(.*?\\)/"
+  ],
+  "words": [
+    "Astro",
+    "SBG",
+    "coaché",
+    "coaching",
+    "TSX",
+    "Hero"
+  ]
+}

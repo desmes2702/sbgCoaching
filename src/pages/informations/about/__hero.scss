@@ -1,0 +1,187 @@
+.about__hero {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #fff;
+	max-width: 800px !important;
+  
+	&__content {
+	  text-align: left;
+	  width: 100%;
+	  position: relative;
+	}
+  
+	&__role {
+	  color: white;
+	  font-weight: 700;
+	  font-size: 1.2rem;
+	  text-transform: uppercase;
+	  margin-bottom: 0;
+	  font-family: $font-secondary;
+  
+	  span:first-child  {
+		color: $primary-color;
+		font-weight: 700;
+		margin-right: 5px;
+	  }
+  
+	  .light {
+		color: white;
+		font-weight: 300;
+		opacity: 0.8;
+		font-size: .8rem ;
+	  }
+	}
+  
+	&__name {
+	  font-family: $font-primary;
+	  color: white;
+	  font-weight: 700;
+	}
+  
+	&__quote {
+	  font-size: 1.4rem;
+	  font-style: italic;
+	  font-weight: 400;
+	  margin: 0;
+	  position: relative;
+
+	  &::before{
+		content: "";
+		position: absolute;
+		background-image: url("../../img/icon__temoignage.svg");
+		background-size: contain;
+		background-repeat: no-repeat;
+		top: -2.5rem;
+		left: 0;
+		height: 25px;
+		width: 25px;
+		
+	}
+
+	  .about__hero__signature {
+		display: block;
+		background-image: url('../../img/signature-white.svg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: left;
+		height: 100px;
+		width: 100%;
+		opacity: .5;
+		-webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 90%);
+	mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 90%);
+
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+
+	-webkit-mask-size: 100% 100%;
+	mask-size: 100% 100%;
+	  }
+	}
+  
+	&__img {
+	  background-image: url('../../img/about__hero.png');
+	  background-size: cover;
+	  background-repeat: no-repeat;
+	  max-width: 400px;
+	 
+	}
+  
+	// ===============================
+	// ✅ MEDIA QUERIES (mobile → +)
+	// ===============================
+	@media(max-width: $breakpoint-mobile-max) {
+		.about__hero{
+			&__content{
+				width: 100%;
+				max-width: 400px;
+			}
+
+			&__quote{
+				position: absolute;
+				&::before{
+					content: "";
+					position: absolute;
+					background-image: url("../../img/icon__temoignage.svg");
+					background-size: contain;
+					background-repeat: no-repeat;
+					top: -2.5rem;
+					left: 0;
+					height: 25px;
+					width: 25px;
+					
+				}
+			}
+
+			&__name{
+				margin-bottom: 5rem;
+			}
+
+			&__img{
+				width: 100%;
+				height: 400px;
+				background-position: right;
+				position: relative;
+				bottom: -3rem;
+				right: -2.5rem;
+			}
+		}
+	}
+	
+	@media(min-width: 400px) {
+
+		&__name {
+			margin-bottom: 2rem !important;
+		}
+
+		&__quote{
+			padding-left: 2.5rem;
+			&::before{
+				height: 20px !important;
+				width: 20px !important;
+				left: 5px !important;
+				top: 6px !important;
+			}
+		}
+	}
+	
+	@include responsive(mobile) {
+	  display: grid;
+	  grid-template-columns: 1fr 1fr;
+	  align-items: center;
+	  gap: 0;
+  
+	  &__content {
+		text-align: left;
+	  }
+
+	  &__name{
+		margin-bottom: 3rem;
+	  }
+	  &__quote{
+		padding-left: 2.5rem;
+		&::before{
+			height: 20px;
+			width: 20px;
+			left: 5px;
+			top: 6px;
+		}
+		.about__hero__signature{
+			background-position: right;
+		}
+	  }
+  
+	  &__img {
+		height: 480px;
+		background-position: right center;
+		position: relative;
+		bottom: -3rem;
+	  }
+	}
+  }
+
+  @include responsive(tablet) {
+	.about__hero__img {
+		height: 550px;
+	}
+  }

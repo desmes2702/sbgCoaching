@@ -1,0 +1,155 @@
+// ===============================
+// TYPOGRAPHIE GÉNÉRALE
+// ===============================
+
+// FONT-FAMILY GLOBALE
+body {
+	font-family: $font-primary;
+	font-size: 1rem; // 16px
+	line-height: 1.6;
+	color: $secondary-color;
+	font-weight: 400;
+  }
+  
+  // ===============================
+  // HIÉRARCHIE DES TITRES AVEC CLAMP
+  // ===============================
+  
+  h1 {
+	font-family: $font-secondary;
+	font-weight: 600;
+	text-transform: uppercase;
+	line-height: 1.2;
+	color: $secondary-color;
+	margin-bottom: $spacing-md;
+  }
+  
+  h2 {
+	font-family: $font-secondary;
+	font-weight: 600;
+	text-transform: uppercase;
+	line-height: 1.3;
+	color: $secondary-color;
+	margin-bottom: $spacing-md;
+  }
+  
+  h3 {
+	font-family: $font-primary;
+	font-weight: 600;
+	line-height: 1.4;
+	color: $secondary-color;
+	margin-bottom: $spacing-md;
+  }
+  
+  h4,
+  h5,
+  h6 {
+	font-family: $font-secondary;
+	font-weight: 500;
+	line-height: 1.5;
+	font-size: 1.25rem; // 20px
+	color: $secondary-color;
+	margin-bottom: $spacing-sm;
+  }
+  
+  // ===============================
+  // PARAGRAPHES & TEXTES
+  // ===============================
+  
+  p {
+	font-family: $font-primary;
+	font-size: 1rem; // 16px
+	font-weight: 300;
+	line-height: 1.6;
+	margin-bottom: $spacing-md;
+	color: $secondary-color;
+  }
+  
+  strong {
+	font-weight: 700;
+	color: darken($secondary-color, 15%);
+  }
+  
+  small {
+	font-size: 0.875rem; // 14px
+	font-weight: 300;
+	color: lighten($secondary-color, 10%);
+  }
+  
+  
+  // ===============================
+  // LIENS & BOUTONS TEXTUELS
+  // ===============================
+  
+  a {
+	font-family: $font-primary;
+	font-size: 1rem;
+	color: $primary-color;
+	text-decoration: none;
+	font-weight: 500;
+	transition: color 0.3s ease-in-out;
+  
+	&:hover {
+	  color: darken($primary-color, 10%);
+	  text-decoration: underline;
+	}
+  
+	&:focus-visible {
+	  outline: 2px solid $primary-color;
+	}
+  }
+  
+  // ===============================
+  // TEXTES SPÉCIAUX (CODE, LABELS)
+  // ===============================
+  
+  code,
+  pre {
+	font-family: 'Courier New', monospace;
+	font-size: 0.9rem;
+	background-color: rgba($secondary-background-color, 0.1);
+	padding: 0.2rem 0.4rem;
+	border-radius: 4px;
+	color: $secondary-color;
+	overflow-x: auto; // Permet le scroll horizontal
+  }
+  
+  
+  label {
+	font-family: $font-primary;
+	font-size: 1rem;
+	font-weight: 400;
+	color: $secondary-color;
+  }
+  
+  
+  // ===============================
+  // HERO RESPONSIVE
+  // ===============================
+
+  @include responsive-max(mobile) {
+	.title{
+		font-size: 1.5rem !important;
+		font-family: $font-secondary!important;
+		font-weight: 800;
+	}
+
+	.subTitle{
+		font-size: 0.75rem;
+		font-family: $font-primary;
+	}
+  }
+
+  @include responsive(mobile) {
+	.title{
+		font-size: 2.25rem!important;
+		font-family: $font-secondary!important;
+		font-weight: 800;
+	}
+
+	.subTitle{
+		font-size: 12px;
+		font-family: $font-primary;
+		margin: 0 !important;
+	}
+  }

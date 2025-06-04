@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import TestimonialNew from "@partials/testimonials/TestimonialNew.astro";
+import TestimonialsLast from "@partials/testimonials/TestimonialsLast.astro";
+import TestimonialsSubmit from "@partials/testimonials/TestimonialsSubmit.astro";
+---
+
+<BaseLayout
+  title="Témoignages clients | Coaching sportif personnalisé à Huy"
+  description="Découvrez les avis authentiques de nos clients sur leur expérience de coaching avec SBG Coaching. Transformation, bien-être et motivation au rendez-vous."
+  pageClass="page__testimonials"
+  dataPage="testimonials"
+  dataModules="testimonials links scrollReveal"
+  dataVariant="black"
+  seo={{
+    url: "https://sbgcoaching.be/testimonials",
+  /*   image: "/img/og-testimonials.jpg", */ // à générer si besoin
+    schemaType: "Review"
+  }}
+>
+
+  <main class="main">
+    <TestimonialNew />
+    <TestimonialsLast />
+    <TestimonialsSubmit />
+  </main>
+
+</BaseLayout>

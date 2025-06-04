@@ -1,0 +1,40 @@
+
+
+.testimonial__submit {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 50vh;
+	flex-direction: column;
+
+	> *{
+		color: white;
+		text-align: center;
+	}
+
+	h2{
+		margin: .5rem;
+	}
+
+	p{
+		margin-bottom: 2rem;
+	}
+
+	a{
+		position: relative;
+	}
+
+	a::after{
+		position: absolute;
+		top: 195%;
+		left: 50%;
+		width: 50px;
+		height: 50px;
+		transform: translate(-50%, -50%);
+		opacity: 0.5;
+		content: " ";
+		background-image: url('../../img/icon__googleForm.svg');
+	}
+
+}

@@ -1,0 +1,312 @@
+@use "../../../abstracts" as *;
+
+
+#wrapper-experience {
+	padding-bottom:0!important;
+}
+
+.parcours {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__title {
+	  margin: 0 !important;
+
+	}
+
+	&__subtitle {
+	  color: $primary-color;
+	  font-size: 1rem;
+	  font-weight: 600;
+	  text-transform: uppercase;
+	  font-family: $font-secondary;
+	  margin-bottom: 2rem;
+	}
+
+	&__title, &__subtitle {
+		width: 100%;
+	}
+
+	&__content {
+	  margin-bottom: 3rem;
+	}
+
+	&__list {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 2rem;
+	}
+
+	&__item {
+	  position: relative;
+	  padding-left: 2rem;
+	  flex: 1 1 100%;
+
+	  &::before {
+		position: absolute;
+		top: 4px;
+		left: 0;
+		width: 1rem;
+		height: 1rem;
+		content: '';
+		background-image: url('../../img/icon__validation-black.svg');
+		background-repeat: no-repeat;
+		background-size: contain;
+	  }
+
+	  &::after{
+		position: absolute;
+		top: 28px;
+		left: 6px;
+		width: 1px;
+		background-color: $secondary-color;
+		opacity: .2;
+		content: '';
+	  }
+
+	  &4{
+		.parcours__desc{
+			position: relative;
+
+			&::after{
+				position: absolute;
+				top: 16px;
+				left: -21px;
+				width: 3px;
+				background-color: $primary-color;
+				content: '';
+			}
+	  }
+	}
+
+	}
+
+	&__info {
+	  h4 {
+		color: $secondary-color;
+		font-size: 1rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		font-family: $font-secondary;
+		margin-bottom: 0;
+	  }
+
+	  p {
+		margin: 0;
+		color: $primary-color;
+		font-size: 0.9rem;
+		opacity: 0.8;
+		font-family: $font-primary;
+	  }
+	}
+
+	&__date {
+	  width: fit-content;
+	  color: rgb(0 0 0 / 50%);
+	  font-size: 0.85rem;
+	}
+
+	&__section__experience {
+	  position: relative;
+	  display: flex;
+	  align-items: center;
+	  width: 100%;
+	  padding: 1.5rem 0 3rem;
+	  color: #fff;
+	  flex-direction: column;
+
+	  &::before{
+		position: absolute;
+		top: 0;
+		z-index: -1;
+		width: 100vw;
+		height: 100%;
+		background-color: $primary-color;
+		content: '';
+	  }
+
+	  .parcours__subtitle {
+		color: #fff !important;
+
+
+	  }
+
+	  .parcours__item {
+		&::before {
+		  background-image: url('../../img/icon__validation-white.svg');
+		}
+
+		h4 {
+		  color: #fff;
+		}
+
+		p {
+		  color: rgb(255 255 255 / 80%);
+		}
+
+	  }
+
+	  .parcours__date {
+		color: rgb(255 255 255 / 60%);
+	  }
+	}
+
+}
+
+.parcours__section{
+	.parcours__list{
+		li:first-child{
+			&::after{
+				background-color: #fff;
+				opacity: .5;
+			}
+		}
+
+		li:last-child{
+			&::after{
+				background-color: transparent;
+			}
+		}
+	}
+}
+
+  // ─────────────────────────────
+	// MEDIA QUERIES
+	// ─────────────────────────────
+	@media (max-width: $breakpoint-mobile-max) {
+		.parcours{
+			&__content, &__title,&__subtitle, &__section, &__list{
+				width: 100%;
+				max-width: 400px;
+			}
+		}
+
+		.parcours__item{
+			&::after{
+				height: 72px;
+			}
+
+			&4{
+				.parcours__desc{
+					&::after{
+						height: 82px;
+					}
+				}
+			}
+
+		}
+	}
+
+
+
+	@media (min-width: $breakpoint-mobile) {
+		.parcours{
+			&__title, &__subtitle{
+				max-width: 800px;
+			}
+
+			&__content{
+				width: 100%;
+				max-width: 800px;
+			}
+
+			&__list{
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				width: 100%;
+			}
+
+			&__item{
+				padding-left: 2.3rem;
+
+				&1, &2{
+				grid-column: 1;
+				}
+
+				&3, &4{
+				grid-column: 2;
+				}
+
+				&1, &3{
+					grid-row: 1;
+				}
+
+				&2, &4{
+					grid-row: 2;
+				}
+
+				&1, &2, &3{
+					&::after{
+						height: 74px;
+					}
+				}
+
+				&2{
+					.parcours__desc{
+						position: relative;
+
+						&::after{
+							position: absolute;
+							top: 16px;
+							left: -26px;
+							width: 3px;
+							height: 82px;
+							background-color: $primary-color;
+							content: '';
+						}
+					}
+				}
+			}
+		}
+
+		.parcours__section{
+			max-width: 800px;
+		}
+	}
+
+	@include responsive(tablet) {
+		.parcours{
+			&__title, &__subtitle, &__content, &__section{
+				max-width: 980px;
+			}
+
+			  &__info{
+				h4{
+					font-size: 1.5rem;
+				}
+			  }
+
+			  &__item{
+				&::before{
+					top: 6px;
+					width: 25px;
+					height: 25px;
+				}
+
+				&1, &2, &3{
+					&::after{
+        				top: 39px;
+        				left: 10px;
+        				width: 1px;
+						height: 78px;
+					}
+				}
+
+				&2{
+					.parcours__desc{
+						&::after{
+							top: 16px;
+							left: -19px;
+							width: 3px;
+							height: 82px;
+						}
+					}
+				}
+			  }
+		}
+	}
+
+/* 	@include responsive(desktop) {
+
+	} */

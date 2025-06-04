@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Node"
+  },
+  "include": [
+    "vite.config.ts",
+    "astro.config.ts"
+  ]
+}

@@ -1,0 +1,67 @@
+---
+import Menu from "@partials/components/Menu"
+import Footer from "@partials/components/Footer.astro";
+import Seo from "@partials/components/Seo.astro";
+
+export interface Props {
+  title: string;
+  description?: string;
+  pageClass?: string;
+  dataPage?: string;
+  dataModules?: string;
+  dataVariant?: string;
+  seo?: {
+    url: string;
+    image?: string;
+   schemaType?: "LocalBusiness" | "Organization" | "Article" | "Review";
+  };
+}
+
+const {
+  title,
+  description,
+  pageClass,
+  dataPage,
+  dataModules,
+  dataVariant = "white",
+  seo
+} = Astro.props;
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {seo && (
+      <Seo
+        title={title}
+        description={description ?? ""}
+        url={seo.url}
+        image={seo.image}
+        schemaType={seo.schemaType}
+        slot="head"
+      />
+    )}
+    <slot name="head" />
+  </head>
+
+  <body
+    class={pageClass ?? ""}
+    data-page={dataPage ?? ""}
+    data-module={dataModules ?? ""}
+    data-variant={dataVariant}
+  >
+    <Menu client:visible variant={dataVariant as "white" | "black"} />
+
+    <slot />
+
+    {!["contact", "legal", "privacy-policy"].includes   (dataPage ?? "") && (
+      <Footer />
+    )}
+
+    <link rel="stylesheet" href="/style/css/main.css" />
+    <script type="module" src="/src/js/main.ts"></script>
+  </body>
+</html>

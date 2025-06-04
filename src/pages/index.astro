@@ -1,0 +1,33 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@partials/index/Hero.astro";
+import Program from "@partials/index/Program.astro";
+import CoachingBusiness from "@partials/index/CoachingBusiness.astro";
+import Testimonials from "@partials/index/Testimonials.astro";
+/* import OfflineInfo from "@partials/index/OfflineInfo.astro"; */
+import FAQ from "@partials/components/Faq.astro";
+---
+
+<BaseLayout
+  title="Accueil | Coaching Sportif"
+  description="Coaching sportif professionnel, individuel et en groupe. Découvrez nos services adaptés à vos besoins et vos objectifs."
+  pageClass="page__accueil"
+  dataPage="index"
+  dataModules="links faq scrollReveal"
+  dataVariant="white"
+  seo={{
+    url: "https://sbgcoaching.be/",
+    /* image: "/img/og-home.jpg", */
+    schemaType: "LocalBusiness"
+  }}
+>
+  <main class="main">
+    <Hero currentPage="index" />
+    <Program currentPage="index" />
+    <CoachingBusiness currentPage="index" />
+    <Testimonials currentPage="index" />
+    <!-- <OfflineInfo currentPage="index" /> -->
+  </main>
+
+  <FAQ />
+</BaseLayout>

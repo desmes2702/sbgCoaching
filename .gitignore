@@ -1,0 +1,44 @@
+# ---------------------------
+# 🔧 Build & tooling
+# ---------------------------
+node_modules/
+dist/
+.astro/
+.vite/
+.cache/
+
+# ---------------------------
+# ⚙️ Astro Content (auto)
+# ---------------------------
+content-assets.mjs
+content-modules.mjs
+content.d.ts
+types.d.ts
+data-store.json
+
+# ---------------------------
+# 📝 Logs
+# ---------------------------
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---------------------------
+# 💻 IDE / OS files
+# ---------------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------------
+# 🔐 Env
+# ---------------------------
+.env
+.env.*.local
+
+# ---------------------------
+# 🧩 VSCode (shared only)
+# ---------------------------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
