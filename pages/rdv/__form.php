@@ -84,7 +84,7 @@
 				<div class="form__summary__legal">
 					<label>
 						<input type="checkbox" id="accept-legal" required>
-						J'accepte les <a href="/mentions-legales" target="_blank">mentions légales</a> et les <a href="/conditions-utilisation" target="_blank">conditions d'utilisation</a>.
+						J'accepte les <a href="/mentions-legales" target="_blank">mentions légales</a> et les <a href="/legal_mentions-utilisation" target="_blank">conditions d'utilisation</a>.
 					</label>
 				</div>
 
