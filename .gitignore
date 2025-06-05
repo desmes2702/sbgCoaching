@@ -46,3 +46,6 @@ Thumbs.db
 # Fichiers Netlify et Astro à ignorer
 .netlify/
 dist_astro/
+SBG_Coaching - v2.zip
+pages.zip
+public.zip
