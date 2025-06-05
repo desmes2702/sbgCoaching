@@ -16,6 +16,7 @@ export default defineConfig({
     alias: {
       "@": resolve(__dirname, "src"),
       "@scss": resolve(__dirname, "src/scss"),
+      "@js": resolve(__dirname, "src/js"),
       "@partials": resolve(__dirname, "src/partials"),
       "@layouts": resolve(__dirname, "src/layouts"),
       "@perf": resolve(__dirname, "src/partials/components/perf"),
