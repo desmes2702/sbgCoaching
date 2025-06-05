@@ -19,6 +19,7 @@ function ContactForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean | null>(null);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [showRedirectMsg, setShowRedirectMsg] = useState(false);
 
   // Autosave/load
   useEffect(() => {
@@ -35,6 +36,16 @@ function ContactForm() {
     const allRequiredFilled = Boolean(form.lastname && form.firstname && form.email && form.message && form.terms);
     setIsFormValid(noErrors && allRequiredFilled);
   }, [validationErrors, form]);
+
+  // Redirection après succès (SSR safe)
+  useEffect(() => {
+    if (showRedirectMsg) {
+      const timer = setTimeout(() => {
+        window.location.href = "/thanks";
+      }, 1800);
+      return () => clearTimeout(timer);
+    }
+  }, [showRedirectMsg]);
 
   const validateField = (name: string, value: string | boolean) => {
     let error = "";
@@ -67,8 +78,6 @@ function ContactForm() {
     validateField(name, fieldValue);
   };
 
-  const [showRedirectMsg, setShowRedirectMsg] = useState(false);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -92,39 +101,35 @@ function ContactForm() {
     }
 
     try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const result = await res.json();
-    if (result.success) {
-      setSuccess(true);
-      setShowRedirectMsg(true); // 👈 Affiche le message de confirmation
-      setForm({
-        lastname: "",
-        firstname: "",
-        phone: "",
-        email: "",
-        message: "",
-        terms: false,
-        honeypot: ""
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
-      localStorage.removeItem(AUTO_SAVE_KEY);
-
-      setTimeout(() => {
-        window.location.href = "/thanks";
-      }, 1800); // Redirection après 1,8 seconde
-      return;
-    } else {
+      const result = await res.json();
+      if (result.success) {
+        setSuccess(true);
+        setShowRedirectMsg(true); // 👈 Affiche le message de confirmation + redirection à venir
+        setForm({
+          lastname: "",
+          firstname: "",
+          phone: "",
+          email: "",
+          message: "",
+          terms: false,
+          honeypot: ""
+        });
+        localStorage.removeItem(AUTO_SAVE_KEY);
+        return;
+      } else {
+        setSuccess(false);
+        setError(result.error || "Erreur lors de l’envoi.");
+      }
+    } catch (err) {
       setSuccess(false);
-      setError(result.error || "Erreur lors de l’envoi.");
+      setError("Erreur réseau, veuillez réessayer.");
     }
-  } catch (err) {
-    setSuccess(false);
-    setError("Erreur réseau, veuillez réessayer.");
-  }
-};
+  };
 
   return (
     <div className="wrapper-982-black">
@@ -184,6 +189,7 @@ function ContactForm() {
             {error && <p className="form__error" role="alert">{error}</p>}
             {success === true && <p className="form__success" role="status">Votre message a bien été envoyé 🎉</p>}
             {success === false && <p className="form__error" role="alert">Erreur lors de l'envoi du formulaire.</p>}
+            {showRedirectMsg && <p className="form__success" role="status">Redirection en cours...</p>}
 
             <button
               type="submit"
