@@ -54,6 +54,7 @@
     "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.3.0",
     "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/vercel": "^8.1.5",
     "chalk": "^5.4.1",
     "dompurify": "^3.2.6",
     "dotenv": "^16.5.0",
