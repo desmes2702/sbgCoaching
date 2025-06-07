@@ -1,6 +1,8 @@
 import { defineConfig } from "vite";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
+import postcssPresetEnv from 'postcss-preset-env';
+import cssnano from 'cssnano';
 
 // 🔁 Créer __dirname en ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -29,9 +31,59 @@ export default defineConfig({
         // additionalData: `@use "@scss/abstracts/globals" as *;`
       },
     },
+    // Optimisations CSS
+    devSourcemap: false,
+    modules: {
+      generateScopedName: '[hash:base64:8]'
+    },
+    // Optimisations de chargement
+    postcss: {
+      plugins: [
+        postcssPresetEnv({
+          features: {
+            'nesting-rules': true
+          }
+        }),
+        cssnano({
+          preset: ['default', {
+            discardComments: {
+              removeAll: true
+            },
+            normalizeWhitespace: true,
+            minifyFontValues: true,
+            minifyGradients: true
+          }]
+        })
+      ]
+    }
   },
   build: {
     outDir: "dist",
     chunkSizeWarningLimit: 600,
+    // Optimisations de build
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom'],
+          'styles': ['@/scss/main.scss']
+        },
+        // Optimisation des noms de fichiers
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]'
+      }
+    },
+    // Optimisations supplémentaires
+    cssCodeSplit: false, // Désactivé pour avoir un seul fichier CSS
+    sourcemap: false,
+    target: 'esnext',
+    assetsInlineLimit: 4096, 
   },
 });

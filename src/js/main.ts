@@ -1,6 +1,4 @@
 // src/js/main.ts
-import "@/scss/main.scss";
-
 // 🌍 Modules globaux
 import { injectSchemaOrg } from "@/js/global/__schemaOrg";
 import { initFAQ } from "@/js/global/__faq";
@@ -21,9 +19,6 @@ type PageKey =
   | "contact"
   | "testimonial"
   | string;
-
-const page = document.body.dataset.page as PageKey;
-const modules = document.body.dataset.module?.split(" ") || [];
 
 async function loadPageModule(page: PageKey) {
   switch (page) {
@@ -55,11 +50,23 @@ async function loadPageModule(page: PageKey) {
   console.log(`✅ Script principal activé : ${page}`);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  injectSchemaOrg();
-  loadPageModule(page);
+// Vérifier si nous sommes dans un environnement navigateur
+if (typeof window !== 'undefined') {
+  // Préchargement du CSS
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/src/scss/main.scss';
+  document.head.appendChild(link);
 
-  if (modules.includes("faq")) initFAQ();
-  if (modules.includes("testimonials")) initTestimonial();
- /*  if (modules.includes("scrollReveal")) initScrollReveal(); */
-});
+  document.addEventListener("DOMContentLoaded", () => {
+    const page = document.body.dataset.page as PageKey;
+    const modules = document.body.dataset.module?.split(" ") || [];
+
+    injectSchemaOrg();
+    loadPageModule(page);
+
+    if (modules.includes("faq")) initFAQ();
+    if (modules.includes("testimonials")) initTestimonial();
+   /*  if (modules.includes("scrollReveal")) initScrollReveal(); */
+  });
+}

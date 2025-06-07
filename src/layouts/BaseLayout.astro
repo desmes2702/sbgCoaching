@@ -47,6 +47,11 @@ const {
         slot="head"
       />
     )}
+    <link rel="preload" href="/style/css/main.css" as="style" />
+    <link rel="stylesheet" href="/style/css/main.css" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="/style/css/main.css" />
+    </noscript>
     <slot name="head" />
   </head>
 
@@ -65,7 +70,5 @@ const {
 ) : dataPage === "contact" ? null : (
   <Footer />
 )}
-
-  <link rel="stylesheet" href="/style/css/main.css" />
   </body>
 </html>
