@@ -18,6 +18,7 @@ export interface Props {
     image?: string;
     schemaType?: "LocalBusiness" | "Organization" | "Article" | "Review";
   };
+  preloadImage?: string; 
 }
 
 const {
@@ -27,7 +28,8 @@ const {
   dataPage,
   dataModules,
   dataVariant = "white",
-  seo
+  seo,
+  preloadImage
 } = Astro.props;
 ---
 
@@ -35,6 +37,15 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+     <!-- Roboto (import Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Nexa (preload local, déjà présent) -->
+  <link rel="preload" as="font" href="/font/Nexa-Black.woff2" type="font/woff2" crossorigin />
+  
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {seo && (
@@ -47,10 +58,13 @@ const {
         slot="head"
       />
     )}
-    <link rel="preload" href="/style/css/main.css" as="style" />
-    <link rel="stylesheet" href="/style/css/main.css" media="print" onload="this.media='all'" />
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} />
+    )}
+    <link rel="preload" href="/style/min_css/main.min.css" as="style" />
+    <link rel="stylesheet" href="/style/min_css/main.min.css" media="print" onload="this.media='all'" />
     <noscript>
-      <link rel="stylesheet" href="/style/css/main.css" />
+      <link rel="stylesheet" href="/style/min_css/main.min.css" />
     </noscript>
     <slot name="head" />
   </head>

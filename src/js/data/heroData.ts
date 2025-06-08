@@ -42,15 +42,15 @@ export const heroData: HeroDataType = {
         "Dans le monde professionnel moderne, la productivité et le bien-être des employés sont plus interconnectés que jamais.",
         "Reconnaissant cette réalité, le coaching en entreprise émerge comme une solution incontournable pour les organisations visant l’excellence."
       ],
-      backgroundMain: "/img/entreprise/entreprise__post1-main.png",
-      backgroundThumbnail: "/img/entreprise/entreprise__post1-thumb.png"
+      backgroundMain: "/img/entreprise/entreprise__post1-main.webp",
+      backgroundThumbnail: "/img/entreprise/entreprise__post1-thumb.webp"
 
     },
     {
       id: "entreprise-slide-2",
       title: "",
       paragraphs: [""],
-      backgroundThumbnail: "/img/entreprise/entreprise__post2-thumb.png",
+      backgroundThumbnail: "/img/entreprise/entreprise__post2-thumb.webp",
       video: "/videos/rtlTvi.mp4"
 
     },
@@ -61,8 +61,8 @@ export const heroData: HeroDataType = {
         "Le coaching en entreprise est déductible à 100% en Belgique.",
         "Offrez un avantage fiscal tout en investissant dans le bien-être à votre entreprise."
       ],
-      backgroundMain: "/img/entreprise/entreprise__post3-main.png",
-      backgroundThumbnail: "/img/entreprise/entreprise__post3-thumb.png",
+      backgroundMain: "/img/entreprise/entreprise__post3-main.webp",
+      backgroundThumbnail: "/img/entreprise/entreprise__post3-thumb.webp",
 
       link: {
         href: "https://finances.belgium.be/fr/entreprises/frais-professionnels#q1",
@@ -79,15 +79,15 @@ export const heroData: HeroDataType = {
         "Retrouvez la forme, gagnez en énergie et atteignez vos objectifs personnels.",
         "Avec un accompagnement sur-mesure, le coaching s’adapte à vous, pas l’inverse."
       ],
-      backgroundMain: "/img/general/general__post1.png",
-      backgroundThumbnail:"/img/general/general__post1-thumb.png"
+      backgroundMain: "/img/general/general__post1.webp",
+      backgroundThumbnail:"/img/general/general__post1-thumb.webp"
     },
     {
       id: "general-slide-2",
       title: name1,
       paragraphs: [para1],
       backgroundMain: photo1,
-      backgroundThumbnail:"/img/general/general__post2-thumb.png",
+      backgroundThumbnail:"/img/general/general__post2-thumb.webp",
       link: {
         href: "/testimonials",
         label: "Lire le témoignage"
@@ -98,7 +98,7 @@ export const heroData: HeroDataType = {
       title: name2,
       paragraphs: [para2],
       backgroundMain: photo2,
-      backgroundThumbnail:"/img/general/general__post3-thumb.png",
+      backgroundThumbnail:"/img/general/general__post3-thumb.webp",
       link: {
         href: "/testimonials",
         label: "Lire le témoignage"

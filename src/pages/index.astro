@@ -14,13 +14,14 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn";
   description="Coaching sportif professionnel, individuel et en groupe. Découvrez nos services adaptés à vos besoins et vos objectifs."
   pageClass="page__accueil"
   dataPage="index"
-  dataModules="links faq scrollReveal"
+  dataModules="links faq"
   dataVariant="white"
   seo={{
     url: "https://sbgcoaching.be/",
-    /* image: "/img/og-home.jpg", */
+    /* image: "/img/og-home.webp", */
     schemaType: "LocalBusiness"
   }}
+  preloadImage="/img/hero__bck-320.webp"
 >
   <main class="main">
     <Hero currentPage="index" />
@@ -35,7 +36,7 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn";
     </LazyFadeIn>
     <!-- <OfflineInfo currentPage="index" /> -->
   </main>
- <LazyFadeIn client:load>
-  <FAQ />
+  <LazyFadeIn client:load>
+    <FAQ />
   </LazyFadeIn>
 </BaseLayout>

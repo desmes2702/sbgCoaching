@@ -7,7 +7,17 @@ const currentPage = Astro.props.currentPage || 'index';
 			<div class="hero__content">
 				<h1 class="hero__title title">Le seul mauvais entraînement est celui que l'on ne fait pas</h1>
 				<p class="hero__subtitle">Votre corps mérite l'effort, votre esprit mérite la discipline. Ensemble, nous transformerons chaque excuse en une victoire personnelle. Faites le premier pas, le reste suivra.</p>
-				<div class="hero__photo"></div>
+				<div class="hero__photo">
+					<img
+						src="/img/hero__bck-320.webp"
+						width="320"
+						height="410"
+						alt=""
+						loading="eager"
+						aria-hidden="true"
+						style="position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;"
+					/>
+				</div>
 				<a href="/contact" class="hero__cta button button-red" aria-label="prendre rendez-vous">Prendre rendez-vous</a>
 			</div>
 

@@ -46,10 +46,11 @@
 	}
 
 	&__photo{
-		background-image: url("../../img/hero__bck-320.png");
+		background-image: url("../../img/hero__bck-320.webp");
 		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: right;
+		aspect-ratio: 320 / 410;
 		width: 100%;
 		height: 50vh;
 		min-height: 410px;
@@ -108,17 +109,17 @@
 	  margin-bottom: $spacing-md;
 
 	  &-new {
-		background-image: url('../../img/post-new.png');
+		background-image: url('../../img/post-new.webp');
 
 	  }
 
 	  &-mid {
-		background-image: url('../../img/post2.png');
+		background-image: url('../../img/post2.webp');
 	  }
 
 	  &-last {
 		margin-bottom: 2rem;
-		background-image: url('../../img/post3.png');
+		background-image: url('../../img/post3.webp');
 	  }
 
 	  .gallery__button {
@@ -231,7 +232,7 @@
 				bottom: -3rem;
 				z-index: 1;
 				height: 700px;
-				background-image: url("../../img/hero__bck-768.png");
+				background-image: url("../../img/hero__bck-768.webp");
 				background-position: center;
 
 			}

@@ -250,7 +250,7 @@
   margin-bottom: 2rem;
 }
 .contact__form form fieldset legend {
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   font-size: 0.75rem;
   text-transform: uppercase;
   opacity: 0.5;
@@ -558,7 +558,7 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   text-rendering: optimizespeed;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -647,7 +647,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 
 h1 {
@@ -655,7 +655,7 @@ h1 {
   font-weight: 600;
   line-height: 1.2;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 1rem;
 }
 
@@ -664,7 +664,7 @@ h2 {
   font-weight: 600;
   line-height: 1.3;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 1rem;
 }
 
@@ -672,7 +672,7 @@ h3 {
   color: #2F2F2F;
   font-weight: 600;
   line-height: 1.4;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   margin-bottom: 1rem;
 }
 
@@ -683,7 +683,7 @@ h6 {
   font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.5;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 0.5rem;
 }
 
@@ -692,7 +692,7 @@ p {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.6;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   margin-bottom: 1rem;
 }
 
@@ -702,7 +702,7 @@ a {
   font-size: 1rem;
   font-weight: 500;
   transition: color 0.3s ease;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   text-decoration: none;
 }
 a:focus-visible {
@@ -724,30 +724,30 @@ label {
   color: #2F2F2F;
   font-size: 1rem;
   font-weight: 400;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 
 @media (max-width: 47.9375rem) {
   .title {
     font-size: 1.5rem !important;
-    font-family: nexa, "Roboto", sans-serif !important;
+    font-family: "Nexa", "Roboto", sans-serif !important;
     font-weight: 800;
   }
   .subTitle {
     font-size: 0.75rem;
-    font-family: "Roboto", nexa, sans-serif;
+    font-family: "Roboto", "Nexa", sans-serif;
   }
 }
 @media (min-width: 48rem) {
   .title {
     font-size: 2.25rem !important;
-    font-family: nexa, "Roboto", sans-serif !important;
+    font-family: "Nexa", "Roboto", sans-serif !important;
     font-weight: 800;
   }
   .subTitle {
     margin: 0 !important;
     font-size: 12px;
-    font-family: "Roboto", nexa, sans-serif;
+    font-family: "Roboto", "Nexa", sans-serif;
   }
 }
 .button {
@@ -867,7 +867,7 @@ label {
   margin-bottom: 1rem;
 }
 .footer__nav > h2 {
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
@@ -881,7 +881,7 @@ label {
   font-size: 0.75rem;
   font-weight: bold;
   text-transform: uppercase;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   margin-bottom: 1.5rem;
 }
 .footer__nav nav ul li:not(:last-child) {
@@ -932,14 +932,14 @@ label {
   font-weight: bold;
 }
 .footer__copyright {
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   font-weight: 400;
   margin-bottom: 0.5rem;
 }
 .footer__legal {
   display: flex;
   font-size: 0.75rem;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   flex-direction: column;
 }
 .footer__legal a {
@@ -1137,7 +1137,7 @@ label {
   margin: 0 0 1.5rem;
   font-size: 12px;
   text-transform: uppercase;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 .menu__section .menu__list {
   position: relative;
@@ -1293,7 +1293,7 @@ label {
   color: #F0A;
   font-weight: 500;
   text-transform: none;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 .coaching__hero h2-col1 {
   position: relative;
@@ -2064,16 +2064,17 @@ label {
   color: white;
 }
 .hero__title {
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
 }
 .hero__subtitle {
   font-family: Nexa-Trial, Roboto, sans-serif;
 }
 .hero__photo {
-  background-image: url("../../img/hero__bck-320.png");
+  background-image: url("../../img/hero__bck-320.webp");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right;
+  aspect-ratio: 320/410;
   width: 100%;
   height: 50vh;
   min-height: 410px;
@@ -2101,7 +2102,7 @@ label {
   text-align: right;
   text-transform: uppercase;
   margin-bottom: 1rem;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 .gallery__grid {
   display: flex;
@@ -2121,14 +2122,14 @@ label {
   margin-bottom: 1rem;
 }
 .gallery__item-new {
-  background-image: url("../../img/post-new.png");
+  background-image: url("../../img/post-new.webp");
 }
 .gallery__item-mid {
-  background-image: url("../../img/post2.png");
+  background-image: url("../../img/post2.webp");
 }
 .gallery__item-last {
   margin-bottom: 2rem;
-  background-image: url("../../img/post3.png");
+  background-image: url("../../img/post3.webp");
 }
 .gallery__item .gallery__button {
   position: absolute;
@@ -2206,7 +2207,7 @@ label {
     bottom: -3rem;
     z-index: 1;
     height: 700px;
-    background-image: url("../../img/hero__bck-768.png");
+    background-image: url("../../img/hero__bck-768.webp");
     background-position: center;
   }
   .subWrapper-col2 .hero__cta {
@@ -2346,21 +2347,21 @@ label {
 @media (max-width: 47.9375rem) {
   #testimonials-index .testimonials__wrapper {
     width: 100vw;
-    background-image: url("../../img/index__testimonials-mobile.png");
+    background-image: url("../../img/index__testimonials-mobile.webp");
     min-height: 445px;
   }
 }
 @media (min-width: 48rem) and (max-width: 89.9375rem) {
   #testimonials-index .testimonials__wrapper {
     width: 100vw;
-    background-image: url("../../img/index__testimonials-tablet.png");
+    background-image: url("../../img/index__testimonials-tablet.webp");
     min-height: 555px;
   }
 }
 @media (min-width: 90rem) {
   #testimonials-index .testimonials__wrapper {
     width: 100%;
-    background-image: url("../../img/index__testimonials-tablet.png");
+    background-image: url("../../img/index__testimonials-tablet.webp");
     min-height: 555px;
   }
 }
@@ -2377,7 +2378,7 @@ label {
   color: #F0A;
   font-weight: 500;
   text-transform: none;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 .coaching__hero-col1 {
   position: relative;
@@ -2672,13 +2673,13 @@ label {
   font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
 }
 .coaching-entreprise__improve__col1 .coaching-entreprise__benefits > li strong {
   color: #2F2F2F;
   font-weight: 800;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
 }
 .coaching-entreprise__improve__col1 .coaching-entreprise__availability {
   border-radius: 5px;
@@ -2711,7 +2712,7 @@ label {
 }
 .coaching-entreprise__improve__col1 .coaching-entreprise__independent h3 {
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
 }
 .coaching-entreprise__improve__col1 .coaching-entreprise__independent p {
   margin: 0;
@@ -2722,12 +2723,12 @@ label {
   align-items: flex-end;
 }
 .coaching-entreprise__improve__col2 .coaching-entreprise__context > p strong {
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   text-transform: uppercase;
 }
 .coaching-entreprise__improve__col2 .coaching-entreprise__context > p strong .highlight {
   color: #F0A;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   font-style: italic;
   text-transform: none;
 }
@@ -2809,7 +2810,7 @@ label {
   color: white;
   font-size: 24px;
   text-align: center;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
 }
 .coaching__entrerpise__perfo__col1 {
   display: flex;
@@ -2852,7 +2853,7 @@ label {
   font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
 }
 .coaching__entrerpise__perfo__col2 h3::before {
   position: absolute;
@@ -2963,7 +2964,7 @@ label {
   color: #F0A;
   font-size: 1.2rem;
   text-transform: none;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 .jeune__footballer__content {
   display: flex;
@@ -2975,7 +2976,7 @@ label {
   color: #2F2F2F;
   font-size: 1rem;
   font-weight: 800;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
@@ -2989,7 +2990,7 @@ label {
 }
 .jeune__footballer__img {
   height: 500px;
-  background-image: url("../../img/football.png");
+  background-image: url("../../img/football.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -3151,7 +3152,7 @@ label {
   color: #F0A;
   font-size: 1.375rem;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 1.5rem;
 }
 .coaching__types__card__content {
@@ -3159,7 +3160,7 @@ label {
   margin-bottom: 2rem;
 }
 .coaching__types__card__content h4 {
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -3458,7 +3459,7 @@ label {
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 2rem;
 }
 .parcours__title, .parcours__subtitle {
@@ -3513,7 +3514,7 @@ label {
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 0;
 }
 .parcours__info p {
@@ -3521,7 +3522,7 @@ label {
   color: #F0A;
   font-size: 0.9rem;
   opacity: 0.8;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 .parcours__date {
   width: -moz-fit-content;
@@ -3676,7 +3677,7 @@ label {
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 0;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
 }
 .about__hero__role span:first-child {
   color: #F0A;
@@ -3690,7 +3691,7 @@ label {
   opacity: 0.8;
 }
 .about__hero__name {
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   color: white;
   font-weight: 700;
 }
@@ -3729,7 +3730,7 @@ label {
           mask-size: 100% 100%;
 }
 .about__hero__img {
-  background-image: url("../../img/about__hero.png");
+  background-image: url("../../img/about__hero.webp");
   background-size: cover;
   background-repeat: no-repeat;
   max-width: 400px;
@@ -4032,7 +4033,7 @@ label {
   color: #F0A;
   font-weight: 500;
   text-transform: none;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   font-style: italic;
 }
 .form__container .form__timeline {
@@ -4309,7 +4310,7 @@ label {
   margin-bottom: 2rem;
 }
 .form__summary fieldset legend {
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   font-size: 0.75rem;
   text-transform: uppercase;
   opacity: 0.5;
@@ -4344,7 +4345,7 @@ label {
   font-weight: 300;
   text-align: left;
   opacity: 0.5;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 .form__summary__textarea > p, .form__summary__inputs > p {
   width: 100%;
@@ -4488,7 +4489,7 @@ label {
 }
 
 .testimonials__type {
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   font-size: 1rem;
   border-bottom: 1px solid rgba(47, 47, 47, 0.2);
   padding-bottom: 0.5rem;
@@ -4515,7 +4516,7 @@ label {
   margin-bottom: 0.5rem;
 }
 .testimonial-new__description {
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   color: #2F2F2F;
   margin-bottom: 2rem;
 }
@@ -4544,7 +4545,7 @@ label {
   font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
-  font-family: nexa, "Roboto", sans-serif;
+  font-family: "Nexa", "Roboto", sans-serif;
   font-style: italic;
   margin-bottom: 0;
 }
@@ -4557,7 +4558,7 @@ label {
 .testimonial-new__quote p {
   color: white;
   font-size: 1rem;
-  font-family: "Roboto", nexa, sans-serif;
+  font-family: "Roboto", "Nexa", sans-serif;
   margin-bottom: 0.7rem;
   font-style: italic;
 }
@@ -4885,8 +4886,4 @@ label {
 }
 .thanks__container .title {
   margin-bottom: 1rem;
-}
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */

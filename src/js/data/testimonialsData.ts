@@ -2,7 +2,7 @@ export const testimonials = [
   {
     name: "LABEYE et LALLEMEND",
     job: "Étude des Notaires",
-    photo: "/img/testimonials/testimonial__labeyeLallemend.png",
+    photo: "/img/testimonials/testimonial__labeyeLallemend.webp",
     key: "entreprise",
     text: [
       "Ces séances sont notre moment pour souffler. Elles nous permettent de déconnecter du travail, d’évacuer le stress et de retrouver de l’énergie.",
@@ -14,7 +14,7 @@ export const testimonials = [
   {
     name: "Christian",
     job: null,
-    photo: "/img/testimonials/testimonial__christian.png",
+    photo: "/img/testimonials/testimonial__christian.webp",
     key: "general",
     text: [
       "Quand j’ai franchi les portes de la salle pour la première fois, j’étais rempli de doutes. Je voulais me (re)mettre au sport, mais je ne savais ni par où commencer ni comment utiliser les machines correctement.",
@@ -27,7 +27,7 @@ export const testimonials = [
   {
     name: "Justin",
     job: null,
-    photo: "/img/testimonials/testimonial__justin.png",
+    photo: "/img/testimonials/testimonial__justin.webp",
     featured: true,
     key: "general",
     text: [
@@ -40,7 +40,7 @@ export const testimonials = [
   {
     name: "Moïra PLENVAUX & Thérèse de NIJS",
     job: null,
-    photo: "/img/testimonials/testimonial__plenevauxNijs.png",
+    photo: "/img/testimonials/testimonial__plenevauxNijs.webp",
     key: "general",
     text: [
       "L’approche du coach est rassurante : il adapte chaque mouvement en fonction de nos besoins et veille à notre bien-être. Cela rend les séances accessibles à tous et améliore notre confort au quotidien.",
@@ -51,7 +51,7 @@ export const testimonials = [
   {
     name: "UDH SPRL",
     job: null,
-    photo: "/img/testimonials/testimonial__udhSprl.png",
+    photo: "/img/testimonials/testimonial__udhSprl.webp",
     key: "general",
     text: [
       "Les cours de sport nous permettent de décompresser après notre journée de travail.",
@@ -63,7 +63,7 @@ export const testimonials = [
   {
     name: "Tiffany - Duchêne SA",
     job: "Chargée de communication",
-    photo: "/img/testimonials/testimonial__ducheneSa.png",
+    photo: "/img/testimonials/testimonial__ducheneSa.webp",
     key: "entreprise",
     text: [
       "Je voulais juste vous dire un grand merci pour ces super séances de circuit training chaque semaine ! C’est vraiment une chance de pouvoir participer à des cours directement au sein de l’entreprise.",
@@ -76,7 +76,7 @@ export const testimonials = [
   {
     name: "Alice",
     job: null,
-    photo: "/img/testimonials/testimonial__alice.png",
+    photo: "/img/testimonials/testimonial__alice.webp",
     key: "general",
     text: [
       "Après 6 mois de travail à raison de 2 séances/semaine et un petit rééquilibrage alimentaire, quel changement ! Mes douleurs ont disparu, mon corps s’est resculpté, j’ai perdu 10 kg et pris du muscle.",
