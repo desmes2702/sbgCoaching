@@ -47,29 +47,27 @@
   font-style: normal;
   font-display: swap;
 }
-.thanks__container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-@media (max-width: 40.5625rem) {
-  .thanks__container {
-    min-height: calc(100vh - 230.19px - 96px);
-  }
+.page__testimonials .header__nav-black::after {
+  background-color: transparent !important;
 }
 @media (min-width: 40.625rem) {
-  .thanks__container {
-    min-height: calc(100vh - 156.59px - 87px);
+  .page__testimonials .header__logo-black::after {
+    background-color: transparent !important;
   }
 }
-.thanks__container > * {
-  color: white;
-  text-align: center;
+
+.testimonials__type {
+  font-family: "Roboto", "Nexa", sans-serif;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(47, 47, 47, 0.2);
+  padding-bottom: 0.5rem;
+  margin-bottom: 3rem;
 }
-.thanks__container .title {
-  margin-bottom: 1rem;
-}/*# sourceMappingURL=index.css.map */ction: column;
+
+.testimonial-new {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 .testimonial-new > * {
@@ -608,7 +606,9 @@
   background-size: contain;
   background-repeat: no-repeat;
   border-radius: 3px;
-}/*# sourceMappingURL=index.css.map */trerpise__perfo > h2 {
+}/*# sourceMappingURL=index.css.map */
+  }
+  .coaching__entrerpise__perfo > h2 {
     max-width: 100%;
     margin: 0 0 4rem;
     font-size: 36px;
@@ -624,9 +624,7 @@
   .coaching__entrerpise__perfo__col1, .coaching__entrerpise__perfo__col2 {
     grid-row: 2;
   }
-}/*# sourceMappingURL=index.css.map */   width: 100%;
-  }
-  .coaching__hero-col2 {
+}/*# sourceMappingURL=index.css.map */  .coaching__hero-col2 {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 354px));
     grid-column-gap: 2rem;
@@ -904,6 +902,7 @@
   margin: 0 0 2rem;
   color: white;
   font-size: 24px;
+  font-weight: 600;
   text-align: center;
   font-family: "Nexa", "Roboto", sans-serif;
 }
@@ -1346,6 +1345,7 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  background-color: transparent;
 }
 .type__controls .type__prev {
   background-image: url("/img/icon__left.svg");
@@ -1616,7 +1616,8 @@
   margin: 0;
   color: #F0A;
   font-size: 0.9rem;
-  opacity: 0.8;
+  font-weight: 400;
+  opacity: 0.9;
   font-family: "Roboto", "Nexa", sans-serif;
 }
 .parcours__date {
@@ -2033,7 +2034,7 @@
 }
 .convictions__item-title {
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }

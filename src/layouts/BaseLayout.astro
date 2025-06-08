@@ -45,7 +45,7 @@ const {
 
   <!-- Nexa (preload local, déjà présent) -->
   <link rel="preload" as="font" href="/font/Nexa-Black.woff2" type="font/woff2" crossorigin />
-  
+
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {seo && (
@@ -75,7 +75,7 @@ const {
     data-module={dataModules ?? ""}
     data-variant={dataVariant}
   >
-    <Menu client:visible variant={dataVariant as "white" | "black"} />
+    <Menu client:only variant={dataVariant as "white" | "black"} />
 
       <slot />
 
