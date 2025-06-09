@@ -1,5 +1,4 @@
 ---
-import "@js/main.ts";
 import Menu from "@partials/components/Menu"
 import Footer from "@partials/components/Footer.astro";
 import FooterMenu from "@partials/components/FooterMenu.astro";
@@ -79,10 +78,10 @@ const {
 
       <slot />
 
-{["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "") ? (
-  <FooterMenu />
-) : dataPage === "contact" ? null : (
-  <Footer />
-)}
+  {["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "") ? (
+    <FooterMenu />
+  ) : dataPage === "contact" ? null : (
+    <Footer />
+  )}
   </body>
 </html>

@@ -4516,7 +4516,6 @@ label {
 .testimonial-new__subtitle {
   color: #F0A;
   font-size: 1rem;
-  font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
@@ -4670,12 +4669,19 @@ label {
   background-image: url("../../img/icon__googleForm.svg");
 }
 
-#testimonials-last .testimonials__wrapper {
+.testimonials-last .testimonials__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.testimonials-last .testimonials__wrapper__col1, .testimonials-last .testimonials__wrapper__col2 {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#testimonials-last .testimonial__item {
+.testimonials-last .testimonial__item {
   position: relative;
   width: 100%;
   max-width: 380px;
@@ -4683,10 +4689,10 @@ label {
   overflow: hidden;
   cursor: pointer;
 }
-#testimonials-last .testimonial__item:hover {
+.testimonials-last .testimonial__item:hover {
   transform: scale(1.02);
 }
-#testimonials-last .testimonial__item__image {
+.testimonials-last .testimonial__item__image {
   width: 100%;
   height: 300px;
   background-size: cover;
@@ -4694,7 +4700,7 @@ label {
   background-repeat: no-repeat;
   border-radius: 5px;
 }
-#testimonials-last .testimonial__item__button {
+.testimonials-last .testimonial__item__button {
   position: relative;
   top: -6px;
   display: flex;
@@ -4714,15 +4720,15 @@ label {
   	background-color: rgba(255, 255, 255, 0.3);
   } */
 }
-#testimonials-last .testimonial__item__button-active {
+.testimonials-last .testimonial__item__button-active {
   padding: 20px 0 40px;
   color: rgba(255, 255, 255, 0.2);
 }
-#testimonials-last .testimonial__item__button-active .testimonial__item__arrow {
+.testimonials-last .testimonial__item__button-active .testimonial__item__arrow {
   transition: transform 0.3s ease-in-out;
   transform: rotate(180deg);
 }
-#testimonials-last .testimonial__item__arrow {
+.testimonials-last .testimonial__item__arrow {
   display: block;
   width: 20px;
   height: 20px;
@@ -4732,7 +4738,7 @@ label {
   background-repeat: no-repeat;
   margin-top: 5px;
 }
-#testimonials-last .testimonial__item__content {
+.testimonials-last .testimonial__item__content {
   position: relative;
   top: -20px;
   height: 0;
@@ -4742,19 +4748,20 @@ label {
   transition: height 0.3s ease-in-out;
   opacity: 0;
 }
-#testimonials-last .testimonial__item__content-active {
+.testimonials-last .testimonial__item__content-active {
   height: auto;
   opacity: 1;
 }
-#testimonials-last .testimonial__item__content header {
+.testimonials-last .testimonial__item__content header {
   margin: 0 0 1rem;
 }
-#testimonials-last .testimonial__item__content header > div {
+.testimonials-last .testimonial__item__content header > div {
   display: flex;
+  flex-direction: column;
   height: -moz-fit-content;
   height: fit-content;
 }
-#testimonials-last .testimonial__item__content header > div h3 {
+.testimonials-last .testimonial__item__content header > div h3 {
   margin: 0;
   color: white;
   font-size: 24px;
@@ -4764,76 +4771,75 @@ label {
   font-style: italic;
   padding-right: 10px;
 }
-#testimonials-last .testimonial__item__content header > div span {
+.testimonials-last .testimonial__item__content header > div span {
   padding: 4px 0 0;
   color: white;
   font-family: Roboto, sans-serif;
 }
-#testimonials-last .testimonial__item__content header > span {
+.testimonials-last .testimonial__item__content header > span {
   color: #F0A;
   font-weight: bold;
   font-family: Roboto, sans-serif;
 }
-#testimonials-last .testimonial__item__content p {
+.testimonials-last .testimonial__item__content p {
   padding: 0 0 8px;
   color: white;
 }
-#testimonials-last .testimonial__item__content p:last-child {
+.testimonials-last .testimonial__item__content p:last-child {
   margin-bottom: 0;
 }
 @media (max-width: 47.9375rem) {
-  #testimonials-last .testimonial__item {
+  .testimonials-last .testimonial__item {
     margin-bottom: 3rem;
   }
-  #testimonials-last .testimonials__wrapper__col2 .testimonial__item:last-child {
+  .testimonials-last .testimonials__wrapper__col2 .testimonial__item:last-child {
     margin-bottom: 0;
   }
 }
 @media (min-width: 48rem) {
-  #testimonials-last .testimonials__wrapper {
+  .testimonials-last .testimonials__wrapper {
     flex-direction: row;
-    align-items: flex-start;
     justify-content: center;
+    align-items: flex-start;
   }
-  #testimonials-last .testimonials__wrapper .testimonial__item:not(:last-child) {
+  .testimonials-last .testimonials__wrapper .testimonial__item:not(:last-child) {
     margin-bottom: 1.8rem;
   }
-  #testimonials-last .testimonials__wrapper__col1 {
+  .testimonials-last .testimonials__wrapper__col1 {
     padding-right: 2.5rem;
   }
-  #testimonials-last .testimonial__item__content {
+  .testimonials-last .testimonial__item__content {
     padding: 0 24px 20px;
   }
 }
 @media (min-width: 64rem) {
-  #testimonials-last .testimonials__wrapper {
+  .testimonials-last .testimonials__wrapper {
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
   }
-  #testimonials-last .testimonials__wrapper__col1, #testimonials-last .testimonials__wrapper__col2 {
+  .testimonials-last .testimonials__wrapper__col1, .testimonials-last .testimonials__wrapper__col2 {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
     padding-right: 0;
   }
-  #testimonials-last .testimonials__wrapper .testimonial__item:not(:last-child) {
+  .testimonials-last .testimonials__wrapper .testimonial__item:not(:last-child) {
     margin-right: 2.5rem;
   }
-  #testimonials-last .testimonials__wrapper .testimonial__item {
-    max-width: -moz-fit-content;
-    max-width: fit-content;
-  }
-  #testimonials-last .testimonials__wrapper .testimonials__wrapper__col1 .testimonial__item {
+  .testimonials-last .testimonials__wrapper .testimonials__wrapper__col1 .testimonial__item {
     margin-bottom: 1.8rem;
   }
 }
 @media (min-width: 90rem) {
-  #testimonials-last .testimonial__item__content > p {
+  .testimonials-last .testimonial__item__content > p {
     padding-left: 1.6rem;
   }
-  #testimonials-last .testimonial__item__content header {
+  .testimonials-last .testimonial__item__content header {
     position: relative;
   }
-  #testimonials-last .testimonial__item__content header::before {
+  .testimonials-last .testimonial__item__content header::before {
     position: absolute;
     bottom: -35px;
     left: 2px;

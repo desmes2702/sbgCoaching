@@ -1,4 +1,4 @@
-// ✅ __faq.ts
+// ✅ _faq.ts
 export function initFAQ(): void {
   const buttons = document.querySelectorAll<HTMLButtonElement>(".faq__btn-more");
 

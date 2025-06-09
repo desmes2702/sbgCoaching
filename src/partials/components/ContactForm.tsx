@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
+declare global {
+  interface Window { grecaptcha: any; }
+}
+
 const AUTO_SAVE_KEY = "sbg_contact_form_draft";
 const COMPLETION_TIME = "2 min pour remplir ce formulaire";
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 function ContactForm() {
   const [form, setForm] = useState({
@@ -46,6 +51,22 @@ function ContactForm() {
       return () => clearTimeout(timer);
     }
   }, [showRedirectMsg]);
+
+  // Charge le script reCaptcha (une seule fois)
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) return;
+    if (document.getElementById("recaptcha-script")) return;
+    const script = document.createElement("script");
+    script.id = "recaptcha-script";
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      if (document.getElementById("recaptcha-script")) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
 
   const validateField = (name: string, value: string | boolean) => {
     let error = "";
@@ -101,15 +122,22 @@ function ContactForm() {
     }
 
     try {
+      // 1️⃣ Récupère le token reCaptcha V3
+      let recaptchaToken = "";
+      if (window.grecaptcha && RECAPTCHA_SITE_KEY) {
+        recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
+      }
+
+      // 2️⃣ Envoie le formulaire + token à l’API
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       });
       const result = await res.json();
       if (result.success) {
         setSuccess(true);
-        setShowRedirectMsg(true); // 👈 Affiche le message de confirmation + redirection à venir
+        setShowRedirectMsg(true);
         setForm({
           lastname: "",
           firstname: "",
@@ -130,8 +158,7 @@ function ContactForm() {
       setError("Erreur réseau, veuillez réessayer.");
     }
   };
-
-  return (
+    return (
     <div className="wrapper-982-black">
       <section id="footer-contact-form" className="contact__form section-height90 ">
         <h2 className="contact__title title">Formulaire de contact</h2>
@@ -183,8 +210,6 @@ function ContactForm() {
               {validationErrors.terms && <p className="form__error" role="alert">{validationErrors.terms}</p>}
             </fieldset>
 
-            {/* Recaptcha à intégrer ici si besoin */}
-
             {/* Message feedback UX */}
             {error && <p className="form__error" role="alert">{error}</p>}
             {success === true && <p className="form__success" role="status">Votre message a bien été envoyé 🎉</p>}
@@ -207,3 +232,4 @@ function ContactForm() {
 }
 
 export default ContactForm;
+{/* Le token reCaptcha V3 est injecté par JS, rien à mettre ici */}

@@ -24,6 +24,6 @@
     "checkJs": false,
     "noEmit": true
   },
-  "include": ["src", "src/env.d.ts"],
+  "include": ["src", "src/env.d.ts", "public/js/testimonials/handleTestimonialClick.ts"],
   "exclude": ["dist", "node_modules"]
 }
