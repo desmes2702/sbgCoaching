@@ -117,7 +117,7 @@ function ContactForm() {
       if (validationErrors[k]) hasError = true;
     });
     if (hasError || !isFormValid) {
-      setError("Merci de corriger les erreurs avant d’envoyer.");
+      setError("Merci de corriger les erreurs avant d'envoyer.");
       return;
     }
 
@@ -128,7 +128,7 @@ function ContactForm() {
         recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
       }
 
-      // 2️⃣ Envoie le formulaire + token à l’API
+      // 2️⃣ Envoie le formulaire + token à l'API
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -151,7 +151,7 @@ function ContactForm() {
         return;
       } else {
         setSuccess(false);
-        setError(result.error || "Erreur lors de l’envoi.");
+        setError(result.error || "Erreur lors de l'envoi.");
       }
     } catch (err) {
       setSuccess(false);

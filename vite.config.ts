@@ -3,7 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import postcssPresetEnv from 'postcss-preset-env';
 import cssnano from 'cssnano';
-import { visualizer } from 'rollup-plugin-visualizer'; // 👈 AJOUT ICI
+import { visualizer } from 'rollup-plugin-visualizer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -11,12 +11,11 @@ const __dirname = dirname(__filename);
 export default defineConfig({
   plugins: [
     visualizer({
-      open: true, // Ouvre le rapport dans ton navigateur à la fin du build
-      filename: 'dist/stats.html', // Tu peux changer l’emplacement si tu veux
+      filename: 'stats.html',
+      open: true,
       gzipSize: true,
-      brotliSize: true,
+      brotliSize: true
     })
-    // ...d'autres plugins ici si besoin
   ],
   server: {
     open: true,
@@ -45,19 +44,13 @@ export default defineConfig({
     },
     postcss: {
       plugins: [
-        postcssPresetEnv({
-          features: {
-            'nesting-rules': true
-          }
-        }),
+        postcssPresetEnv(),
         cssnano({
           preset: ['default', {
             discardComments: {
               removeAll: true
             },
-            normalizeWhitespace: true,
-            minifyFontValues: true,
-            minifyGradients: true
+            normalizeWhitespace: true
           }]
         })
       ]
@@ -76,14 +69,15 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor': ['react', 'react-dom'],
-          'styles': ['@/scss/main.scss']
+          'react-vendor': ['react', 'react-dom'],
+          'ui-vendor': ['@astrojs/react']
         },
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]'
       }
     },
+    cssMinify: true,
     cssCodeSplit: false,
     sourcemap: false,
     target: 'esnext',

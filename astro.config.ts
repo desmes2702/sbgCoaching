@@ -4,6 +4,8 @@ import node from '@astrojs/node';
 import vercel from '@astrojs/vercel';
 import netlify from '@astrojs/netlify';
 import viteConfig from './vite.config.ts';
+import compress from 'astro-compress';
+import compressConfig from './compress.config.js';
 
 // Détermine l'environnement
 const isVercel = process.env.VERCEL === '1';
@@ -17,9 +19,11 @@ const getAdapter = () => {
 };
 
 export default defineConfig({
-  integrations: [react()],
+  integrations: [
+    react(),
+    compress(compressConfig)
+  ],
   adapter: getAdapter(),
-  vite: {
-    ...viteConfig,
-  },
+  vite: viteConfig,
+  output: 'server'
 });

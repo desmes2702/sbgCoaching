@@ -10,7 +10,7 @@ const faq = [
   },
   {
     question: "Comment vais-je gérer la fatigue et les courbatures ?",
-    answer: "Pour mieux gérer la fatigue et les courbatures, il est essentiel d’inclure des périodes de récupération dans votre routine d'entraînement. Assurez-vous de bien vous hydrater, de pratiquer des étirements après chaque séance et d’intégrer des techniques comme le massage ou les bains chauds pour soulager les tensions musculaires. Une bonne qualité de sommeil et une alimentation riche en protéines et en nutriments essentiels contribuent également à une meilleure récupération.",
+    answer: "Pour mieux gérer la fatigue et les courbatures, il est essentiel d'inclure des périodes de récupération dans votre routine d'entraînement. Assurez-vous de bien vous hydrater, de pratiquer des étirements après chaque séance et d'intégrer des techniques comme le massage ou les bains chauds pour soulager les tensions musculaires. Une bonne qualité de sommeil et une alimentation riche en protéines et en nutriments essentiels contribuent également à une meilleure récupération.",
   },
   {
     question: "Que dois-je changer dans mon alimentation pour maximiser les résultats ?",
@@ -39,3 +39,11 @@ const faq = [
     </div>
   </section>
 </div>
+
+
+<!-- Le script est ici car il ne fonctionne pas avec le client:load et doit être chargé après le DOM pour les intéractions -->
+<script>
+import { initFAQ } from "../../js/global/_faq";
+
+document.addEventListener('DOMContentLoaded', initFAQ);
+</script>
