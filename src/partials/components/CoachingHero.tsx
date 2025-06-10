@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from "react";
-import { heroData } from "@/js/data/heroData";
+import { useEffect, useState, useRef, useMemo } from "react";
+import { testimonials } from "@/js/data/__data";
 import LinksSocial from "@partials/components/LinksSocial";
 
 interface HeroContent {
@@ -20,28 +20,66 @@ interface HeroProps {
 }
 
 const CoachingHero: React.FC<HeroProps> = ({ page }) => {
-  const totalSlides: number = heroData[page].length;
+  // Filtrer les témoignages selon la page et mémoriser les slides
+  const slides = useMemo(() => {
+    const pageTestimonials = testimonials.filter(t => t.key === page);
+    
+    return [
+      {
+        id: `${page}-slide-1`,
+        title: `Coaching sportif <span>_${page === "entreprise" ? "Entreprise" : "Général"}</span>`,
+        paragraphs: [
+          page === "entreprise" 
+            ? "Dans le monde professionnel moderne, la productivité et le bien-être des employés sont plus interconnectés que jamais."
+            : "Retrouvez la forme, gagnez en énergie et atteignez vos objectifs personnels.",
+          page === "entreprise"
+            ? "Reconnaissant cette réalité, le coaching en entreprise émerge comme une solution incontournable pour les organisations visant l'excellence."
+            : "Avec un accompagnement sur-mesure, le coaching s'adapte à vous, pas l'inverse."
+        ],
+        backgroundMain: `/img/${page}/${page}__post1.webp`,
+        backgroundThumbnail: `/img/${page}/${page}__post1-thumb.webp`
+      },
+      ...pageTestimonials.slice(0, 2).map((testimonial, index) => ({
+        id: `${page}-testimonial-${index + 1}`,
+        title: testimonial.name,
+        paragraphs: [testimonial.text[0]],
+        backgroundMain: testimonial.photo,
+        backgroundThumbnail: `/img/${page}/${page}__post${index + 2}-thumb.webp`,
+        link: {
+          href: "/testimonials",
+          label: "Lire le témoignage"
+        }
+      }))
+    ];
+  }, [page]); // Ne recalculer que si la page change
+
+  const totalSlides: number = slides.length;
   const [index, setIndex] = useState<number>(0);
-  const [main, setMain] = useState<HeroContent>(heroData[page][0]);
+  const [main, setMain] = useState<HeroContent>(slides[0]);
   const [secondary, setSecondary] = useState<HeroContent[]>(
-    heroData[page].filter((_, i) => i !== 0)
+    slides.filter((_, i: number) => i !== 0)
   );
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Fonction pour trouver l'index d'un élément par son ID
+  const findIndexById = (id: string | undefined): number => {
+    if (!id) return -1;
+    return slides.findIndex((item: HeroContent) => item.id === id);
+  };
 
   const next = () => setIndex((current) => (current + 1) % totalSlides);
   const prev = () => setIndex((current) => (current - 1 + totalSlides) % totalSlides);
 
   useEffect(() => {
-    const newMain = heroData[page][index];
-    const newSecondary = heroData[page].filter((_, i) => i !== index);
+    const newMain = slides[index];
+    const newSecondary = slides.filter((_, i: number) => i !== index);
     setMain(newMain);
     setSecondary(newSecondary);
 
-    // Volume vidéo spécifique, si besoin
     if (page === "entreprise" && index === 1 && videoRef.current) {
       videoRef.current.volume = 0.5;
     }
-  }, [index, page]);
+  }, [index, page, slides]);
 
   const isTestimonial = main.link?.href === "/testimonials";
   const isVideo = !!main.video;
@@ -91,7 +129,7 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
               aria-live="polite"
             >
               <span className="visually-hidden">
-                Slide actif : {main.title.replace(/<[^>]+>/g, "")}
+                Slide actif : {main.title.replace(/<[^>]+>/g, "")}
               </span>
 
               {isVideo ? (
@@ -116,7 +154,7 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
                   {main.link && (
                     <p>
                       <a
-                      className="link-underline-replay"
+                        className="link-underline-replay"
                         href={main.link.href}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -169,14 +207,14 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
           <div className="coaching__hero-col2">
             <h2 tabIndex={0}>Actualité</h2>
             {secondary.map((item, i) => {
-              const realIndex = heroData[page].findIndex((d) => d.id === item.id);
-              const isSelected = index === realIndex;
+              const itemIndex = findIndexById(item.id);
+              const isSelected = index === itemIndex;
               return (
                 <div
                   aria-hidden={!isSelected}
                   key={item.id ?? `secondary-${i}`}
-                  onClick={() => setIndex(realIndex > -1 ? realIndex : 0)}
-                  onKeyDown={(e) => handleThumbnailKey(e, realIndex)}
+                  onClick={() => setIndex(itemIndex > -1 ? itemIndex : 0)}
+                  onKeyDown={(e) => handleThumbnailKey(e, itemIndex > -1 ? itemIndex : 0)}
                   className={`coaching__hero__content coaching__hero__content-secondary coaching__hero__content-secondary-${i + 1}`}
                   style={
                     item.backgroundThumbnail
@@ -185,7 +223,7 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
                   }
                   role="button"
                   tabIndex={0}
-                  aria-label={`Aller au slide ${realIndex + 1} : ${item.title.replace(/<[^>]+>/g, "")}`}
+                  aria-label={`Aller au slide ${itemIndex + 1} : ${item.title.replace(/<[^>]+>/g, "")}`}
                   aria-current={isSelected ? "true" : undefined}
                 />
               );

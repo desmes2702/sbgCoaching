@@ -53,6 +53,7 @@ export const testimonials = [
   {
     name: "LABEYE et LALLEMEND",
     job: "Étude des Notaires",
+    key: "entreprise",
     photo: "/img/testimonials/testimonial__labeyeLallemend.webp",
     text: [
       "Ces séances sont notre moment pour souffler. Elles nous permettent de déconnecter du travail, d’évacuer le stress et de retrouver de l’énergie.",
@@ -64,6 +65,7 @@ export const testimonials = [
   {
     name: "Christian",
     job: null,
+    key: "general",
     photo: "/img/testimonials/testimonial__christian.webp",
     text: [
       "Quand j’ai franchi les portes de la salle pour la première fois, j’étais rempli de doutes. Je voulais me (re)mettre au sport, mais je ne savais ni par où commencer ni comment utiliser les machines correctement.",
@@ -76,6 +78,7 @@ export const testimonials = [
   {
     name: "Justin",
     job: null,
+    key: "general",
     photo: "/img/testimonials/testimonial__justin.webp",
     featured: true,
     text: [
@@ -88,6 +91,7 @@ export const testimonials = [
   {
     name: "Moïra PLENVAUX & Thérèse de NIJS",
     job: null,
+    key: "entreprise",
     photo: "/img/testimonials/testimonial__plenevauxNijs.webp",
     text: [
       "L’approche du coach est rassurante : il adapte chaque mouvement en fonction de nos besoins et veille à notre bien-être. Cela rend les séances accessibles à tous et améliore notre confort au quotidien.",
@@ -98,6 +102,7 @@ export const testimonials = [
   {
     name: "UDH SPRL",
     job: null,
+    key: "entreprise",
     photo: "/img/testimonials/testimonial__udhSprl.webp",
     text: [
       "Les cours de sport nous permettent de décompresser après notre journée de travail.",
@@ -109,6 +114,7 @@ export const testimonials = [
   {
     name: "Tiffany - Duchêne SA",
     job: "Chargée de communication",
+    key: "entreprise",
     photo: "/img/testimonials/testimonial__ducheneSa.webp",
     text: [
       "Je voulais juste vous dire un grand merci pour ces super séances de circuit training chaque semaine ! C’est vraiment une chance de pouvoir participer à des cours directement au sein de l’entreprise.",
@@ -121,6 +127,7 @@ export const testimonials = [
   {
     name: "Alice",
     job: null,
+    key: "general",
     photo: "/img/testimonials/testimonial__alice.webp",
     text: [
       "Après 6 mois de travail à raison de 2 séances/semaine et un petit rééquilibrage alimentaire, quel changement ! Mes douleurs ont disparu, mon corps s’est resculpté, j’ai perdu 10 kg et pris du muscle.",
