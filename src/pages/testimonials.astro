@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import TestimonialNew from "@partials/testimonials/TestimonialNew.astro";
-import TestimonialsLast from "@partials/testimonials/TestimonialsLast.astro";
+import TestimonialsList from "@partials/testimonials/TestimonialsList"; // ⚠️ nouveau wrapper TSX
 import TestimonialsSubmit from "@partials/testimonials/TestimonialsSubmit.astro";
 import LazyFadeIn from "@partials/performance/LazyFadeIn";
 ---
@@ -13,19 +13,18 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn";
   dataVariant="black"
   seo={{
     url: "https://sbgcoaching.be/testimonials",
-  /*   image: "/img/og-testimonials.webp", */ // à générer si besoin
     schemaType: "Review"
   }}
 >
-
   <main class="main">
     <TestimonialNew />
+    
     <LazyFadeIn client:load>
-    <TestimonialsLast />
+      <TestimonialsList client:idle />
     </LazyFadeIn>
+
     <LazyFadeIn client:load>
-    <TestimonialsSubmit />
+      <TestimonialsSubmit />
     </LazyFadeIn>
   </main>
-
 </BaseLayout>
