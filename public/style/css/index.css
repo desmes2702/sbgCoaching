@@ -47,29 +47,27 @@
   font-style: normal;
   font-display: swap;
 }
-.thanks__container {
+.form__container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  width: 100%;
+  max-width: 600px !important;
 }
 @media (max-width: 40.5625rem) {
-  .thanks__container {
+  .form__container {
     min-height: calc(100vh - 230.19px - 96px);
   }
 }
 @media (min-width: 40.625rem) {
-  .thanks__container {
+  .form__container {
     min-height: calc(100vh - 156.59px - 87px);
   }
 }
-.thanks__container > * {
-  color: white;
-  text-align: center;
+.form__container .form__question__group, .form__container fieldset {
+  border: none;
 }
-.thanks__container .title {
-  margin-bottom: 1rem;
-}/*# sourceMappingURL=index.css.map */io], .form__container fieldset input[type=radio] {
+.form__container .form__question__group input[type=radio], .form__container fieldset input[type=radio] {
   position: relative;
   width: 16px;
   height: 16px;
@@ -558,6 +556,10 @@
   background-repeat: no-repeat;
   border-radius: 3px;
 }/*# sourceMappingURL=index.css.map */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content min-content;
+    place-content: center flex-start;
   }
   .coaching__entrerpise__perfo > h2 {
     max-width: 100%;
@@ -575,11 +577,7 @@
   .coaching__entrerpise__perfo__col1, .coaching__entrerpise__perfo__col2 {
     grid-row: 2;
   }
-}/*# sourceMappingURL=index.css.map */  .coaching__hero-col2 {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 354px));
-    grid-column-gap: 2rem;
-    align-items: flex-start;
+}/*# sourceMappingURL=index.css.map */: flex-start;
   }
   .coaching__hero-col2 > h2 {
     grid-column: 1;
@@ -590,6 +588,9 @@
     grid-row: 3;
     align-items: flex-start;
     margin: 0;
+  }
+  .coaching__hero-col2 .coaching__hero__content-secondary-1, .coaching__hero-col2 .coaching__hero__content-secondary-2 {
+    grid-row: 1;
   }
 }
 @media (min-width: 64rem) {

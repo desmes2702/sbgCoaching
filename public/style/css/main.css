@@ -2549,6 +2549,9 @@ label {
     align-items: flex-start;
     margin: 0;
   }
+  .coaching__hero-col2 .coaching__hero__content-secondary-1, .coaching__hero-col2 .coaching__hero__content-secondary-2 {
+    grid-row: 1;
+  }
 }
 @media (min-width: 64rem) {
   .coaching__hero {
