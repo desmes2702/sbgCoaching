@@ -23,6 +23,9 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
   // Filtrer les témoignages selon la page et mémoriser les slides
   const slides = useMemo(() => {
     const pageTestimonials = testimonials.filter(t => t.key === page);
+
+    console.log(pageTestimonials);
+    console.log(page);
     
     return [
       {
@@ -36,7 +39,7 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
             ? "Reconnaissant cette réalité, le coaching en entreprise émerge comme une solution incontournable pour les organisations visant l'excellence."
             : "Avec un accompagnement sur-mesure, le coaching s'adapte à vous, pas l'inverse."
         ],
-        backgroundMain: `/img/${page}/${page}__post1.webp`,
+        backgroundMain: `/img/${page}/${page}__post1-main.webp`,
         backgroundThumbnail: `/img/${page}/${page}__post1-thumb.webp`
       },
       ...pageTestimonials.slice(0, 2).map((testimonial, index) => ({

@@ -79,7 +79,7 @@ export const heroData: HeroDataType = {
         "Retrouvez la forme, gagnez en énergie et atteignez vos objectifs personnels.",
         "Avec un accompagnement sur-mesure, le coaching s’adapte à vous, pas l’inverse."
       ],
-      backgroundMain: "/img/general/general__post1.webp",
+      backgroundMain: "/img/general/general__post1-main.webp",
       backgroundThumbnail:"/img/general/general__post1-thumb.webp"
     },
     {
