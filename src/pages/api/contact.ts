@@ -1,4 +1,5 @@
 export const prerender = false;
+console.log("📨 Nouvelle requête POST /api/contact");
 
 import type { APIRoute } from "astro";
 import nodemailer from "nodemailer";
