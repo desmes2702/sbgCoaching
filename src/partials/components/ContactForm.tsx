@@ -125,8 +125,10 @@ function ContactForm() {
       // 1️⃣ Récupère le token reCaptcha V3
       let recaptchaToken = "";
       if (window.grecaptcha && RECAPTCHA_SITE_KEY) {
+        await new Promise<void>((resolve) => window.grecaptcha.ready(resolve));
         recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
       }
+
 
       // 2️⃣ Envoie le formulaire + token à l'API
       const res = await fetch("/api/contact", {
@@ -221,9 +223,7 @@ function ContactForm() {
               className={`contact__button button button-red ${isFormValid ? '' : 'button-disabled'}`}
               aria-label="Envoyer le formulaire de contact"
               disabled={!isFormValid}
-              data-sitekey="RECAPTCHA_SITE_KEY" 
-              data-callback='onSubmit' 
-              data-action='submit'>
+            >
           
               Envoyer
             </button>

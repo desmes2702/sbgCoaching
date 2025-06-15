@@ -3,7 +3,7 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import nodemailer from "nodemailer";
 
-// Charge les variables d'env
+// Variables d'environnement
 const SMTP_USER = import.meta.env.SMTP_USER;
 const SMTP_PASS = import.meta.env.SMTP_PASS;
 const RECAPTCHA_SECRET_KEY = import.meta.env.RECAPTCHA_SECRET_KEY;
@@ -30,18 +30,32 @@ export const POST: APIRoute = async ({ request }) => {
   });
 
   const captchaData = await captchaRes.json();
-  if (!captchaData.success || (captchaData.score !== undefined && captchaData.score < 0.5)) {
+
+  // 👁️ Logger utile pour debug (optionnel)
+  console.log("reCAPTCHA v3", {
+    score: captchaData.score,
+    action: captchaData.action,
+    hostname: captchaData.hostname,
+  });
+
+  // ✅ Vérifications agence++
+  if (
+    !captchaData.success ||
+    (captchaData.score !== undefined && captchaData.score < 0.5) ||
+    captchaData.action !== "submit" ||
+    (captchaData.hostname && captchaData.hostname !== "sbgcoaching.be")
+  ) {
     return new Response(JSON.stringify({ success: false, error: "Échec reCaptcha." }), { status: 403 });
   }
 
-  // 2️⃣ Envoi du mail
+  // 2️⃣ Envoi du mail via Mailjet (SMTP)
   const transporter = nodemailer.createTransport({
     host: "in-v3.mailjet.com",
     port: 587,
     secure: false,
     auth: {
-      user: SMTP_USER, // clé API depuis .env
-      pass: SMTP_PASS, // clé secrète depuis .env
+      user: SMTP_USER,
+      pass: SMTP_PASS,
     },
   });
 
