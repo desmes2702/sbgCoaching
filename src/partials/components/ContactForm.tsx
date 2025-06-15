@@ -221,7 +221,10 @@ function ContactForm() {
               className={`contact__button button button-red ${isFormValid ? '' : 'button-disabled'}`}
               aria-label="Envoyer le formulaire de contact"
               disabled={!isFormValid}
-            >
+              data-sitekey="RECAPTCHA_SITE_KEY" 
+              data-callback='onSubmit' 
+              data-action='submit'>
+          
               Envoyer
             </button>
           </div>

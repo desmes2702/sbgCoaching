@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import { testimonials } from "@/js/data/__data";
+import { heroData } from "@/js/data/heroData";
+import { testimonials } from "@/js/data/testimonialsData";
 import LinksSocial from "@partials/components/LinksSocial";
 
 interface HeroContent {
+  id: string;
   title: string;
-  paragraphs: string[];
+  paragraphs?: string[];
   backgroundMain?: string;
   backgroundThumbnail?: string;
   video?: string;
@@ -12,7 +14,6 @@ interface HeroContent {
     href: string;
     label: string;
   };
-  id?: string;
 }
 
 interface HeroProps {
@@ -20,107 +21,94 @@ interface HeroProps {
 }
 
 const CoachingHero: React.FC<HeroProps> = ({ page }) => {
-  // Filtrer les témoignages selon la page et mémoriser les slides
-  const slides = useMemo(() => {
-    const pageTestimonials = testimonials.filter(t => t.key === page);
+  const slides: HeroContent[] = useMemo(() => {
+    const baseSlides = heroData[page] || [];
 
-    console.log(pageTestimonials);
-    console.log(page);
-    
-    return [
-      {
-        id: `${page}-slide-1`,
-        title: `Coaching sportif <span>_${page === "entreprise" ? "Entreprise" : "Général"}</span>`,
-        paragraphs: [
-          page === "entreprise" 
-            ? "Dans le monde professionnel moderne, la productivité et le bien-être des employés sont plus interconnectés que jamais."
-            : "Retrouvez la forme, gagnez en énergie et atteignez vos objectifs personnels.",
-          page === "entreprise"
-            ? "Reconnaissant cette réalité, le coaching en entreprise émerge comme une solution incontournable pour les organisations visant l'excellence."
-            : "Avec un accompagnement sur-mesure, le coaching s'adapte à vous, pas l'inverse."
-        ],
-        backgroundMain: `/img/${page}/${page}__post1-main.webp`,
-        backgroundThumbnail: `/img/${page}/${page}__post1-thumb.webp`
-      },
-      ...pageTestimonials.slice(0, 2).map((testimonial, index) => ({
-        id: `${page}-testimonial-${index + 1}`,
-        title: testimonial.name,
-        paragraphs: [testimonial.text[0]],
-        backgroundMain: testimonial.photo,
-        backgroundThumbnail: `/img/${page}/${page}__post${index + 2}-thumb.webp`,
-        link: {
-          href: "/testimonials",
-          label: "Lire le témoignage"
-        }
-      }))
-    ];
-  }, [page]); // Ne recalculer que si la page change
+    const featuredTestimonials: Record<"general", string[]> = {
+      general: ["christian-6", "justin-5"]
+    };
 
-  const totalSlides: number = slides.length;
-  const [index, setIndex] = useState<number>(0);
-  const [main, setMain] = useState<HeroContent>(slides[0]);
-  const [secondary, setSecondary] = useState<HeroContent[]>(
-    slides.filter((_, i: number) => i !== 0)
-  );
+    const pageTestimonials =
+      page === "general"
+        ? featuredTestimonials.general
+            .map((id) => testimonials.find((t) => t.id === id))
+            .filter((t): t is NonNullable<typeof t> => !!t)
+            .map((t, i) => ({
+              id: `general-testimonial-${i + 1}`,
+              title: t.name,
+              paragraphs: [t.text[0]],
+              backgroundMain: t.photo,
+              backgroundThumbnail: t.thumbnail || t.photo,
+              link: {
+                href: "/testimonials",
+                label: "Lire le témoignage"
+              }
+            }))
+        : [];
+
+    const finalSlides =
+      page === "general"
+        ? [baseSlides[0], ...pageTestimonials]
+        : baseSlides;
+
+    console.log(`[HERO - ${page}] Slides utilisés :`, finalSlides.map((s) => s.title));
+    return finalSlides;
+  }, [page]);
+
+  const [index, setIndex] = useState(0);
+  const totalSlides = slides.length;
+  const main = slides[index];
+  const secondary = slides.filter((_, i) => i !== index);
+
+  const isVideo = !!main.video;
+  const isTestimonial = main.link?.href === "/testimonials";
+
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Fonction pour trouver l'index d'un élément par son ID
-  const findIndexById = (id: string | undefined): number => {
-    if (!id) return -1;
-    return slides.findIndex((item: HeroContent) => item.id === id);
-  };
-
-  const next = () => setIndex((current) => (current + 1) % totalSlides);
-  const prev = () => setIndex((current) => (current - 1 + totalSlides) % totalSlides);
+  const mainContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const newMain = slides[index];
-    const newSecondary = slides.filter((_, i: number) => i !== index);
-    setMain(newMain);
-    setSecondary(newSecondary);
-
     if (page === "entreprise" && index === 1 && videoRef.current) {
       videoRef.current.volume = 0.5;
     }
-  }, [index, page, slides]);
+  }, [index, page]);
 
-  const isTestimonial = main.link?.href === "/testimonials";
-  const isVideo = !!main.video;
-
-  // Gestion du focus automatique sur le slide actif
-  const mainContentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     mainContentRef.current?.focus();
   }, [index]);
 
-  // Fonction pour gérer Enter/Space sur miniatures
+  const next = () => setIndex((i) => (i + 1) % totalSlides);
+  const prev = () => setIndex((i) => (i - 1 + totalSlides) % totalSlides);
+
+  const findIndexById = (id: string | undefined): number =>
+    id ? slides.findIndex((s) => s.id === id) : -1;
+
   const handleThumbnailKey = (e: React.KeyboardEvent, targetIndex: number) => {
     if (e.key === "Enter" || e.key === " ") {
       setIndex(targetIndex);
     }
   };
 
+  if (!slides.length || !slides[index]) return null;
+
   return (
     <div className="wrapper-1440" id="page__coaching__wrapper__hero">
       <section
         className="coaching__hero"
         role="region"
-        aria-label={`Section de présentation coaching ${page === "entreprise" ? "entreprise" : "général"}`}
+        aria-label={`Section de présentation coaching ${page}`}
       >
         <div className="coaching__hero-col1">
           <div className="coaching__hero__content">
             <div
-              id={`${page}-slide-${index + 1}`}
+              id={main.id}
               className={[
                 "coaching__hero__content__bck",
                 `coaching__hero__content-bck${index + 1}`,
                 isVideo ? "is-video" : "",
-                isTestimonial ? "is-testimonial" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
+                isTestimonial ? "is-testimonial" : ""
+              ].join(" ")}
               style={
-                page === "entreprise" && index === 1 && isVideo
+                isVideo && page === "entreprise" && index === 1
                   ? {}
                   : main.backgroundMain
                   ? { backgroundImage: `url(${main.backgroundMain})` }
@@ -144,13 +132,17 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
                     loop
                     playsInline
                     controls
-                    aria-hidden="true"
                     preload="none"
+                    aria-hidden="true"
                   />
                 </div>
               ) : (
                 <>
-                  <h2 className="title" tabIndex={0} dangerouslySetInnerHTML={{ __html: main.title }} />
+                  <h2
+                    className="title"
+                    tabIndex={0}
+                    dangerouslySetInnerHTML={{ __html: main.title }}
+                  />
                   {main.paragraphs?.map((p, i) => (
                     <p key={i}>{p}</p>
                   ))}
@@ -174,15 +166,9 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
                   onClick={prev}
                   aria-label="Slide précédent"
                   className="hero__nav hero__nav--left"
-                  tabIndex={0}
                   type="button"
                 />
-                <span
-                  className="hero__index"
-                  aria-live="polite"
-                  aria-atomic="true"
-                  tabIndex={0}
-                >
+                <span className="hero__index" aria-live="polite" aria-atomic="true" tabIndex={0}>
                   {index + 1}
                 </span>
                 <span className="hero__index-slash" aria-hidden="true">/{totalSlides}</span>
@@ -190,14 +176,13 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
                   onClick={next}
                   aria-label="Slide suivant"
                   className="hero__nav hero__nav--right"
-                  tabIndex={0}
                   type="button"
                 />
               </div>
 
               {!isVideo && (
                 <div className="hero__content__cta">
-                  <a href="/contact" className="button button-red ">
+                  <a href="/contact" className="button button-red">
                     Prendre rdv
                   </a>
                 </div>
@@ -212,18 +197,18 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
             {secondary.map((item, i) => {
               const itemIndex = findIndexById(item.id);
               const isSelected = index === itemIndex;
+
               return (
                 <div
+                  key={item.id}
                   aria-hidden={!isSelected}
-                  key={item.id ?? `secondary-${i}`}
-                  onClick={() => setIndex(itemIndex > -1 ? itemIndex : 0)}
-                  onKeyDown={(e) => handleThumbnailKey(e, itemIndex > -1 ? itemIndex : 0)}
+                  onClick={() => setIndex(itemIndex)}
+                  onKeyDown={(e) => handleThumbnailKey(e, itemIndex)}
                   className={`coaching__hero__content coaching__hero__content-secondary coaching__hero__content-secondary-${i + 1}`}
-                  style={
-                    item.backgroundThumbnail
-                      ? { backgroundImage: `url(${item.backgroundThumbnail})`, cursor: "pointer" }
-                      : { cursor: "pointer" }
-                  }
+                  style={{
+                    backgroundImage: `url(${item.backgroundThumbnail})`,
+                    cursor: "pointer"
+                  }}
                   role="button"
                   tabIndex={0}
                   aria-label={`Aller au slide ${itemIndex + 1} : ${item.title.replace(/<[^>]+>/g, "")}`}

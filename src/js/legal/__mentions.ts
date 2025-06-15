@@ -1,6 +1,6 @@
 // ✅ __mentions.ts (anciennement __mentions.js)
 
-import { companyInfos } from "@/js/data/__data";
+import { companyInfos } from "@/js/data/CompanyData";
 
 export function injectLegalContent(): void {
   const container = document.getElementById("legal-dynamic-content");

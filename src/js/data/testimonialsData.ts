@@ -6,6 +6,7 @@ export interface TestimonialType {
   key: "entreprise" | "general";
   featured?: boolean;
   text: string[];
+  thumbnail?: string; // ✅ Ajouté
 }
 
 export const testimonials: TestimonialType[] = [
@@ -65,8 +66,9 @@ export const testimonials: TestimonialType[] = [
     name: "Justin",
     job: null,
     photo: "/img/testimonials/testimonial__justin.webp",
-    featured: true,
+    thumbnail: "/img/general/general__post3-thumb.webp", // ✅ Miniature Hero
     key: "general",
+    featured: true,
     text: [
       "Chaque semaine, il ajustait mes programmes en tenant compte de tous les aspects : repos, entraînements, alimentation et étirements.",
       "Ce que j’ai particulièrement apprécié, c’est sa capacité à être à l’écoute, à motiver sans jamais juger, et à trouver des solutions adaptées à chaque situation.",
@@ -79,6 +81,7 @@ export const testimonials: TestimonialType[] = [
     name: "Christian",
     job: null,
     photo: "/img/testimonials/testimonial__christian.webp",
+    thumbnail: "/img/general/general__post2-thumb.webp", // ✅ Miniature Hero
     key: "general",
     text: [
       "Quand j’ai franchi les portes de la salle pour la première fois, j’étais rempli de doutes. Je voulais me (re)mettre au sport, mais je ne savais ni par où commencer ni comment utiliser les machines correctement.",
