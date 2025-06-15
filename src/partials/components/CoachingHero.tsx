@@ -29,22 +29,22 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
     };
 
     const pageTestimonials =
-      page === "general"
-        ? featuredTestimonials.general
-            .map((id) => testimonials.find((t) => t.id === id))
-            .filter((t): t is NonNullable<typeof t> => !!t)
-            .map((t, i) => ({
-              id: `general-testimonial-${i + 1}`,
-              title: t.name,
-              paragraphs: [t.text[0]],
-              backgroundMain: t.photo,
-              backgroundThumbnail: t.thumbnail || t.photo,
-              link: {
-                href: "/testimonials",
-                label: "Lire le témoignage"
-              }
-            }))
-        : [];
+    page === "general"
+    ? featuredTestimonials.general
+        .map((id) => testimonials.find((t) => t.id === id))
+        .filter((t): t is NonNullable<typeof t> => !!t)
+        .map((t) => ({
+          id: `testimonial-${t.id}`,
+          title: t.name,
+          paragraphs: [t.text[0]],
+          backgroundMain: t.photo,
+          backgroundThumbnail: t.thumbnail || t.photo,
+          link: {
+            href: `/testimonials#${t.id}`,
+            label: "Lire le témoignage"
+          }
+        }))
+    : [];
 
     const finalSlides =
       page === "general"
@@ -61,7 +61,7 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
   const secondary = slides.filter((_, i) => i !== index);
 
   const isVideo = !!main.video;
-  const isTestimonial = main.link?.href === "/testimonials";
+  const isTestimonial = main.id.startsWith("testimonial-"); // 👈 garanti
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const mainContentRef = useRef<HTMLDivElement>(null);
@@ -151,8 +151,6 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
                       <a
                         className="link-underline-replay"
                         href={main.link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
                       >
                         {main.link.label}
                       </a>

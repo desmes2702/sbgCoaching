@@ -22,13 +22,14 @@ const TestimonialsLast: FC<Props> = ({ testimonial, index, activeIndex, setActiv
 
   return (
     <article
-      className={`testimonial__item ${isActive ? " testimonial__item--active" : ""}`}
+      id={testimonial.id}
+      className={`testimonial__item${isActive ? " testimonial__item--active" : ""}`}
       role="listitem"
       aria-labelledby={titleId}
-      style={{ opacity: activeIndex === null || isActive ? 1 : 0.5, }}
+      style={{ opacity: activeIndex === null || isActive ? 1 : 0.5 }}
     >
       <div className="testimonial__item__stack">
-        <div className={`testimonial__item__cover`}>
+        <div className="testimonial__item__cover">
           <div
             className="testimonial__item__image"
             style={{ backgroundImage: `url('${testimonial.photo}')` }}
@@ -51,7 +52,7 @@ const TestimonialsLast: FC<Props> = ({ testimonial, index, activeIndex, setActiv
           id={id}
           aria-live="polite"
           role="region"
-          ref={contentRef} 
+          ref={contentRef}
           style={{ overflowY: "auto" }}
         >
           <button
