@@ -10,7 +10,7 @@ declare global {
 const AUTO_SAVE_KEY = "sbg_contact_form_draft";
 const COMPLETION_TIME = "2 min pour remplir ce formulaire";
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY ?? "";
-console.log("🔑 Clé site (client) chargée :", RECAPTCHA_SITE_KEY);
+/* console.log("🔑 Clé site (client) chargée :", RECAPTCHA_SITE_KEY); */
 
 function ContactForm() {
   const [form, setForm] = useState({

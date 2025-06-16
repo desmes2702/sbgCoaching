@@ -10,7 +10,7 @@ const SMTP_PORT = import.meta.env.SMTP_PORT;
 const SMTP_USER = import.meta.env.SMTP_USER;
 const SMTP_PASS = import.meta.env.SMTP_PASS;
 const RECAPTCHA_SECRET_KEY = import.meta.env.RECAPTCHA_SECRET_KEY;
-console.log("🔐 Clé serveur :", process.env.RECAPTCHA_SECRET_KEY);
+/* console.log("🔐 Clé serveur :", process.env.RECAPTCHA_SECRET_KEY); */
 export const POST: APIRoute = async ({ request }) => {
   let body;
   try {
