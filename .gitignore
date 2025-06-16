@@ -53,3 +53,4 @@ public.zip
 dist/
 dist/stats.html
 lighthouse/
+.env.local
