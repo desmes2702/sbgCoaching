@@ -8,7 +8,8 @@ declare global {
 
 const AUTO_SAVE_KEY = "sbg_contact_form_draft";
 const COMPLETION_TIME = "2 min pour remplir ce formulaire";
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY ?? "";
+console.log("🔑 Clé site (client) chargée :", RECAPTCHA_SITE_KEY);
 
 function ContactForm() {
   const [form, setForm] = useState({
@@ -28,7 +29,6 @@ function ContactForm() {
   const [isFormValid, setIsFormValid] = useState(false);
   const [showRedirectMsg, setShowRedirectMsg] = useState(false);
 
-  // Autosave/load
   useEffect(() => {
     const saved = localStorage.getItem(AUTO_SAVE_KEY);
     if (saved) setForm(JSON.parse(saved));
@@ -38,14 +38,12 @@ function ContactForm() {
     localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify(form));
   }, [form]);
 
-  // Validation globale
   useEffect(() => {
     const noErrors = Object.values(validationErrors).every((e) => !e);
     const allRequiredFilled = Boolean(form.lastname && form.firstname && form.email && form.message && form.terms);
     setIsFormValid(noErrors && allRequiredFilled);
   }, [validationErrors, form]);
 
-  // Redirection après succès
   useEffect(() => {
     if (showRedirectMsg) {
       const timer = setTimeout(() => {
@@ -55,7 +53,6 @@ function ContactForm() {
     }
   }, [showRedirectMsg]);
 
-  // Charge le script reCAPTCHA v3
   useEffect(() => {
     if (!RECAPTCHA_SITE_KEY) return;
     if (document.getElementById("recaptcha-script")) return;
@@ -112,7 +109,6 @@ function ContactForm() {
 
     if (form.honeypot) return;
 
-    // Validation finale
     let hasError = false;
     Object.entries(form).forEach(([k, v]) => {
       validateField(k, v);
@@ -125,8 +121,9 @@ function ContactForm() {
 
     try {
       let recaptchaToken = "";
+
       if (window.grecaptcha && RECAPTCHA_SITE_KEY) {
-        await new Promise<void>((resolve) => window.grecaptcha.ready(resolve));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
       }
 
@@ -135,21 +132,15 @@ function ContactForm() {
         throw new Error("Token reCAPTCHA vide !");
       }
 
-      console.log("✅ reCAPTCHA token :", recaptchaToken);
-      console.log("📤 Données envoyées :", { ...form, recaptchaToken });
-
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, recaptchaToken }),
       });
 
-      console.log("📥 Réponse brute :", res);
-
       if (!res.ok) {
         const errText = await res.text();
-        console.error("❌ Erreur backend :", errText);
-        throw new Error("Erreur côté serveur");
+        throw new Error("Erreur côté serveur : " + errText);
       }
 
       const result = await res.json();
@@ -167,7 +158,6 @@ function ContactForm() {
           honeypot: "",
         });
         localStorage.removeItem(AUTO_SAVE_KEY);
-        return;
       } else {
         setSuccess(false);
         setError(result.error || "Erreur lors de l'envoi.");
@@ -183,30 +173,18 @@ function ContactForm() {
     <div className="wrapper-982-black">
       <section id="footer-contact-form" className="contact__form section-height90">
         <h2 className="contact__title title">Formulaire de contact</h2>
-        <p className="contact__time-estimate" aria-hidden="true">
-          {COMPLETION_TIME}
-        </p>
+        <p className="contact__time-estimate" aria-hidden="true">{COMPLETION_TIME}</p>
         <p className="contact__intro">
           Toutes les informations inscrites dans ce formulaire seront directement envoyées à notre boîte mail.
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
-          <input
-            type="text"
-            name="honeypot"
-            value={form.honeypot}
-            onChange={handleChange}
-            hidden
-            tabIndex={-1}
-            aria-hidden="true"
-          />
+          <input type="text" name="honeypot" value={form.honeypot} onChange={handleChange} hidden tabIndex={-1} aria-hidden="true" />
 
           <div className="contact__wrapper-col1">
             <fieldset className="contact__personal">
               <legend>Informations personnelles</legend>
-              <label htmlFor="lastname" className="contact__label">
-                Nom*
-              </label>
+              <label htmlFor="lastname" className="contact__label">Nom*</label>
               <input
                 type="text"
                 id="lastname"
@@ -220,9 +198,7 @@ function ContactForm() {
               />
               {validationErrors.lastname && <p className="form__error">{validationErrors.lastname}</p>}
 
-              <label htmlFor="firstname" className="contact__label">
-                Prénom*
-              </label>
+              <label htmlFor="firstname" className="contact__label">Prénom*</label>
               <input
                 type="text"
                 id="firstname"
@@ -239,9 +215,7 @@ function ContactForm() {
 
             <fieldset className="contact__information">
               <legend>Coordonnées</legend>
-              <label htmlFor="phone" className="contact__label">
-                Téléphone
-              </label>
+              <label htmlFor="phone" className="contact__label">Téléphone</label>
               <input
                 type="tel"
                 id="phone"
@@ -254,9 +228,7 @@ function ContactForm() {
               />
               {validationErrors.phone && <p className="form__error">{validationErrors.phone}</p>}
 
-              <label htmlFor="email" className="contact__label">
-                Email*
-              </label>
+              <label htmlFor="email" className="contact__label">Email*</label>
               <input
                 type="email"
                 id="email"
@@ -276,9 +248,7 @@ function ContactForm() {
           <div className="contact__wrapper-col2">
             <fieldset className="contact__message">
               <legend>Votre message</legend>
-              <label htmlFor="message" className="contact__label">
-                Message*
-              </label>
+              <label htmlFor="message" className="contact__label">Message*</label>
               <textarea
                 id="message"
                 name="message"
