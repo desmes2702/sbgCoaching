@@ -1,4 +1,3 @@
-// ContactForm.tsx corrigé avec reCAPTCHA v3 chargé proprement
 import { useEffect, useState } from "react";
 
 declare global {
@@ -10,7 +9,6 @@ declare global {
 const AUTO_SAVE_KEY = "sbg_contact_form_draft";
 const COMPLETION_TIME = "2 min pour remplir ce formulaire";
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY ?? "";
-console.log(import.meta.env.VITE_RECAPTCHA_SITE_KEY) 
 
 function ContactForm() {
   const [form, setForm] = useState({
@@ -30,19 +28,28 @@ function ContactForm() {
   const [isFormValid, setIsFormValid] = useState(false);
   const [showRedirectMsg, setShowRedirectMsg] = useState(false);
 
+  // Injection sécurisée du script reCAPTCHA
   const loadRecaptcha = () =>
     new Promise<void>((resolve, reject) => {
+      if (!RECAPTCHA_SITE_KEY) {
+        reject("Clé reCAPTCHA absente au moment du chargement du script");
+        return;
+      }
       if (window.grecaptcha) return resolve();
 
       const existingScript = document.getElementById("recaptcha-script");
-      if (existingScript) {
-        existingScript.addEventListener("load", () => resolve());
-        return;
-      }
+        if (existingScript && existingScript instanceof HTMLScriptElement) {
+          if (!existingScript.src.includes(RECAPTCHA_SITE_KEY)) {
+            existingScript.remove();
+          } else {
+            existingScript.addEventListener("load", () => resolve());
+            return;
+          }
+        }
 
       const script = document.createElement("script");
       script.id = "recaptcha-script";
-      script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+      script.src = https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY};
       script.async = true;
       script.onload = () => resolve();
       script.onerror = () => reject("Échec de chargement de reCAPTCHA");
@@ -121,6 +128,11 @@ function ContactForm() {
     });
     if (hasError || !isFormValid) {
       setError("Merci de corriger les erreurs avant d'envoyer.");
+      return;
+    }
+
+    if (!RECAPTCHA_SITE_KEY) {
+      setError("reCAPTCHA indisponible. Veuillez réessayer plus tard.");
       return;
     }
 
