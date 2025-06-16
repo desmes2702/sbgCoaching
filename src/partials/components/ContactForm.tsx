@@ -1,3 +1,4 @@
+// ContactForm.tsx corrigé avec reCAPTCHA v3 chargé proprement
 import { useEffect, useState } from "react";
 
 declare global {
@@ -29,6 +30,25 @@ function ContactForm() {
   const [isFormValid, setIsFormValid] = useState(false);
   const [showRedirectMsg, setShowRedirectMsg] = useState(false);
 
+  const loadRecaptcha = () =>
+    new Promise<void>((resolve, reject) => {
+      if (window.grecaptcha) return resolve();
+
+      const existingScript = document.getElementById("recaptcha-script");
+      if (existingScript) {
+        existingScript.addEventListener("load", () => resolve());
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.id = "recaptcha-script";
+      script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject("Échec de chargement de reCAPTCHA");
+      document.body.appendChild(script);
+    });
+
   useEffect(() => {
     const saved = localStorage.getItem(AUTO_SAVE_KEY);
     if (saved) setForm(JSON.parse(saved));
@@ -52,21 +72,6 @@ function ContactForm() {
       return () => clearTimeout(timer);
     }
   }, [showRedirectMsg]);
-
-  useEffect(() => {
-    if (!RECAPTCHA_SITE_KEY) return;
-    if (document.getElementById("recaptcha-script")) return;
-    const script = document.createElement("script");
-    script.id = "recaptcha-script";
-    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      if (document.getElementById("recaptcha-script")) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
 
   const validateField = (name: string, value: string | boolean) => {
     let error = "";
@@ -120,17 +125,22 @@ function ContactForm() {
     }
 
     try {
+      await loadRecaptcha();
+
       let recaptchaToken = "";
+      await new Promise<void>((resolve, reject) => {
+        window.grecaptcha.ready(async () => {
+          try {
+            recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
+            resolve();
+          } catch (err) {
+            console.error("Erreur d’exécution reCAPTCHA :", err);
+            reject();
+          }
+        });
+      });
 
-      if (window.grecaptcha && RECAPTCHA_SITE_KEY) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
-      }
-
-      if (!recaptchaToken) {
-        console.warn("⚠️ Aucun token reCAPTCHA généré");
-        throw new Error("Token reCAPTCHA vide !");
-      }
+      if (!recaptchaToken) throw new Error("Token reCAPTCHA vide !");
 
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -140,7 +150,8 @@ function ContactForm() {
 
       if (!res.ok) {
         const errText = await res.text();
-        throw new Error("Erreur côté serveur : " + errText);
+        console.error("❌ Erreur backend :", errText);
+        throw new Error("Erreur côté serveur");
       }
 
       const result = await res.json();
@@ -148,15 +159,7 @@ function ContactForm() {
       if (result.success) {
         setSuccess(true);
         setShowRedirectMsg(true);
-        setForm({
-          lastname: "",
-          firstname: "",
-          phone: "",
-          email: "",
-          message: "",
-          terms: false,
-          honeypot: "",
-        });
+        setForm({ lastname: "", firstname: "", phone: "", email: "", message: "", terms: false, honeypot: "" });
         localStorage.removeItem(AUTO_SAVE_KEY);
       } else {
         setSuccess(false);
