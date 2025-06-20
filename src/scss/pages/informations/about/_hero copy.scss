@@ -1,26 +1,17 @@
 @use "../../../abstracts" as *;
 
-body[data-page="about"] .wrapper-1440-black {
-	overflow-x: visible;
-}
 
-body[data-page="about"] .header {
-	z-index: 1;
-}
 .about__hero {
 	display: flex;
 	align-items: center;
 	max-width: 800px !important;
 	color: #fff;
 	flex-direction: column;
-	position: relative;
-	
 
 	&__content {
 	  position: relative;
 	  width: 100%;
 	  text-align: left;
-	  z-index: 1;
 	}
 
 	&__role {
@@ -66,7 +57,7 @@ body[data-page="about"] .header {
 		height: 25px;
 		content: "";
 		background-image: url("../../img/icon__temoignage.svg");
-		background-size: cover;
+		background-size: contain;
 		background-repeat: no-repeat;
 
 	}
@@ -87,16 +78,10 @@ body[data-page="about"] .header {
 	}
 
 	&__img {
-	  position: absolute;
-	  background-image: url("../../img/about__hero.png");
-	  background-size: cover;
+	  background-image: url("../../img/hero__bck-320.webp");
+	  background-size: contain;
 	  background-repeat: no-repeat;
-	  background-position: center;
-	  width: 100vw;
-	  height: 435px;
-	  z-index: 0;
-	  top: -73px;
-	  /* display: none; */
+	  max-width: 400px;
 
 	}
 
@@ -111,7 +96,7 @@ body[data-page="about"] .header {
 			}
 
 			&__quote{
-				position: relative;
+				position: absolute;
 
 				&::before{
 					position: absolute;
@@ -121,7 +106,7 @@ body[data-page="about"] .header {
 					height: 25px;
 					content: "";
 					background-image: url("../../img/icon__temoignage.svg");
-					background-size: cover;
+					background-size: contain;
 					background-repeat: no-repeat;
 
 				}
@@ -132,8 +117,12 @@ body[data-page="about"] .header {
 			}
 
 			&__img{
-				left: -1.5rem;
-				height: 460px;
+				position: relative;
+				right: -2.5rem;
+				bottom: -3rem;
+				width: 100%;
+				height: 400px;
+				background-position: bottom right;
 			}
 		}
 	}
@@ -153,19 +142,8 @@ body[data-page="about"] .header {
 				height: 20px !important;
 			}
 		}
-
-		&__img{
-			height: 413px !important;
-		}
 	}
 
-	
-	@include responsive(menu-breakpoint) {
-		&__img{
-			height: 557px !important;
-			top: -215px;
-		}
-	}
 	@include responsive(mobile) {
 	  display: grid;
 	  grid-template-columns: 1fr 1fr;
@@ -196,19 +174,16 @@ body[data-page="about"] .header {
 	  }
 
 	  &__img {
-		left: -2.5rem;
+		position: relative;
+		bottom: -3rem;
+		height: 480px;
+		background-position: bottom center;
 	  }
 	}
-
-	@include responsive(tablet) {
-		&__content{
-			min-height: 60vh;
-		}
- 	}
   }
 
   @include responsive(tablet) {
-	/* .about__hero__img {
+	.about__hero__img {
 		height: 550px;
-	} */
+	}
   }

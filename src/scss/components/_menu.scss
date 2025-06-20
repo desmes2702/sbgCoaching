@@ -4,6 +4,7 @@
 .header {
     width: 100%;
     max-width: 1440px;
+    z-index: 1;
 
     &__container {
         display: flex;

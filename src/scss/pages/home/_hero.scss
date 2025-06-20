@@ -1,5 +1,12 @@
 @use "../../abstracts" as *;
 
+body[data-page="index"] .wrapper-1440-black {
+	background-color: rgba(47, 47, 47, .5);
+}
+
+body[data-page="index"] .wrapper-982-black {
+	background-color: rgba(47, 47, 47, .8);
+}
 
 .subWrapper-col2 {
 	display: flex;
@@ -14,15 +21,18 @@
 .hero {
 	position: relative;
 	display: flex;
-	justify-content: start;
+	flex-direction: column;
+	align-items: start;
 	width: 100%;
 	height: 100%;
-	flex-direction: column;
+	
 
 	&__content {
 	  z-index: 2;
 	  display: flex;
 	  flex-direction: column;
+	  position: relative;
+	  align-items: flex-end;
 
 	  h1,p{
 		width: 100%;
@@ -43,24 +53,28 @@
 
 	&__subtitle {
 		font-family: Nexa-Trial, Roboto, sans-serif;
+		margin-bottom: 1.5rem;
 	}
+
+	/* &__cta{
+		position: relative;
+		right: 0;
+	} */
 
 	&__photo{
-		background-image: url("../../img/hero__bck-320.webp");
+		position: fixed;
+		top: 0;
+		z-index: 0;
+		background-image: url(../../img/index__hero.png);
 		background-repeat: no-repeat;
-		background-size: contain;
-		background-position: right;
-		aspect-ratio: 320 / 410;
-		width: 100%;
-		height: 50vh;
-		min-height: 410px;
-		max-height: 500px;
+		background-size: cover;
+		background-position: center;
+		width: 100vw !important;
+		height: 100vh !important;
+		max-width: 100vw !important;
+		top: 0;
+		left: 0;
 	}
-
-	  &__cta{
-		position: absolute;
-		bottom: 11rem;
-	  }
 }
 
 
@@ -74,6 +88,7 @@
 	width: 100%;
 	padding: $spacing-lg 0 0 0;
 	flex-direction: column;
+	z-index: 1;
 
 	& * {
 	  color: white;
@@ -153,7 +168,7 @@
 
 		.hero{
 			&__content {
-				align-items: start;
+				align-items: flex-start;
 				width: 100%;
 				padding: 0 0 2rem;
 			  }
@@ -166,9 +181,6 @@
   }
 
   @media (min-width: $breakpoint-menu){
-	.hero__cta{
-		right: 7rem;
-	}
 
 	.gallery{
 		align-items: end;
@@ -226,25 +238,9 @@
 		display: grid;
 		grid-template-columns: 50% 50%;
 
-		.hero{
-			&__photo{
-				position: absolute;
-				right: -52%;
-				bottom: -3rem;
-				z-index: 1;
-				height: 420px;
-				/* background-image: url("../../img/hero__bck-768.webp"); */
-				background-position: center;
-
-			}
-
-			&__cta{
-				right: 6rem;
-			}
-		}
-
 		.gallery{
 			z-index: 2;
+			padding: 0;
 		}
 
 	}

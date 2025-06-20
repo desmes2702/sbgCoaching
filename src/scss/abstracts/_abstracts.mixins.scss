@@ -39,7 +39,7 @@
 // MIXINS GLOBAUX
 // ===============================
 
-@mixin wrapper($max-width, $bg-color: transparent) {
+@mixin wrapper($max-width, $bg-color: white) {
 	display: flex;
 	justify-content: center;
 	width: 100%;
