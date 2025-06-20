@@ -78,8 +78,8 @@
 	}
 
 	&__img {
-	  background-image: url('../../img/about__hero.webp');
-	  background-size: cover;
+	  background-image: url("../../img/hero__bck-320.webp");
+	  background-size: contain;
 	  background-repeat: no-repeat;
 	  max-width: 400px;
 
@@ -122,12 +122,12 @@
 				bottom: -3rem;
 				width: 100%;
 				height: 400px;
-				background-position: right;
+				background-position: bottom right;
 			}
 		}
 	}
 
-	@media(width >= 400px) {
+	@media(min-width: 400px) {
 		&__name {
 			margin-bottom: 2rem !important;
 		}
@@ -177,7 +177,7 @@
 		position: relative;
 		bottom: -3rem;
 		height: 480px;
-		background-position: right center;
+		background-position: bottom center;
 	  }
 	}
   }

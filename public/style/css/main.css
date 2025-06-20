@@ -854,7 +854,7 @@ label {
 }
 .contact__info__social p {
   margin: 0 1.2rem 0 0;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .footer {
@@ -879,7 +879,7 @@ label {
 }
 .footer__nav nav ul h3 {
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   font-family: "Roboto", "Nexa", sans-serif;
   margin-bottom: 1.5rem;
@@ -2210,8 +2210,8 @@ label {
     right: -52%;
     bottom: -3rem;
     z-index: 1;
-    height: 700px;
-    background-image: url("../../img/hero__bck-768.webp");
+    height: 420px;
+    /* background-image: url("../../img/hero__bck-768.webp"); */
     background-position: center;
   }
   .subWrapper-col2 .hero__cta {
@@ -2334,7 +2334,6 @@ label {
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
-  font-family: "Roboto", "Nexa", sans-serif;
 }
 #testimonials-index .testimonials__intro {
   margin-bottom: 2rem;
@@ -3743,8 +3742,8 @@ label {
           mask-size: 100% 100%;
 }
 .about__hero__img {
-  background-image: url("../../img/about__hero.webp");
-  background-size: cover;
+  background-image: url("../../img/hero__bck-320.webp");
+  background-size: contain;
   background-repeat: no-repeat;
   max-width: 400px;
 }
@@ -3776,10 +3775,10 @@ label {
     bottom: -3rem;
     width: 100%;
     height: 400px;
-    background-position: right;
+    background-position: bottom right;
   }
 }
-@media (width >= 400px) {
+@media (min-width: 400px) {
   .about__hero__name {
     margin-bottom: 2rem !important;
   }
@@ -3822,7 +3821,7 @@ label {
     position: relative;
     bottom: -3rem;
     height: 480px;
-    background-position: right center;
+    background-position: bottom center;
   }
 }
 

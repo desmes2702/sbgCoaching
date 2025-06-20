@@ -579,7 +579,7 @@
   .coaching__entrerpise__perfo__col1, .coaching__entrerpise__perfo__col2 {
     grid-row: 2;
   }
-}/*# sourceMappingURL=index.css.map */late-columns: repeat(2, minmax(0, 354px));
+}/*# sourceMappingURL=index.css.map */));
     grid-column-gap: 2rem;
     align-items: flex-start;
   }
@@ -1784,8 +1784,8 @@
           mask-size: 100% 100%;
 }
 .about__hero__img {
-  background-image: url("../../img/about__hero.webp");
-  background-size: cover;
+  background-image: url("../../img/hero__bck-320.webp");
+  background-size: contain;
   background-repeat: no-repeat;
   max-width: 400px;
 }
@@ -1817,10 +1817,10 @@
     bottom: -3rem;
     width: 100%;
     height: 400px;
-    background-position: right;
+    background-position: bottom right;
   }
 }
-@media (width >= 400px) {
+@media (min-width: 400px) {
   .about__hero__name {
     margin-bottom: 2rem !important;
   }
@@ -1863,7 +1863,7 @@
     position: relative;
     bottom: -3rem;
     height: 480px;
-    background-position: right center;
+    background-position: bottom center;
   }
 }
 
