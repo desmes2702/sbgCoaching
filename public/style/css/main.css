@@ -1961,6 +1961,7 @@ label {
   color: white;
   margin-bottom: 10px;
   text-transform: uppercase;
+  font-weight: 500;
   /* Utilisation du rouge */
 }
 .faq__subTitle {
@@ -2789,7 +2790,7 @@ label {
     grid-row: 4;
   }
 }
-@media (width >= 1250px) {
+@media (min-width: 1250px) {
   .coaching-entreprise__benefits {
     position: relative;
   }
@@ -4576,7 +4577,7 @@ label {
 .testimonial-new__quote p:last-child {
   margin-bottom: 0;
 }
-@media (width >= 500px) {
+@media (min-width: 500px) {
   .testimonial-new__quote {
     padding-left: 1.6rem;
     position: relative;
@@ -4805,7 +4806,7 @@ label {
 }
 .testimonials-last .testimonial__item__header .testimonial__item__name {
   font-size: 1.2rem;
-  font-weight: 800;
+  font-weight: 500;
   color: white;
   margin-bottom: 0;
   text-transform: uppercase;
@@ -4814,7 +4815,8 @@ label {
 .testimonials-last .testimonial__item__header .testimonial__item__job {
   font-style: italic;
   font-size: 0.95rem;
-  color: white;
+  font-weight: 500 !important;
+  color: #F0A;
   padding: 0;
   position: relative;
 }

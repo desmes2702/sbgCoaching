@@ -103,7 +103,7 @@
 	  }
 	}
 
-	@media (width >= 500px) {
+	@media (min-width: 500px) {
 		&__quote {
 			padding-left: 1.6rem;
 			position: relative;

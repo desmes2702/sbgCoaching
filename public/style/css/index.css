@@ -557,7 +557,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   border-radius: 3px;
-}/*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */ {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min-content min-content;
@@ -579,7 +579,7 @@
   .coaching__entrerpise__perfo__col1, .coaching__entrerpise__perfo__col2 {
     grid-row: 2;
   }
-}/*# sourceMappingURL=index.css.map */));
+}/*# sourceMappingURL=index.css.map */2, minmax(0, 354px));
     grid-column-gap: 2rem;
     align-items: flex-start;
   }
@@ -831,7 +831,7 @@
     grid-row: 4;
   }
 }
-@media (width >= 1250px) {
+@media (min-width: 1250px) {
   .coaching-entreprise__benefits {
     position: relative;
   }
@@ -2618,7 +2618,7 @@
 .testimonial-new__quote p:last-child {
   margin-bottom: 0;
 }
-@media (width >= 500px) {
+@media (min-width: 500px) {
   .testimonial-new__quote {
     padding-left: 1.6rem;
     position: relative;
@@ -2847,7 +2847,7 @@
 }
 .testimonials-last .testimonial__item__header .testimonial__item__name {
   font-size: 1.2rem;
-  font-weight: 800;
+  font-weight: 500;
   color: white;
   margin-bottom: 0;
   text-transform: uppercase;
@@ -2856,7 +2856,8 @@
 .testimonials-last .testimonial__item__header .testimonial__item__job {
   font-style: italic;
   font-size: 0.95rem;
-  color: white;
+  font-weight: 500 !important;
+  color: #F0A;
   padding: 0;
   position: relative;
 }
