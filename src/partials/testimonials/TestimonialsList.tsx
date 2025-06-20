@@ -36,9 +36,9 @@ const TestimonialsList: FC = () => {
         className="testimonials-last"
         aria-labelledby="testimonials-heading"
       >
-        <h2 id="testimonials-heading" className="testimonials__type">
+        <h3 id="testimonials-heading" className="testimonials__type">
           Les plus anciens
-        </h2>
+        </h3>
         <div className="testimonials__wrapper">
           <div className="testimonials__wrapper__col1">
             {col1.map((testimonial, i) => (

@@ -652,7 +652,7 @@ body {
 
 h1 {
   color: #2F2F2F;
-  font-weight: 500;
+  font-weight: 800;
   line-height: 1.2;
   text-transform: uppercase;
   font-family: "Nexa", "Roboto", sans-serif;
@@ -661,7 +661,7 @@ h1 {
 
 h2 {
   color: #2F2F2F;
-  font-weight: 500;
+  /* font-weight:800; */
   line-height: 1.3;
   text-transform: uppercase;
   font-family: "Nexa", "Roboto", sans-serif;
@@ -854,7 +854,7 @@ label {
 }
 .contact__info__social p {
   margin: 0 1.2rem 0 0;
-  font-weight: 500;
+  font-weight: 800;
 }
 
 .footer {
@@ -879,7 +879,7 @@ label {
 }
 .footer__nav nav ul h3 {
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 800;
   text-transform: uppercase;
   font-family: "Roboto", "Nexa", sans-serif;
   margin-bottom: 1.5rem;
@@ -1158,7 +1158,7 @@ label {
 }
 .menu__section .menu__item__rdv {
   width: 100%;
-  font-weight: 500;
+  font-weight: 800;
 }
 .menu__section__profil {
   display: none;
@@ -1560,7 +1560,7 @@ label {
   color: white;
 }
 #entreprise-slide-3 > p > a {
-  font-weight: 800;
+  font-weight: 500;
 }
 #entreprise-slide-3 > p:nth-of-type(1) {
   margin-bottom: 0;
@@ -1856,6 +1856,7 @@ label {
   width: 100%;
   flex-direction: column;
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 .business-coaching__highlight {
   width: 100%;
@@ -2105,6 +2106,7 @@ label {
   text-transform: uppercase;
   margin-bottom: 1rem;
   font-family: "Roboto", "Nexa", sans-serif;
+  font-weight: 500;
 }
 .gallery__grid {
   display: flex;
@@ -2332,6 +2334,7 @@ label {
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
+  font-family: "Roboto", "Nexa", sans-serif;
 }
 #testimonials-index .testimonials__intro {
   margin-bottom: 2rem;
@@ -2378,7 +2381,7 @@ label {
 }
 .coaching__hero h1 span {
   color: #F0A;
-  font-weight: 500;
+  font-weight: 800;
   text-transform: none;
   font-family: "Roboto", "Nexa", sans-serif;
 }
@@ -2814,7 +2817,7 @@ label {
   margin: 0 0 2rem;
   color: white;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 800;
   text-align: center;
   font-family: "Nexa", "Roboto", sans-serif;
 }
@@ -2971,6 +2974,7 @@ label {
   font-size: 1.2rem;
   text-transform: none;
   font-family: "Roboto", "Nexa", sans-serif;
+  font-weight: 500;
 }
 .jeune__footballer__content {
   display: flex;
@@ -3520,7 +3524,7 @@ label {
 .parcours__info h4 {
   color: #2F2F2F;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 800;
   text-transform: uppercase;
   font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 0;
@@ -3938,7 +3942,7 @@ label {
 .convictions__intro .convictions__label {
   color: #F0A;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 800;
   text-transform: uppercase;
 }
 .convictions__grid {
@@ -4040,7 +4044,7 @@ label {
 }
 .form__container h2 span {
   color: #F0A;
-  font-weight: 500;
+  font-weight: 800;
   text-transform: none;
   font-family: "Roboto", "Nexa", sans-serif;
   font-style: italic;
@@ -4515,13 +4519,15 @@ label {
   width: 100%;
 }
 .testimonial-new__title {
-  margin: 0 !important;
+  margin: 0 0 5px 0 !important;
 }
 .testimonial-new__subtitle {
   color: #F0A;
+  font-family: "Roboto", "Nexa", sans-serif;
   font-size: 1rem;
+  font-weight: 500;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 .testimonial-new__description {
   font-family: "Roboto", "Nexa", sans-serif;
@@ -4651,7 +4657,7 @@ label {
   text-align: center;
 }
 .testimonial__submit h2 {
-  margin: 0.5rem;
+  margin-bottom: 0rem;
 }
 .testimonial__submit p {
   margin-bottom: 2rem;
@@ -4800,7 +4806,7 @@ label {
 }
 .testimonials-last .testimonial__item__header .testimonial__item__name {
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 800;
   color: white;
   margin-bottom: 0;
   text-transform: uppercase;
