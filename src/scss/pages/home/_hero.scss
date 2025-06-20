@@ -1,13 +1,5 @@
 @use "../../abstracts" as *;
 
-body[data-page="index"] .wrapper-1440-black {
-	background-color: rgba(47, 47, 47, .5);
-}
-
-body[data-page="index"] .wrapper-982-black {
-	background-color: rgba(47, 47, 47, .8);
-}
-
 .subWrapper-col2 {
 	display: flex;
 	justify-content: center;
@@ -162,6 +154,16 @@ body[data-page="index"] .wrapper-982-black {
   // HERO RESPONSIVE
   // ===============================
 
+
+@include responsive(mobile) {
+	body[data-page="index"] .wrapper-1440-black {
+		background-color: rgba(47, 47, 47, .5);
+	}
+
+	body[data-page="index"] .wrapper-982-black {
+		background-color: rgba(47, 47, 47, .8);
+	}
+}
 @include responsive-max(tablet) {
 	.subWrapper-col2{
 		flex-direction: column;

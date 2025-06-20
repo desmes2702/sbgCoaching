@@ -2037,14 +2037,6 @@ label {
   border-bottom: none;
 }
 
-body[data-page=index] .wrapper-1440-black {
-  background-color: rgba(47, 47, 47, 0.5);
-}
-
-body[data-page=index] .wrapper-982-black {
-  background-color: rgba(47, 47, 47, 0.8);
-}
-
 .subWrapper-col2 {
   display: flex;
   justify-content: center;
@@ -2166,6 +2158,14 @@ body[data-page=index] .wrapper-982-black {
   max-width: 21.25rem;
 }
 
+@media (min-width: 48rem) {
+  body[data-page=index] .wrapper-1440-black {
+    background-color: rgba(47, 47, 47, 0.5);
+  }
+  body[data-page=index] .wrapper-982-black {
+    background-color: rgba(47, 47, 47, 0.8);
+  }
+}
 @media (max-width: 63.9375rem) {
   .subWrapper-col2 {
     flex-direction: column;
