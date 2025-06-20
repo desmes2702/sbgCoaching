@@ -21,9 +21,8 @@
 
 	}
 
-	&__program,
 	&__graph {
-		margin-bottom: 3rem !important;
+		margin-bottom: 5rem !important;
 	}
 
 	&__img {
@@ -39,6 +38,10 @@
 
 	&__arrow {
 		height: 30px;
+	}
+
+	&__program{
+		margin: 0;
 	}
 
 }
@@ -91,15 +94,15 @@
 		&__program {
 			position: relative;
 			justify-content: center;
-			min-height: 500px;
+			/* min-height: 500px; */
 			max-width: 768px;
 			flex-direction: row;
+			margin: 0 !important;
 
 			img {
 				position: relative;
 				height: auto;
 				max-width: 400px;
-				margin: 0;
 			}
 
 			&1 {
@@ -110,6 +113,7 @@
 			&2 {
 				top: 20px;
 				right: 20px;
+				margin: 0 !important;
 			}
 		}
 	}

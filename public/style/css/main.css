@@ -2244,8 +2244,8 @@ body[data-page=index] .wrapper-982-black {
   margin-bottom: 2rem;
   max-width: 400px;
 }
-.home__training__program, .home__training__graph {
-  margin-bottom: 3rem !important;
+.home__training__graph {
+  margin-bottom: 5rem !important;
 }
 .home__training__img {
   display: flex;
@@ -2257,6 +2257,9 @@ body[data-page=index] .wrapper-982-black {
 }
 .home__training__arrow {
   height: 30px;
+}
+.home__training__program {
+  margin: 0;
 }
 
 @media (min-width: 48rem) {
@@ -2295,15 +2298,15 @@ body[data-page=index] .wrapper-982-black {
   .home__training__program {
     position: relative;
     justify-content: center;
-    min-height: 500px;
+    /* min-height: 500px; */
     max-width: 768px;
     flex-direction: row;
+    margin: 0 !important;
   }
   .home__training__program img {
     position: relative;
     height: auto;
     max-width: 400px;
-    margin: 0;
   }
   .home__training__program1 {
     left: 20px;
@@ -2311,6 +2314,7 @@ body[data-page=index] .wrapper-982-black {
   .home__training__program2 {
     top: 20px;
     right: 20px;
+    margin: 0 !important;
   }
 }
 @media (min-width: 64rem) {
