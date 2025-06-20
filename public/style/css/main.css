@@ -3479,6 +3479,7 @@ label {
   font-style: normal;
   font-family: "Nexa", "Roboto", sans-serif;
   margin-bottom: 2rem;
+  z-index: 1;
 }
 .parcours__title, .parcours__subtitle {
   width: 100%;
