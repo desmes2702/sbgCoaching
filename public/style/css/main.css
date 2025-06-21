@@ -1647,6 +1647,9 @@ label {
 .testimonials__preview .testimonials__wrapper {
   margin-bottom: 2rem !important;
 }
+.testimonials__preview .testimonials__wrapper__col1 {
+  padding-right: 0px !important;
+}
 .testimonials__preview .testimonial__item {
   margin-bottom: 2rem !important;
 }
@@ -1654,7 +1657,7 @@ label {
   background-image: url("../../img/icon__testimonial-black.svg") !important;
 }
 .testimonials__preview article:last-child {
-  margin-bottom: 0 !important;
+  margin-bottom: 1rem !important;
 }
 .testimonials__preview .testimonial__item__button {
   background-color: white !important;

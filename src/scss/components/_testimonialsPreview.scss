@@ -29,6 +29,9 @@
 
 	.testimonials__wrapper{
 		margin-bottom: 2rem !important;
+		&__col1{
+			padding-right: 0px !important;
+		}
 		
 	}
 
@@ -41,7 +44,7 @@
 	}
 
 	article:last-child {
-		margin-bottom: 0 !important;
+		margin-bottom: 1rem !important;
 	}
 
 	.testimonial__item__button{
