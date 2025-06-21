@@ -39,9 +39,9 @@ export const testimonials: TestimonialType[] = [
   {
     id: "udh-3",
     name: "UDH SPRL",
-    job: null,
+    job: "Chargé(e) de dépollution environnementale",
     photo: "/img/testimonials/testimonial__udhSprl.webp",
-    key: "general",
+    key: "entreprise",
     text: [
       "Les cours de sport nous permettent de décompresser après nos journées chargées.",
       "Cela nous enlève tout le stress et nous remet d’aplomb physiquement et mentalement.",
@@ -52,9 +52,9 @@ export const testimonials: TestimonialType[] = [
   {
     id: "plenevaux-4",
     name: "Moïra PLENVAUX & Thérèse de NIJS",
-    job: null,
+    job: "Étude notariale",
     photo: "/img/testimonials/testimonial__plenevauxNijs.webp",
-    key: "general",
+    key: "entreprise",
     text: [
       "L’approche du coach est rassurante, structurée, et toujours adaptée à chacun.",
       "Avant de commencer, nous avions tous des niveaux différents, mais chacun progresse à son rythme.",
@@ -93,7 +93,7 @@ export const testimonials: TestimonialType[] = [
   {
     id: "labeye-7",
     name: "LABEYE et LALLEMEND",
-    job: "Étude des Notaires",
+    job: "Étude notariale",
     photo: "/img/testimonials/testimonial__labeyeLallemend.webp",
     key: "entreprise",
     text: [

@@ -3,7 +3,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import CoachingHero from '@partials/components/CoachingHero.tsx';
 import Performance from "@partials/entreprise/Performance";
 import Improve from "@partials/entreprise/Improve.astro";
-import Faq from "@partials/components/Faq.astro";
+import TestimonialsPreview from "@/partials/components/TestimonialsPreview";
+/* import Faq from "@partials/components/Faq.astro"; */
 import LazyFadeIn from "@partials/performance/LazyFadeIn";
 
 ---
@@ -30,9 +31,12 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn";
     <LazyFadeIn client:load>
     <Improve />
     </LazyFadeIn>
+    <LazyFadeIn client:load>
+    <TestimonialsPreview client:load category="entreprise" />
+    </LazyFadeIn>
   </main>
-  <LazyFadeIn client:load>
+  <!-- <LazyFadeIn client:load>
   <Faq />
-  </LazyFadeIn>
+  </LazyFadeIn> -->
 </BaseLayout>
 

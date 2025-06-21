@@ -3,7 +3,8 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import CoachingHero from '@partials/components/CoachingHero.tsx';
 import Type from '@partials/general/Type.tsx';
 import Football from '@partials/general/Football.astro';
-import Faq from "@partials/components/Faq.astro";
+import TestimonialsPreview from "@/partials/components/TestimonialsPreview";
+/* import Faq from "@partials/components/Faq.astro"; */
 import LazyFadeIn from "@partials/performance/LazyFadeIn";
 ---
 
@@ -27,8 +28,11 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn";
     <LazyFadeIn client:load>
     <Football />
     </LazyFadeIn>
+    <LazyFadeIn client:load>
+    <TestimonialsPreview client:load category="general" />
+    </LazyFadeIn>
   </main>
-  <LazyFadeIn client:load>
+  <!-- <LazyFadeIn client:load>
   <Faq />
-  </LazyFadeIn>
+  </LazyFadeIn> -->
 </BaseLayout>

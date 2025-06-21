@@ -1620,6 +1620,63 @@ label {
   content: "";
 }
 
+.testimonials__preview {
+  min-height: 80vh;
+}
+.testimonials__preview .testimonials-last {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.testimonials__preview .testimonials__title {
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+}
+.testimonials__preview .testimonials__subtitle {
+  color: white !important;
+  text-transform: uppercase;
+  margin: 0 !important;
+}
+.testimonials__preview .testimonials__intro {
+  color: white !important;
+  margin-bottom: 2rem;
+  text-align: center !important;
+}
+.testimonials__preview .testimonials__wrapper {
+  margin-bottom: 2rem !important;
+}
+.testimonials__preview .testimonial__item {
+  margin-bottom: 2rem !important;
+}
+.testimonials__preview .testimonial__item__arrow {
+  background-image: url("../../img/icon__testimonial-black.svg") !important;
+}
+.testimonials__preview article:last-child {
+  margin-bottom: 0 !important;
+}
+.testimonials__preview .testimonial__item__button {
+  background-color: white !important;
+  color: #2F2F2F !important;
+}
+.testimonials__preview .testimonial__item__content {
+  scrollbar-color: rgba(47, 47, 47, 0.5) transparent !important;
+  background-color: white !important;
+}
+.testimonials__preview .testimonial__item__content::-webkit-scrollbar-thumb {
+  background-color: rgba(47, 47, 47, 0.5) !important;
+}
+.testimonials__preview .testimonial__item__content .testimonial__item__backBtn {
+  color: #2F2F2F !important;
+}
+.testimonials__preview .testimonial__item__content .testimonial__item__header h3 {
+  color: #2F2F2F !important;
+}
+.testimonials__preview .testimonial__item__content .testimonial__item__contentText p {
+  color: #2F2F2F !important;
+}
+
 .wrapper-1440 {
   display: flex;
   justify-content: center;
