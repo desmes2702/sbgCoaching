@@ -1637,7 +1637,7 @@ label {
 .testimonials__preview .testimonials__subtitle {
   color: white !important;
   text-transform: uppercase;
-  margin: 0 !important;
+  margin-bottom: 0.5rem !important;
   text-align: center !important;
 }
 .testimonials__preview .testimonials__intro {
