@@ -1638,6 +1638,7 @@ label {
   color: white !important;
   text-transform: uppercase;
   margin: 0 !important;
+  text-align: center !important;
 }
 .testimonials__preview .testimonials__intro {
   color: white !important;
