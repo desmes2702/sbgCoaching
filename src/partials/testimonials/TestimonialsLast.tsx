@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import type { FC } from "react";
-import type { TestimonialType } from "@/js/data/testimonialsData";
+import type { TestimonialType } from "@js/data/testimonialsData.ts";
 
 interface Props {
   testimonial: TestimonialType;

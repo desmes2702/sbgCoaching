@@ -83,11 +83,11 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
               <ul className="header__nav-list">
                 <li className="header__nav-item">
                   <span>coaching</span>
-                  <a href="/entreprise" className="header__nav-link link-underline-appear">Entreprise</a>
+                  <a href="/coaching-entreprise" className="header__nav-link link-underline-appear">Entreprise</a>
                 </li>
                 <li className="header__nav-item">
                   <span>coaching</span>
-                  <a href="/general" className="header__nav-link link-underline-appear">Général</a>
+                  <a href="/coaching-general" className="header__nav-link link-underline-appear">Général</a>
                 </li>
               </ul>
             </nav>
@@ -132,11 +132,11 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
             <ul className="header__nav-list">
               <li className="header__nav-item">
                 <span>coaching</span>
-                <a href="/entreprise" className="header__nav-link link-underline-appear">Entreprise</a>
+                <a href="/coaching-entreprise" className="header__nav-link link-underline-appear">Entreprise</a>
               </li>
               <li className="header__nav-item">
                 <span>coaching</span>
-                <a href="/general" className="header__nav-link link-underline-appear">Général</a>
+                <a href="/coaching-general" className="header__nav-link link-underline-appear">Général</a>
               </li>
             </ul>
           </nav>
@@ -179,8 +179,8 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
             <h2 className="menu__title">Informations</h2>
             <ul className="menu__list">
               <li className="menu__item"><a href="/" className="menu__link link-underline-appear">Accueil</a></li>
-              <li className="menu__item"><a href="/testimonials" className="menu__link link-underline-appear">Témoignages</a></li>
-              <li className="menu__item"><a href="/about" className="menu__link link-underline-appear">À Propos</a></li>
+              <li className="menu__item"><a href="/temoignages" className="menu__link link-underline-appear">Témoignages</a></li>
+              <li className="menu__item"><a href="/a-propos" className="menu__link link-underline-appear">À Propos</a></li>
               <li className="menu__item"><a href="/contact" className="menu__link link-underline-appear">Contact</a></li>
               <li className="menu__item menu__item__rdv"><a href="/contact" className="menu__link link-underline-replay">Prise de rendez-vous</a></li>
             </ul>
@@ -188,9 +188,9 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
           <section className="menu__section">
             <h2 className="menu__title">Coaching</h2>
             <ul className="menu__list">
-              <li className="menu__item"><a href="/entreprise" className="menu__link link-underline-appear">Entreprise</a></li>
-              <li className="menu__item"><a href="/program" className="menu__link link-underline-appear">Programmes</a></li>
-              <li className="menu__item"><a href="/general" className="menu__link link-underline-appear">Général</a></li>
+              <li className="menu__item"><a href="/coaching-entreprise" className="menu__link link-underline-appear">Entreprise</a></li>
+              <li className="menu__item"><a href="/coaching-sportif-video" className="menu__link link-underline-appear">Vidéos</a></li>
+              <li className="menu__item"><a href="/coaching-general" className="menu__link link-underline-appear">Général</a></li>
             </ul>
           </section>
           <section className="menu__section menu__section__profil">

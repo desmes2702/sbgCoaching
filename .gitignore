@@ -54,3 +54,4 @@ dist/
 dist/stats.html
 lighthouse/
 .env.local
+src/pages/actualite-generale.astro

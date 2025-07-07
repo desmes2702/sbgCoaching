@@ -136,7 +136,7 @@
 		}
 	}
 
-	@media (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet-max) {
+	@media (min-width: $breakpoint-mobile) and (max-width: $breakpoint-desktop-max) {
 		&__wrapper{
 			max-width: 792px;
 		}
@@ -155,36 +155,36 @@
 
 	}
 
-	@media (min-width: $breakpoint-tablet) {
+	@media (min-width: $breakpoint-desktop) {
 		align-items: flex-start;
 
 		&__description{
 			max-width: 50%;
 		}
 
-	  &__wrapper {
-		flex-direction: row;
-	  }
+		&__wrapper {
+			flex-direction: row;
+		}
 
-	  &__image, &__content{
-		width: 50%;
-	  }
+		&__image, &__content{
+			width: 50%;
+		}
 
-	  &__image{
-		margin-right: 3rem;
-	  }
+		&__image{
+			margin-right: 3rem;
+		}
 
-	  &__name{
-		font-size: 2rem;
-	  }
+		&__name{
+			font-size: 2rem;
+		}
 
-	  &__quote p{
-		font-size: 1.2rem;
-	  }
+		&__quote p{
+			font-size: 1.2rem;
+		}
 
-	  &__content{
-		padding: 2.5rem;
+		&__content{
+			padding: 2.5rem;
 
-	}
+		}
 	}
   }

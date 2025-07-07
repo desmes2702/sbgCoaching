@@ -68,7 +68,6 @@ export const testimonials: TestimonialType[] = [
     photo: "/img/testimonials/testimonial__justin.webp",
     thumbnail: "/img/general/general__post3-thumb.webp", // ✅ Miniature Hero
     key: "general",
-    featured: true,
     text: [
       "Chaque semaine, il ajustait mes programmes en tenant compte de tous les aspects : repos, entraînements, alimentation et étirements.",
       "Ce que j’ai particulièrement apprécié, c’est sa capacité à être à l’écoute, à motiver sans jamais juger, et à trouver des solutions adaptées à chaque situation.",
@@ -101,6 +100,20 @@ export const testimonials: TestimonialType[] = [
       "Après chaque session, on se sent plus léger et concentré.",
       "Partager ces entraînements nous rapproche. On se motive, on s’entraide et on découvre nos collègues sous un autre angle. Ça renforce nos liens et rend l’ambiance au travail encore plus agréable.",
       "On communique mieux, on collabore plus facilement et on aborde nos journées avec plus de sérénité. Ces séances nous font vraiment du bien, autant physiquement que mentalement."
+    ]
+  },
+  {
+    id: "nico-8",
+    name: "Nico",
+    job: null,
+    photo: "/img/testimonials/testimonial__nico.webp",
+    key: "general",
+    featured: true,
+    text: [
+      "Il y a un an, je décidais de revenir à la salle de sport après une longue pause. Six mois plus tard, j’intensifiais mes séances, puis il y a quatre mois, je rencontrais Sam, mon coach.",
+      "Grâce à lui, nous avons mis en place des objectifs clairs, un programme de Circuit Training, et bien plus encore. Trois séances par semaine, des marches tous les dimanches, un rééquilibrage alimentaire… Et les résultats sont là : -30kg au total et -8kg en 3 mois !",
+      "Des kilomètres à vélo, des heures de marche, des milliers d’escaliers montés et des litres de sueur perdus, mais surtout un mental d’acier qui m’a permis de rester fidèle à mes objectifs, même lors des jours difficiles.",
+      "Je tiens à remercier Samuel Billa-Garcia pour son écoute, sa motivation et son professionnalisme. C’est grâce à toi que j’ai pu accomplir tout ça ! "
     ]
   }
 ];

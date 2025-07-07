@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "jsx": "react-jsx",                    // ← corrige "preserve"
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "jsx": "react-jsx",
     "jsxImportSource": "react",
     "strict": true,
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"],
       "@scss/*": ["scss/*"],
+      "@js/*": ["js/*"],
       "@partials/*": ["partials/*"],
       "@layouts/*": ["layouts/*"],
       "@perf/*": ["partials/components/perf/*"]
@@ -24,4 +25,5 @@
     "checkJs": false,
     "noEmit": true
   },
+  "include": ["src", "astro.config.ts"]
 }

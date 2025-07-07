@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { testimonials } from "@/js/data/testimonialsData";
+import { testimonials } from "@js/data/testimonialsData.ts";
 import type { FC } from "react";
-import TestimonialsLast from "./TestimonialsLast";
+import TestimonialsLast from "./TestimonialsLast.tsx";
 
 const TestimonialsList: FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -13,10 +13,6 @@ const TestimonialsList: FC = () => {
       const getNum = (id: string) => parseInt(id.split("-").pop() || "0", 10);
       return getNum(b.id) - getNum(a.id);
     });
-
-  // 🔀 Diviser en deux colonnes
-  const col1 = sortedTestimonials.filter((_, i) => i % 2 === 0);
-  const col2 = sortedTestimonials.filter((_, i) => i % 2 === 1);
 
   // ✅ Scroll fluide vers le témoignage ciblé (sans activation)
   useEffect(() => {
@@ -40,28 +36,15 @@ const TestimonialsList: FC = () => {
           Les plus anciens
         </h3>
         <div className="testimonials__wrapper">
-          <div className="testimonials__wrapper__col1">
-            {col1.map((testimonial, i) => (
-              <TestimonialsLast
-                key={testimonial.id}
-                testimonial={testimonial}
-                index={i}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-              />
-            ))}
-          </div>
-          <div className="testimonials__wrapper__col2">
-            {col2.map((testimonial, i) => (
-              <TestimonialsLast
-                key={testimonial.id}
-                testimonial={testimonial}
-                index={i + col1.length}
-                activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
-              />
-            ))}
-          </div>
+          {sortedTestimonials.map((testimonial, i) => (
+            <TestimonialsLast
+              key={testimonial.id}
+              testimonial={testimonial}
+              index={i}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
+            />
+          ))}
         </div>
       </section>
     </div>

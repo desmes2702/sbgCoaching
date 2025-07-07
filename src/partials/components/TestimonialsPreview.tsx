@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { testimonials } from "@/js/data/testimonialsData";
+import { testimonials } from "@js/data/testimonialsData.ts";
 import type { FC } from "react";
-import type { TestimonialType } from "@/js/data/testimonialsData";
-import TestimonialsLast from "@partials/testimonials/TestimonialsLast";
+import type { TestimonialType } from "@js/data/testimonialsData.ts";
+import TestimonialsLast from "@partials/testimonials/TestimonialsLast.tsx";
 
 interface Props {
   category: "entreprise" | "general";
@@ -52,7 +52,6 @@ const TestimonialsPreview: FC<Props> = ({ category }) => {
         </h3>
         <p className="testimonials__intro">{intro}</p>
         <div className="testimonials__wrapper">
-          <div className="testimonials__wrapper__col1">
             {lastThree.map((testimonial: TestimonialType, i: number) => (
               <TestimonialsLast
                 key={testimonial.id}
@@ -62,9 +61,8 @@ const TestimonialsPreview: FC<Props> = ({ category }) => {
                 setActiveIndex={setActiveIndex}
               />
             ))}
-          </div>
         </div>
-        <a href="/testimonials" className="button button-red">
+        <a href="/temoignages" className="button button-red">
           Voir tout
         </a>
       </section>

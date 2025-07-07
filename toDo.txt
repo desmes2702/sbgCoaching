@@ -1,0 +1,35 @@
+config email !
+-- email
+-- autre chose
+//INDEX
+
+	changer l'actu sur hero index
+
+	 section coaching entreprise --> bug écart + image intro vidéo pas présente sur mon tel
+
+//FOOTER 
+
+	retirer recaptcha ou alternative car ça marche pas la v3
+
+	lien linkedin
+
+
+//ABOUT
+
+	section slogan --> lancer l'anim du slogan lors de l'arrivée dans le viewport
+
+//PRISE DE RDV 
+
+	change le module js en tsx puis faire la redirection du lien dans le menu main et le menu footer
+
+//SEO
+
+	modifier son schema et les datas globales rapidement avec la research/modif de vs code  
+
+	modifier le favicon pour qu'il soit dans un block blanc visible car sur le dark mode google on voit rien 
+
+//ANIMATION EXTRA 
+
+	Animer les enfants avec retard pour augmenter le côté contemporain tech et pro du site
+
+	lors du hover du burger faire ressortir légèrement via translate x le menu sur la gauche avant l'animation au click global

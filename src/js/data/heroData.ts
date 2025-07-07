@@ -1,4 +1,4 @@
-import { testimonials } from "@/js/data/testimonialsData";
+import { testimonials } from "@/js/data/testimonialsData.ts";
 
 // Sélection des témoignages "général"
 const generalTestimonials = testimonials.filter(t => t.key === "general");
