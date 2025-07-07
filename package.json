@@ -27,7 +27,7 @@
     "@types/react-dom": "^19.1.5",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "@typescript-eslint/parser": "^8.33.0",
-    "astro": "^5.8.0",
+    "astro": "^5.10.1",
     "astro-compress": "^2.3.8",
     "cssnano": "^7.0.7",
     "eslint": "^9.27.0",
@@ -52,10 +52,10 @@
     "vite-plugin-static-copy": "^3.0.0"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.3.4",
+    "@astrojs/netlify": "^6.4.0",
     "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.3.0",
-    "@astrojs/vercel": "^8.1.5",
+    "@astrojs/vercel": "^8.2.0",
     "@vercel/speed-insights": "^1.2.0",
     "chalk": "^5.4.1",
     "dompurify": "^3.2.6",

@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import CoachingHero from '@partials/components/CoachingHero.tsx';
+import Performance from "@partials/entreprise/Performance";
+import Improve from "@partials/entreprise/Improve.astro";
+import TestimonialsPreview from "@/partials/components/TestimonialsPreview";
+/* import Faq from "@partials/components/Faq.astro"; */
+import LazyFadeIn from "@partials/performance/LazyFadeIn";
+
+---
+
+<BaseLayout
+  title="Coaching d’entreprise | Santé et performance au travail avec SBG Coaching"
+  description="Boostez la productivité et le bien-être en entreprise grâce à un coaching sportif adapté. Interventions sur site, team building, ergonomie et prévention santé."
+  pageClass="page"
+  dataPage="coaching-entreprise"
+  dataVariant="black"
+  dataModules="coaching faq links"
+  seo={{
+    url: "https://sbgcoaching.be/coaching-entreprise",
+    /* image: "/img/og-entreprise.webp", */ // à créer / ajouter
+    schemaType: "LocalBusiness"
+  }}
+>
+  <main class="main">
+    <h1 class="visually-hidden">Coaching sportif pour les entreprises et professionnels</h1>
+    <CoachingHero client:visible page="entreprise" />
+    
+    <Performance client:idle />
+    
+    <LazyFadeIn client:load>
+    <Improve />
+    </LazyFadeIn>
+    <LazyFadeIn client:load>
+    <TestimonialsPreview client:load category="entreprise" />
+    </LazyFadeIn>
+  </main>
+  <!-- <LazyFadeIn client:load>
+  <Faq />
+  </LazyFadeIn> -->
+</BaseLayout>
+

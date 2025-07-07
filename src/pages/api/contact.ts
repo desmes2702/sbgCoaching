@@ -9,8 +9,7 @@ const SMTP_HOST = import.meta.env.SMTP_HOST;
 const SMTP_PORT = import.meta.env.SMTP_PORT;
 const SMTP_USER = import.meta.env.SMTP_USER;
 const SMTP_PASS = import.meta.env.SMTP_PASS;
-const RECAPTCHA_SECRET_KEY = import.meta.env.RECAPTCHA_SECRET_KEY;
-/* console.log("🔐 Clé serveur :", process.env.RECAPTCHA_SECRET_KEY); */
+
 export const POST: APIRoute = async ({ request }) => {
   let body;
   try {
@@ -23,7 +22,6 @@ export const POST: APIRoute = async ({ request }) => {
   // ✅ Log de sécurité
   console.log("🔐 Requête reçue avec données :", {
     ...body,
-    recaptchaToken: body.recaptchaToken ? "✅ fourni" : "❌ absent",
   });
 
   // 🔐 Vérification des variables SMTP
@@ -38,41 +36,6 @@ export const POST: APIRoute = async ({ request }) => {
       JSON.stringify({ success: false, error: "Configuration SMTP incomplète." }),
       { status: 500 }
     );
-  }
-
-  // 🔍 Vérification reCAPTCHA
-  const recaptchaToken = body.recaptchaToken;
-  if (!recaptchaToken) {
-    return new Response(JSON.stringify({ success: false, error: "reCaptcha manquant." }), { status: 400 });
-  }
-
-  const verifyUrl = `https://www.google.com/recaptcha/api/siteverify`;
-  const params = new URLSearchParams();
-  params.append("secret", RECAPTCHA_SECRET_KEY);
-  params.append("response", recaptchaToken);
-
-  const captchaRes = await fetch(verifyUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: params,
-  });
-
-  const captchaData = await captchaRes.json();
-
-  console.log("🧠 reCAPTCHA v3 :", {
-    success: captchaData.success,
-    score: captchaData.score,
-    action: captchaData.action,
-    hostname: captchaData.hostname,
-  });
-
-  if (
-    !captchaData.success ||
-    (captchaData.score !== undefined && captchaData.score < 0.5) ||
-    captchaData.action !== "submit"
-    // ❌ Ne pas vérifier le hostname en local
-  ) {
-    return new Response(JSON.stringify({ success: false, error: "Échec reCaptcha." }), { status: 403 });
   }
 
   // ✉️ Création du transporteur

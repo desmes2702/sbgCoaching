@@ -1,0 +1,223 @@
+@use "../../../abstracts" as *;
+
+.video__gallery{
+	width: 100%;
+	h1, h2, p{
+		color: white;
+		width: 100%;
+		text-align: left;
+	}
+
+	h2{
+		color: $primary-color;
+		font-size: 16px;
+	}
+
+	
+	
+
+	.filters{
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		display: flex;
+		gap: 1.5rem;
+
+		button{
+			background-color: rgba(255, 255, 255, 0);
+			padding: 0.5rem 2rem;
+			border-radius: 5px;
+			border: $border-secondary-color;
+			color: white;
+			transition: box-shadow .3s ease-in-out, border;
+			&:hover{
+			box-shadow: 0 5px 10px rgba(0, 0, 0, 0.205);
+		}
+		}
+
+		
+
+		.filter--active{
+			border: 1px solid rgba(255, 0, 170, 0.5) ;
+		}
+		
+
+	}
+	&__grid {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr;
+		justify-items: center;
+		gap: 4rem;
+	}
+	
+	&__card {
+	aspect-ratio: 344 / 611;
+	max-height: 558px;
+	max-width: 313px;
+	width: 100%;
+	position: relative;
+	border: $border-secondary-color;
+	border-radius: 5px;
+	box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+
+		&__head{
+				display: flex;
+				flex-direction: column;
+				position: absolute;
+				z-index: 2;
+				left: 2rem;
+				top: 10%;
+				width: 100%;
+				margin: auto;
+				transform: translateY(-10%);
+				transition: transform .4s ease-in-out;
+
+				h2{
+					order: 2;
+					font-family: $font-secondary;
+					font-size: 2.8rem;
+					font-weight: 800;
+					font-style: italic;
+					color: $primary-color;
+					line-height: 32px;
+					
+					
+				}
+
+				.video__gallery__reps{
+					order: 1;
+					font-family: $font-secondary;
+					font-size: 2.5rem;
+					font-weight: 800;
+					margin-bottom: 0;
+				}
+
+				.video__gallery__break{
+					order: 3;
+					font-size: 1rem;
+				}
+
+		}
+
+		&::after {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			top: 0;
+			left: 0;
+			background: linear-gradient(-180deg, #1a1a1a 50%, rgba(0, 0, 0, 0.5) 100%);
+			backdrop-filter: blur(2px);
+			-webkit-backdrop-filter: blur(2px);
+			content: "";
+			z-index: 1;
+			border-radius: 5px;
+			pointer-events: none;
+			user-select: none;
+			transition: opacity ease-in-out .3s;
+		}
+		&:hover:after {
+			background: linear-gradient(-180deg, #1a1a1a 0%, rgba(0, 0, 0, 0) 100%);
+			backdrop-filter: blur(0px);
+			-webkit-backdrop-filter: blur(0px);
+		}
+
+		&:hover > .video__gallery__card__head{
+			transform: translateY(0);
+		}
+
+		.video__gallery__thumb {
+			position: absolute;
+			right: 13%;
+			bottom: 0;
+			width: auto;
+			height: 100%;
+			z-index: 2;
+			transform: translateX(0);
+			transition: transform .4s ease-in-out, opacity .4s ease-in-out;
+			pointer-events: none;
+			user-select: none;
+
+			&--3 { right: -67px; }
+			&--4 { right: 0%; }
+			&--6 { right: 0%; }
+			&--7 { right: -15%; }
+		}
+
+		.video__gallery__video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			z-index: 1;
+			background: #000;
+			border-radius: 5px;
+		}
+
+		// Masque la miniature si la vidéo est en lecture (prioritaire sur le hover)
+		&.is-playing .video__gallery__thumb {
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		&.is-playing:after {
+			opacity: 0;
+		} 
+
+		// Masque la miniature au hover (sauf si la vidéo est en lecture)
+		&:hover .video__gallery__thumb {
+			opacity: 0;
+			transform: translateX(-10%);
+		}
+
+		&:hover .video__gallery__thumb--3 {
+			opacity: 0;
+			transform: translateX(0);
+		}
+
+		&:hover .video__gallery__thumb--7 {
+			opacity: 0;
+			transform: translateX(0);
+		}
+	}
+
+	@include responsive-max(mobile) {
+		.filters{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			button{
+				width: 100%;
+				max-width: 311px;
+			}
+		}
+		.video__gallery__thumb {
+				&--1 { right: -34%; }
+				&--2 { right: -46%; }
+				&--3 { right: -67px; }
+				&--4 { right: -50%; }
+				&--5 { right: -50%; }
+				&--6 { right: -50%; }
+				&--7 { right: -15%; }
+				&--8 { right: -44%; }
+				&--9 { right: -44%; }
+			}
+	}
+
+	@include responsive(tablet) {
+		&__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		
+	}
+	@include responsive(desktop) {
+		&__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		
+	}
+}
+
+
+
