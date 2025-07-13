@@ -10,6 +10,8 @@ const SMTP_PORT = import.meta.env.SMTP_PORT;
 const SMTP_USER = import.meta.env.SMTP_USER;
 const SMTP_PASS = import.meta.env.SMTP_PASS;
 
+console.log({ SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS });
+
 export const POST: APIRoute = async ({ request }) => {
   let body;
   try {
@@ -71,12 +73,14 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   // 📤 Envoi du mail
-  const mailOptions = {
-    from: '"SBG Coaching" <antoine.thiri@gmail.com>',
-    to: "antoine.thiri@gmail.com",
-    subject: "Nouveau message SBG Coaching",
-    text: `Message de ${body.firstname} ${body.lastname} (${body.email}) :\n\n${body.message}`,
-  };
+ const mailOptions = {
+  from: '"SBG Coaching" <info@sbgcoaching.be>',
+  to: "info@sbgcoaching.be",
+  replyTo: body.email,
+  subject: "Nouveau message SBG Coaching",
+  text: `Message de ${body.firstname} ${body.lastname} (${body.email}) :\n\n${body.message}`,
+  html: `<p>Message de <b>${body.firstname} ${body.lastname}</b> (${body.email}) :</p><p>${body.message.replace(/\n/g, '<br>')}</p>`,
+};
 
   try {
     console.log("📨 Tentative d’envoi via SMTP...");

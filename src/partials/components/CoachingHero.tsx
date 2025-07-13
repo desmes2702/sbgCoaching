@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useMemo } from "react";
-import { heroData } from "@/js/data/heroData";
-import { testimonials } from "@/js/data/testimonialsData";
-import LinksSocial from "@partials/components/LinksSocial";
+import { heroData } from "@/js/data/heroData.ts";
+import { testimonials } from "@/js/data/testimonialsData.ts";
+import LinksSocial from "@partials/components/LinksSocial.tsx";
 
 interface HeroContent {
   id: string;
@@ -40,7 +40,7 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
           backgroundMain: t.photo,
           backgroundThumbnail: t.thumbnail || t.photo,
           link: {
-            href: `/testimonials#${t.id}`,
+            href: `/temoignages#${t.id}`,
             label: "Lire le témoignage"
           }
         }))

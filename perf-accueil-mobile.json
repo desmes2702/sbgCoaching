@@ -5110,7 +5110,7 @@
                 "height": 109
               },
               "snippet": "<ul aria-label=\"Mes différents moyens de contact\">",
-              "nodeLabel": "info@sbg.be\n0494 20 50 75\nRoute de Yernée 264, 4480 Engis"
+              "nodeLabel": "info@sbgcoaching.be\n0494 20 50 75\nRoute de Yernée 264, 4480 Engis"
             },
             "subItems": {
               "type": "subitems",
@@ -5515,7 +5515,7 @@
                 "height": 26
               },
               "snippet": "<li class=\"contact__info__item contact__info__mail\">",
-              "nodeLabel": "info@sbg.be"
+              "nodeLabel": "info@sbgcoaching.be"
             },
             "subItems": {
               "type": "subitems",
@@ -6000,8 +6000,8 @@
                 "width": 90,
                 "height": 19
               },
-              "snippet": "<a href=\"mailto:info@sbg.be\" class=\"contact__link link-underline-replay \">",
-              "nodeLabel": "info@sbg.be"
+              "snippet": "<a href=\"mailto:info@sbgcoaching.be\" class=\"contact__link link-underline-replay \">",
+              "nodeLabel": "info@sbgcoaching.be"
             },
             "subItems": {
               "type": "subitems",
