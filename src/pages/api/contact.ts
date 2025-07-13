@@ -11,8 +11,6 @@ const SMTP_PORT = import.meta.env.SMTP_PORT;
 const SMTP_USER = import.meta.env.SMTP_USER;
 const MAIL_SMTP_PASS = import.meta.env.MAIL_SMTP_PASS;
 
-console.log({ SMTP_HOST, SMTP_PORT, SMTP_USER, MAIL_SMTP_PASS });
-
 export const POST: APIRoute = async ({ request }) => {
   let body;
   try {
