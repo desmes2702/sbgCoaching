@@ -32,8 +32,8 @@ export const POST: APIRoute = async ({ request }) => {
     console.error("❌ Variables SMTP manquantes :", {
       SMTP_HOST,
       SMTP_PORT,
-      SMTP_USER,
-      MAIL_SMTP_PASS: MAIL_SMTP_PASS?.substring(0, 4) + "***",
+      /* SMTP_USER,
+      MAIL_SMTP_PASS: MAIL_SMTP_PASS?.substring(0, 4) + "***", */
     });
     return new Response(
       JSON.stringify({ success: false, error: "Configuration SMTP incomplète." }),
