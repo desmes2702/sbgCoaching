@@ -67,7 +67,7 @@ export const heroData: HeroDataType = {
       backgroundMain: "/img/entreprise/entreprise__post3-main.webp",
       backgroundThumbnail: "/img/entreprise/entreprise__post3-thumb.webp",
       link: {
-        href: "https://finances.belgium.be/fr/entreprises/frais-professionnels#q1",
+        href: "https://www.fraispro.be/coaching-mentoring",
         label: "En savoir plus sur cette déductibilité"
       }
     }
@@ -91,7 +91,7 @@ export const heroData: HeroDataType = {
       backgroundMain: photo1,
       backgroundThumbnail: "/img/general/general__post2-thumb.webp",
       link: {
-        href: "/testimonials",
+        href: "/temoignages",
         label: "Lire le témoignage"
       }
     },
@@ -102,7 +102,7 @@ export const heroData: HeroDataType = {
       backgroundMain: photo2,
       backgroundThumbnail: "/img/general/general__post3-thumb.webp",
       link: {
-        href: "/testimonials",
+        href: "/temoignages",
         label: "Lire le témoignage"
       }
     }

@@ -185,6 +185,23 @@
 		min-width: none;
 	}
 }
+
+@include responsive-max(mobile) {
+	.hero__video{
+		background-image: url("../../img/index__hero.png") !important;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		top: 0px;
+
+		video{
+			display: none;
+		}
+	}
+
+}
+
+
 @include responsive-max(tablet) {
 	.subWrapper-col2{
 		flex-direction: column;

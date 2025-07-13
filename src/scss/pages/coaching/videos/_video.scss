@@ -100,6 +100,14 @@
 
 		}
 
+		.video__gallery__thumbs{
+			height: 100%;
+			width: 100%;
+			position: relative;
+			overflow: hidden;
+			
+		}
+
 		&::after {
 			position: absolute;
 			height: 100%;
@@ -116,7 +124,31 @@
 			user-select: none;
 			transition: opacity ease-in-out .3s;
 		}
-		&:hover:after {
+
+		&::before{
+			content: "";
+			position: absolute;
+			height: 60px;
+			width: 60px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%); 
+			background-image: url("../../img/icon-play.svg");
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center;
+			z-index: 3;
+			pointer-events: none;
+			transition: opacity ease-in-out .3s, height ease-in-out .3s, width ease-in-out .3s;
+
+		}
+
+		&:hover::before {
+			height: 70px;
+			width: 70px;
+		}
+
+		&:hover::after {
 			background: linear-gradient(-180deg, #1a1a1a 0%, rgba(0, 0, 0, 0) 100%);
 			backdrop-filter: blur(0px);
 			-webkit-backdrop-filter: blur(0px);
@@ -126,22 +158,34 @@
 			transform: translateY(0);
 		}
 
-		.video__gallery__thumb {
+		.video__gallery__position {
 			position: absolute;
-			right: 13%;
+			right: -30%;
 			bottom: 0;
 			width: auto;
 			height: 100%;
 			z-index: 2;
 			transform: translateX(0);
 			transition: transform .4s ease-in-out, opacity .4s ease-in-out;
-			pointer-events: none;
+			pointer-events: auto;
 			user-select: none;
 
-			&--3 { right: -67px; }
-			&--4 { right: 0%; }
-			&--6 { right: 0%; }
+			&--3 { right: -36%; bottom: -7%; }
+			&--4 { right: -54%; bottom: -6%; }
+			&--5 { right: -28%;}
+			&--6 { right: -41%; }
 			&--7 { right: -15%; }
+			&--8 { right: -28%; }
+			&--9 { right: -28%; }
+		}
+
+		.video__gallery__thumbnail{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+			opacity: 0;
+			transition: opacity .3s ease-in-out;
 		}
 
 		.video__gallery__video {
@@ -154,28 +198,36 @@
 			border-radius: 5px;
 		}
 
+		&:hover .video__gallery__thumbnail{
+			opacity: 1;
+		}
+
 		// Masque la miniature si la vidéo est en lecture (prioritaire sur le hover)
-		&.is-playing .video__gallery__thumb {
+		&.is-playing .video__gallery__position {
 			opacity: 0;
 			pointer-events: none;
 		}
 
-		&.is-playing:after {
+		&.is-playing::after {
+			opacity: 0;
+		} 
+		
+		&.is-playing::before {
 			opacity: 0;
 		} 
 
 		// Masque la miniature au hover (sauf si la vidéo est en lecture)
-		&:hover .video__gallery__thumb {
+		&:hover .video__gallery__position {
 			opacity: 0;
-			transform: translateX(-10%);
+			transform: translateX(-10%); 
 		}
 
-		&:hover .video__gallery__thumb--3 {
+		&:hover .video__gallery__position--3 {
 			opacity: 0;
-			transform: translateX(0);
+			transform: translateX(0); 
 		}
 
-		&:hover .video__gallery__thumb--7 {
+		&:hover .video__gallery__position--7 {
 			opacity: 0;
 			transform: translateX(0);
 		}
@@ -192,7 +244,7 @@
 				max-width: 311px;
 			}
 		}
-		.video__gallery__thumb {
+		/* .video__gallery__position {
 				&--1 { right: -34%; }
 				&--2 { right: -46%; }
 				&--3 { right: -67px; }
@@ -202,7 +254,7 @@
 				&--7 { right: -15%; }
 				&--8 { right: -44%; }
 				&--9 { right: -44%; }
-			}
+			} */
 	}
 
 	@include responsive(tablet) {

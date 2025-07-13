@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { sampleVideos } from '@js/data/videosDatas.ts';
 
 const VideoGallery: React.FC = () => {
   const [sortByNewest, setSortByNewest] = useState(true);
   const [playingId, setPlayingId] = useState<number | null>(null);
+  const videoRefs = useRef<{ [key: number]: HTMLVideoElement | null }>({});
 
   const sortedVideos = [...sampleVideos].sort((a, b) =>
     sortByNewest ? b.id - a.id : a.id - b.id
   );
+
+  // Fonction pour gérer le clic sur la carte ou la miniature
+  const handleCardClick = (id: number) => {
+    // Si une autre vidéo joue, la mettre en pause
+    if (playingId !== null && playingId !== id && videoRefs.current[playingId]) {
+      videoRefs.current[playingId]?.pause();
+    }
+    setPlayingId(id);
+  };
 
   return (
     <section className="wrapper-1440-black">
@@ -40,29 +50,45 @@ const VideoGallery: React.FC = () => {
               className={`video__gallery__card${playingId === video.id ? ' is-playing' : ''}`}
             >
               <div className='video__gallery__card__head'>
-              <h2 className="video__gallery__exercice">{video.exerciceName}</h2>
-              <p className="video__gallery__reps">{video.repetitions}</p>
-              <p className="video__gallery__break">{video.break}</p>
-			  </div>
-              <img
-                src={video.thumbnail}
-                alt={video.title}
-                className={`video__gallery__thumb video__gallery__thumb--${video.id}`}
-                draggable={false}
-              />
-              <video
-                src={video.videoUrl}
-                controls
-                preload="metadata"
-                className="video__gallery__video"
-                onPlay={() => setPlayingId(video.id)}
-                onPause={() => setPlayingId(null)}
-                onEnded={() => setPlayingId(null)}
-              />
+                <h2 className="video__gallery__exercice">{video.exerciceName}</h2>
+                <p className="video__gallery__reps">{video.repetitions}</p>
+                <p className="video__gallery__break">{video.break}</p>
+              </div>
+              {playingId === video.id ? (
+                <video
+                  ref={el => { videoRefs.current[video.id] = el; }}
+                  src={video.videoUrl}
+                  controls
+                  autoPlay
+                  muted
+                  preload="metadata"
+                  className="video__gallery__video"
+                />
+              ) : (
+                <div
+                  className="video__gallery__thumbs"
+                  onClick={() => handleCardClick(video.id)}
+                  style={{ cursor: 'pointer', position: 'relative' }}
+                >
+                  <img
+                    src={video.position}
+                    alt={video.title}
+                    className={`video__gallery__position video__gallery__position--${video.id}`}
+                    draggable={false}
+                  />
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    className={`video__gallery__thumbnail video__gallery__thumbnail--${video.id}`}
+                    draggable={false}
+                  />
+                </div>
+              )}
               <h3>{video.title}</h3>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
