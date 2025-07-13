@@ -10,7 +10,7 @@ export interface SocialLink {
 
 export const socialLinks: Record<SocialPlatform, SocialLink> = {
   linkedin: {
-    url: "https://www.linkedin.com/company/sbg-leadership-coaching-and-consulting/",
+    url: "https://www.linkedin.com/in/samuel-billa-garcia/",
     icon: "icon__linkedin",
     label: "LinkedIn",
     variant: "black",

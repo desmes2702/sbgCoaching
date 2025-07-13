@@ -1,3 +1,4 @@
+console.log('DEBUG_ENV_TEST:', import.meta.env.DEBUG_ENV_TEST);
 export const prerender = false;
 console.log("📨 Nouvelle requête POST /api/contact");
 
@@ -8,9 +9,9 @@ import nodemailer from "nodemailer";
 const SMTP_HOST = import.meta.env.SMTP_HOST;
 const SMTP_PORT = import.meta.env.SMTP_PORT;
 const SMTP_USER = import.meta.env.SMTP_USER;
-const SMTP_PASS = import.meta.env.SMTP_PASS;
+const MAIL_SMTP_PASS = import.meta.env.MAIL_SMTP_PASS;
 
-console.log({ SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS });
+console.log({ SMTP_HOST, SMTP_PORT, SMTP_USER, MAIL_SMTP_PASS });
 
 export const POST: APIRoute = async ({ request }) => {
   let body;
@@ -27,12 +28,12 @@ export const POST: APIRoute = async ({ request }) => {
   });
 
   // 🔐 Vérification des variables SMTP
-  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
+  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !MAIL_SMTP_PASS) {
     console.error("❌ Variables SMTP manquantes :", {
       SMTP_HOST,
       SMTP_PORT,
       SMTP_USER,
-      SMTP_PASS: SMTP_PASS?.substring(0, 4) + "***",
+      MAIL_SMTP_PASS: MAIL_SMTP_PASS?.substring(0, 4) + "***",
     });
     return new Response(
       JSON.stringify({ success: false, error: "Configuration SMTP incomplète." }),
@@ -47,7 +48,7 @@ export const POST: APIRoute = async ({ request }) => {
     secure: false,
     auth: {
       user: SMTP_USER,
-      pass: SMTP_PASS,
+      pass: MAIL_SMTP_PASS,
     },
     logger: true,
     debug: true,
@@ -57,7 +58,7 @@ export const POST: APIRoute = async ({ request }) => {
     host: SMTP_HOST,
     port: SMTP_PORT,
     user: SMTP_USER,
-    pass: SMTP_PASS?.substring(0, 4) + "***",
+    pass: MAIL_SMTP_PASS?.substring(0, 4) + "***",
   });
 
   // 🧪 Test de connexion SMTP

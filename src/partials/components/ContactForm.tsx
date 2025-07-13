@@ -39,7 +39,7 @@ function ContactForm() {
   useEffect(() => {
     if (showRedirectMsg) {
       const timer = setTimeout(() => {
-        window.location.href = "/thanks";
+        window.location.href = "/merci";
       }, 1800);
       return () => clearTimeout(timer);
     }
