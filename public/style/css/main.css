@@ -2340,6 +2340,7 @@ label {
 }
 .home__training__arrow {
   height: 30px;
+  width: auto !important;
 }
 .home__training__program {
   margin: 0;
