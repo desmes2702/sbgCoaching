@@ -5,12 +5,6 @@ node_modules/
 .astro/
 .vite/
 .cache/
-dist/
-dist_astro/
-.netlify/
-.vercel/
-lighthouse/
-dist/stats.html
 
 # ---------------------------
 # ⚙️ Astro Content (auto)
@@ -50,12 +44,20 @@ Thumbs.db
 !.vscode/extensions.json
 
 # ---------------------------
-# 📂 Archives et fichiers volumineux
+# 🚫 Archives et fichiers volumineux (générique)
 # ---------------------------
 *.zip
+*.ZIP
 *.rar
+*.RAR
 
 # ---------------------------
-# ❌ Fichiers spécifiques à exclure
+# Fichiers Netlify et Astro à ignorer
 # ---------------------------
+.netlify/
+.vercel/
+dist_astro/
+dist/
+dist/stats.html
+lighthouse/
 src/pages/actualite-generale.astro
