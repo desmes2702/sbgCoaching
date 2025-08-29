@@ -2,10 +2,15 @@
 # 🔧 Build & tooling
 # ---------------------------
 node_modules/
-
 .astro/
 .vite/
 .cache/
+dist/
+dist_astro/
+.netlify/
+.vercel/
+lighthouse/
+dist/stats.html
 
 # ---------------------------
 # ⚙️ Astro Content (auto)
@@ -35,6 +40,7 @@ Thumbs.db
 # ---------------------------
 .env
 .env.*.local
+.env.local
 
 # ---------------------------
 # 🧩 VSCode (shared only)
@@ -43,15 +49,13 @@ Thumbs.db
 !.vscode/settings.json
 !.vscode/extensions.json
 
-# Fichiers Netlify et Astro à ignorer
-.netlify/
-.vercel/
-dist_astro/
-SBG_Coaching - v2.zip
-pages.zip
-public.zip
-dist/
-dist/stats.html
-lighthouse/
-.env.local
+# ---------------------------
+# 📂 Archives et fichiers volumineux
+# ---------------------------
+*.zip
+*.rar
+
+# ---------------------------
+# ❌ Fichiers spécifiques à exclure
+# ---------------------------
 src/pages/actualite-generale.astro
