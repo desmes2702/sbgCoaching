@@ -182,7 +182,7 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
               <li className="menu__item"><a href="/temoignages" className="menu__link link-underline-appear">Témoignages</a></li>
               <li className="menu__item"><a href="/a-propos" className="menu__link link-underline-appear">À Propos</a></li>
               <li className="menu__item"><a href="/contact" className="menu__link link-underline-appear">Contact</a></li>
-              <li className="menu__item menu__item__rdv"><a href="/contact" className="menu__link link-underline-replay">Prise de rendez-vous</a></li>
+              <li className="menu__item menu__item__rdv"><a href="/rdv" className="menu__link link-underline-replay">Prise de rendez-vous</a></li>
             </ul>
           </section>
           <section className="menu__section">

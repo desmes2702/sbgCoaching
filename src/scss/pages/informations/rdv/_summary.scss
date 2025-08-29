@@ -1,233 +1,223 @@
 @use "../../../abstracts" as *;
 
+/* =========================================================
+   STEP REVIEW — Récapitulatif et validation finale (DOM conservé)
+   ========================================================= */
 
-.form__summary{
-	&__undertitle > h3{
-		color: rgb(255 255 255 / 50%);
-		font-size: 12px;
-		font-weight: 400;
-		text-transform: uppercase;
-		margin-bottom: 0;
-	}
+/* Utilitaire accessibilité */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
 
-	fieldset {
-		width: 100%;
-		padding: 12px 0 0;
-		border: none;
-		text-align: left;
-		border-top: 1px solid rgb(255 255 255 / 10%);
-		margin-bottom: $spacing-lg;
+/* ---------- Sections principales ---------- */
+.step-review {
+  display: grid;
+  gap: 1rem;
+}
 
-		legend {
-			font-family: $font-secondary;
-			font-size: 0.75rem;
-			text-transform: uppercase;
-			opacity: 0.5;
-			padding-right: 12px;
-			font-style: normal !important;
-		  }
-	}
+.step-review__section {
+  padding: 1rem;
+  background: transparent;
+  border: 0px;
+  padding: 0 !important;
+  margin-bottom: 2rem;
+  gap: 2rem !important;
 
-	&__fieldset{
-		*{
-			color: white;
-		}
+  @media (min-width: $breakpoint-tablet) {
+    padding: 1.25rem;
+  }
 
-		.form__wrapper{
-			display: flex;
-			align-items: flex-start;
-			padding: 1rem 1rem 1.5rem;
-			border: 1px solid rgb(240 240 240 / 20%);
-			border-radius: 5px;
-			text-align: center;
-			flex-direction: column;
-			margin-bottom: 1.5rem;
+  .step-review__title{
+    color: white;
+  }
 
+  p{
+    color: white;
+  }
 
-			*{
-				text-align: left;
-			}
+  input[type=checkbox]{
+    margin-right: 0.5rem;
+  }
 
-			>div:not(:last-child){
-				margin-bottom: 1.5rem;
-			}
+  select{
+    width: fit-content;
+  }
+}
 
-			p{
-				margin-bottom: 0;
-			}
-		}
-	}
+.step-review__head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-	&__textarea > h4, &__inputs > h4{
-		width: 100%;
-		font-size: 12px;
-		font-weight: 300;
-		text-align: left;
-		opacity: .5;
-		font-family: $font-primary;
-	}
+    .step-review__title {
+      font-family: $font-secondary;
+      font-family: white;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin: 0;
+    
+      color: #fff;
+    }
 
-	&__textarea > p, &__inputs > p{
-		width: 100%;
-		padding: 1rem;
-		border: $border-secondary-color;
-		border-radius: 5px;
-	}
+    .step-review__badge{
+      padding: 0.5rem 0.75rem;
+      border: 1px solid;
+      border-radius: 16px;
+      font-size: 12px;
+      max-height: fit-content;
+      
+      &--ok {
+        color: rgba(0, 200, 120, 0.8);
+        border-color: rgba(0, 200, 120, 0.2);
+      }
 
-	.form__summary__infos, .form__summary__textarea{
-		width: 100%;
-	}
-
-	.form__summary__infos{
-		width: 100%;
-
-		>p{
-			padding-left: 1.5rem;
-			position: relative;
-		}
-	}
-
-	.form__fieldset-coaching{
-		margin-top: 3rem;
-		margin-bottom: 3rem;
-
-		.form__summary__infos{
-			display: flex;
-
-			p:not(:last-child){
-				margin-right: 1.5rem;
-			}
-		}
-	}
-
-	.form__fieldset-personal{
-		margin-bottom: 3rem;
-
-		.form__summary__inputs{
-			width: 100%;
-		}
-
-		.form__summary__inputs > div{
-			width: 100%;
-			padding: 1rem;
-			border: $border-secondary-color;
-			border-radius: 5px;
-		}
-	}
-
-	.form__summary__infos > p,
-	.form__summary__inputs > div > p {
-	  position: relative;
-	  padding-left: 2rem;
-
-	  &::before {
-		content: "";
-		position: absolute;
-		background-repeat: no-repeat;
-		background-size: contain;
-		top: 0;
-		left: 0;
-		width: 24px;
-		height: 24px;
-	  }
-	}
+      &--warn{
+        color: $color-error;
+        border-color: $color-error-border;
+      }
+    }
+    &-meta{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    &-actions{
+      display: flex;
+      gap: 1rem;
+    }
+  }
 
 
-	.summary__infos__type{
-			position: relative;
 
-			&::before{
-				background-image: url('../../img/icon__form__type.svg');
-			}
-		}
+/* ---------- Lignes clé/valeur ---------- */
+.step-review__kv {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 0.5rem 1rem;
+  align-items: start;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background-color: transparent;
 
-		.summary__infos__duree{
-			position: relative;
+  @media (max-width: $breakpoint-mobile) {
+    grid-template-columns: 1fr;
+  }
+}
 
-			&::before{
-				background-image: url('../../img/icon__form__duree.svg');
-			}
-		}
+.step-review__key {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
 
-		.summary__infos__personal{
-			position: relative;
+.step-review__val {
+  color: #fff;
+}
 
-			&::before{
-				background-image: url('../../img/icon__form__personal.svg');
-			}
-		}
+/* ---------- Zones éditables ---------- */
+.step-review__edit {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
 
-		.summary__infos__phone{
-			margin-bottom: 12px !important;
+  textarea{
+    min-height: 89px;
+    width: 100%;
+  }
 
-			&::before{
-				background-image: url('../../img/icon__form__phone.svg');
-			}
-		}
+  &--duration{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0 !important;
+    margin: 0;
+    padding: 0;
+    border: none;
 
-		.summary__infos__mail{
-			&::before{
-				background-image: url('../../img/icon__form__mail.svg');
-			}
-		}
+    legend{
+      margin-bottom: .5rem;
+    }
 
-	.wrapper__button{
-		display: flex;
-		justify-content: flex-end;
-		width: 100%;
-	}
+    p{
+      font-size: 12px;
+      margin-bottom: 1rem;
+    }
+  }
 
-	.form__summary__submit{
-		padding: 3rem 0;
-		border-top: 1px dashed rgb(255 255 255 / 10%);
+  &--type{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0 !important;
+  }
 
-		*{
-			color: white;
-		}
+  &--fragility{
+    textarea{
+      margin: 1rem 0 0 0;
+    }
+  }
+}
 
-		h2{
-			margin-bottom: 5px !important;
-			font-weight: 800 !important;
-			text-align: left;
-		}
+.step-review__edit-block{
+min-width: 100%;
+margin-top: 1rem;
 
-		p{
-			text-align: left;
-			opacity: 0.5;
-		}
+label{
+  display: block;
+  margin-bottom: .5rem;
+}
 
-		.form__summary__legal{
-			margin-bottom: 1.5rem;
-			text-align: left;
-
-			input[type="checkbox"] {
-				position: relative;
-				top: 1px;
-				width: 16px;
-				height: 16px;
-				border: 1px solid  $primary-color;
-				border-radius: 3px;
-				background-color: rgb(255 255 255 / 0%);
-				appearance: none;
-    			margin-right: 5px;
-			  }
-
-			  input[type="checkbox"]:checked::before {
-				content: "";
-				position: absolute;
-				top: -6px;
-				left:2px;
-				width: 22px;
-				height: 22px;
-				background-image: url("../../img/icon__form__check__rdv.svg");
-				background-size: contain;
-				background-repeat: no-repeat;
-				border-radius: 3px;
-
-			  }
-		}
-	}
+textarea {
+  min-height: 89px;
+  width: 100%;
 }
 
 
+}
 
+.step-review__actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+/* Réutilisation des styles champs/boutons du formulaire */
+.step-review .form__label { @extend .form__label; }
+.step-review .input       { @extend .input; }
+
+/* ---------- Bandeau d’état ---------- */
+.step-review__status {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+
+  &--error {
+    border-color: rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 0 0.125rem rgba(255, 0, 0, 0.2);
+  }
+}
+
+/* ---------- Boutons CTA validation ---------- */
+.step-review__cta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+
+  .btn { @extend .btn; }
+  .btn--ghost { @extend .btn--ghost; }
+  .btn--primary { @extend .btn--primary; }
+}

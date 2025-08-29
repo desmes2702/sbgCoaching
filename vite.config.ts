@@ -1,27 +1,26 @@
 import { defineConfig } from "vite";
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path";
-import postcssPresetEnv from 'postcss-preset-env';
-import cssnano from 'cssnano';
-import { visualizer } from 'rollup-plugin-visualizer';
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+import tsconfigPaths from "vite-tsconfig-paths";
+import postcssPresetEnv from "postcss-preset-env";
+import cssnano from "cssnano";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
   plugins: [
+    tsconfigPaths(), // aligne Vite sur tsconfig paths
     visualizer({
-      filename: 'stats.html',
-      open: true,
+      filename: "stats.html",
+      template: "treemap",
       gzipSize: true,
-      brotliSize: true
-    })
+      brotliSize: true,
+      open: false,
+    }),
   ],
-  server: {
-    open: true,
-    strictPort: true,
-    proxy: {},
-  },
+
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),
@@ -32,55 +31,44 @@ export default defineConfig({
       "@perf": resolve(__dirname, "src/partials/components/perf"),
     },
   },
+
   css: {
+    // ✅ Sass résout "abstracts/globals" grâce aux chemins ci-dessous
     preprocessorOptions: {
       scss: {
-        // additionalData: `@use "@scss/abstracts/globals" as *;`
+        includePaths: [
+          resolve(__dirname, "src/scss"),
+          resolve(__dirname, "src"), // optionnel (permet "scss/…" si besoin)
+        ],
+        // ✅ Injection globale sans alias Vite (Sass comprend ce chemin)
+        additionalData: `@use "abstracts/globals" as *;`,
+        // silenceDeprecations: ["legacy-js-api"], // facultatif
       },
-    },
-    devSourcemap: false,
-    modules: {
-      generateScopedName: '[hash:base64:8]'
     },
     postcss: {
       plugins: [
-        postcssPresetEnv(),
+        postcssPresetEnv({
+          stage: 1,
+          autoprefixer: { grid: true },
+          features: { "nesting-rules": true },
+        }),
         cssnano({
-          preset: ['default', {
-            discardComments: {
-              removeAll: true
-            },
-            normalizeWhitespace: true
-          }]
-        })
-      ]
-    }
+          preset: ["default", { discardComments: { removeAll: true } }],
+        }),
+      ],
+    },
+    devSourcemap: true,
   },
+
+  server: {
+    strictPort: true,
+    port: 4321,
+    open: false,
+  },
+
   build: {
-    outDir: "dist",
-    chunkSizeWarningLimit: 600,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    },
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'ui-vendor': ['@astrojs/react']
-        },
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
-      }
-    },
-    cssMinify: true,
-    cssCodeSplit: false,
-    sourcemap: false,
-    target: 'esnext',
+    target: "esnext",
     assetsInlineLimit: 4096,
+    sourcemap: false,
   },
 });
