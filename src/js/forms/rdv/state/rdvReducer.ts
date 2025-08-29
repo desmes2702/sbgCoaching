@@ -17,6 +17,16 @@ export const initialRdvState: RdvState = {
     fragility: null,
     files: [],
     objective: "",
+    // Initialize coord data
+    coord: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      preferredSlot: "",
+      message: "",
+      consentRgpd: false,
+    },
   },
   reviewBaseline: undefined,
   submission: {
@@ -63,6 +73,22 @@ export function rdvReducer(state: RdvState, action: RdvAction): RdvState {
       return { ...state, data: { ...state.data, objective: action.payload } };
     case "SET_HONEYPOT":
       return { ...state, honeypot: action.payload };
+
+    // --- New CoordData mutations ---
+    case "SET_FIRST_NAME":
+      return { ...state, data: { ...state.data, coord: { ...state.data.coord, firstName: action.payload } } };
+    case "SET_LAST_NAME":
+      return { ...state, data: { ...state.data, coord: { ...state.data.coord, lastName: action.payload } } };
+    case "SET_EMAIL":
+      return { ...state, data: { ...state.data, coord: { ...state.data.coord, email: action.payload } } };
+    case "SET_PHONE":
+      return { ...state, data: { ...state.data, coord: { ...state.data.coord, phone: action.payload } } };
+    case "SET_PREFERRED_SLOT":
+      return { ...state, data: { ...state.data, coord: { ...state.data.coord, preferredSlot: action.payload } } };
+    case "SET_MESSAGE":
+      return { ...state, data: { ...state.data, coord: { ...state.data.coord, message: action.payload } } };
+    case "SET_CONSENT_RGPD":
+      return { ...state, data: { ...state.data, coord: { ...state.data.coord, consentRgpd: action.payload } } };
 
     // --- Navigation ---
     case "GO_TO_STEP":

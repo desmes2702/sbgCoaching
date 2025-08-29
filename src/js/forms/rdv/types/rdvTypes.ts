@@ -18,6 +18,17 @@ export interface RdvFile {
   base64?: string;
 }
 
+// New CoordData type
+export type CoordData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  preferredSlot?: string;   // ex. "Matin", "Midi", "Après-midi", "Soir"
+  message?: string;         // optionnel
+  consentRgpd: boolean;     // case à cocher obligatoire
+};
+
 export interface RdvData {
   userType: UserType | null;
   durationKey: DurationKey | null;
@@ -25,6 +36,7 @@ export interface RdvData {
   fragility: Fragility | null;
   files: RdvFile[];
   objective: string;
+  coord: CoordData; // Add coord to RdvData
 }
 
 export interface Toast {
@@ -59,6 +71,14 @@ export type RdvAction =
   | { type: "REMOVE_FILE"; payload: string }
   | { type: "SET_OBJECTIVE"; payload: string }
   | { type: "SET_HONEYPOT"; payload: string }
+  // New actions for CoordData
+  | { type: "SET_FIRST_NAME"; payload: string }
+  | { type: "SET_LAST_NAME"; payload: string }
+  | { type: "SET_EMAIL"; payload: string }
+  | { type: "SET_PHONE"; payload: string }
+  | { type: "SET_PREFERRED_SLOT"; payload: string }
+  | { type: "SET_MESSAGE"; payload: string }
+  | { type: "SET_CONSENT_RGPD"; payload: boolean }
   | { type: "GO_TO_STEP"; payload: number }
   | { type: "VALIDATE_AND_GO_NEXT" }
   | { type: "PREV_STEP" }
@@ -70,7 +90,7 @@ export type RdvAction =
   | { type: "RESET" }
   | { type: "TOAST_SHOW"; payload: { message: string } }
   | { type: "TOAST_DISMISS"; payload: { id: string } }
-  | { type: "SET_GLOBAL_ERROR"; payload: string | null }; // New action type
+  | { type: "SET_GLOBAL_ERROR"; payload: string | null };
 
 // --- Component Props ---
 export interface StepProps {

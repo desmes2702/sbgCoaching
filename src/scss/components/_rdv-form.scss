@@ -5,6 +5,18 @@
   // Add any general form styling here if needed
 }
 
+.rdv-form__group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; // Space between fields
+  margin-bottom: 1.5rem;
+
+  > .field {
+    flex: 1 1 calc(50% - 0.75rem); // Two columns on larger screens
+    min-width: 15rem; // Minimum width before wrapping
+  }
+}
+
 .rdv-form__error {
   // Styles for the global form error component (FormError.tsx)
   color: var(--color-error); // Assuming a CSS variable for error color
@@ -34,20 +46,73 @@
   }
 }
 
-.form__field-error {
-  // Styles for individual field error messages
+.field {
+  margin-bottom: 1rem; // Default margin for fields not in a group
+
+  &--checkbox {
+    display: flex;
+    align-items: flex-start; // Align checkbox at the top
+    margin-top: 1.5rem; // Space above checkbox
+    
+    .field__input {
+      margin-top: 0.25rem; // Align checkbox with text
+      flex-shrink: 0; // Prevent checkbox from shrinking
+    }
+
+    .field__label {
+      margin-left: 0.5rem;
+      font-weight: normal; // Checkbox labels are usually not bold
+    }
+  }
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.field__input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-gray); // Assuming a gray color
+  border-radius: var(--border-radius-small);
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2); // Assuming RGB variable for primary color
+  }
+
+  &--invalid {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 2px rgba(var(--color-error-rgb), 0.2);
+  }
+}
+
+.field__hint {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-top: 0.25rem;
+}
+
+.field__error {
   color: var(--color-error);
-  font-size: 0.875rem; // Smaller font size for field errors
-  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
   margin-bottom: 0;
 }
 
-// Styles for invalid input fields
+// Styles for invalid input fields (general)
 .radio-card__input[aria-invalid="true"],
 .form-input[aria-invalid="true"],
 .textarea[aria-invalid="true"] {
   border-color: var(--color-error);
-  box-shadow: 0 0 0 2px rgba(var(--color-error-rgb), 0.2); // Assuming RGB variable for error color
+  box-shadow: 0 0 0 2px rgba(var(--color-error-rgb), 0.2);
 }
 
 // Styles for the progress bar (BEM naming)
@@ -64,7 +129,7 @@
   text-align: center;
   position: relative;
   padding-bottom: 1.5rem;
-  color: var(--color-text-light); // Assuming a light text color
+  color: var(--color-text-light);
 
   &::before {
     content: counter(step);
@@ -73,7 +138,7 @@
     height: 2rem;
     line-height: 2rem;
     border-radius: 50%;
-    background-color: var(--color-gray-light); // Assuming a light gray color
+    background-color: var(--color-gray-light);
     color: var(--color-white);
     display: block;
     margin: 0 auto 0.5rem;
@@ -96,7 +161,7 @@
   }
 
   &--active {
-    color: var(--color-primary); // Assuming a primary color
+    color: var(--color-primary);
     font-weight: bold;
 
     &::before {
@@ -106,10 +171,10 @@
   }
 
   &--done {
-    color: var(--color-success); // Assuming a success color
+    color: var(--color-success);
 
     &::before {
-      content: '✔'; // Checkmark
+      content: '✔';
       background-color: var(--color-success);
       border-color: var(--color-success);
     }
@@ -127,14 +192,14 @@
   }
 
   .progress__step {
-    flex-basis: 50%; // Two steps per row on smaller screens
+    flex-basis: 50%;
     margin-bottom: 1rem;
 
     &:nth-child(odd)::after {
-      display: none; // Hide line for odd steps
+      display: none;
     }
     &:nth-child(even)::after {
-      left: -50%; // Adjust line position for even steps
+      left: -50%;
     }
   }
 }

@@ -11,19 +11,22 @@ import { submitAppointment } from "./api/submit.ts"; // New import for submissio
 
 import Progress from "./components/Progress.tsx";
 import FormError from "./components/FormError.tsx";
-import FormSuccess from "./components/FormSuccess.tsx"; // New import for success component
+import FormSuccess from "./components/FormSuccess.tsx";
 import StepType from "./steps/StepType.tsx";
 import StepDuration from "./steps/StepDuration.tsx";
 import StepFragility from "./steps/StepFragility.tsx";
 import StepObjective from "./steps/StepObjective.tsx";
+import StepCoord from "./steps/StepCoord.tsx"; // New import for StepCoord
 import StepReview from "./steps/StepReview.tsx";
 
-const steps = ["Type", "Durée", "Infos", "Objectif", "Récap"];
+// Adjust steps and stepComponents arrays
+const steps = ["Type", "Durée", "Infos", "Objectif", "Coordonnées", "Récap"];
 const stepComponents = [
   StepType,
   StepDuration,
   StepFragility,
   StepObjective,
+  StepCoord, // Add StepCoord
   StepReview,
 ];
 
@@ -37,7 +40,8 @@ const AppointmentForm: React.FC = () => {
     const stepValidationResult = validateStep(state.currentStep, state.data);
     if (stepValidationResult.valid) {
       dispatch({ type: "SET_GLOBAL_ERROR", payload: null }); // Clear global error on valid step
-      if (state.currentStep === 3) { // Before review step
+      // Adjust step index for review
+      if (state.currentStep === 4) { // Before review step (now index 4)
           dispatch({ type: "ENTER_REVIEW" });
       } else {
           dispatch({ type: "VALIDATE_AND_GO_NEXT" });
@@ -54,7 +58,8 @@ const AppointmentForm: React.FC = () => {
   };
 
   const handleStepClick = (stepIndex: number) => {
-    if (stepIndex === 4 && state.maxReachableStep >= 4) {
+    // Adjust step index for review
+    if (stepIndex === 5 && state.maxReachableStep >= 5) { // Review step is now index 5
         dispatch({ type: "ENTER_REVIEW" });
     } else {
         dispatch({ type: "GO_TO_STEP", payload: stepIndex });
@@ -87,7 +92,7 @@ const AppointmentForm: React.FC = () => {
   
   if (state.submission.status === 'success') {
     return (
-        <FormSuccess onReset={() => dispatch({type: 'RESET'})} /> // Use FormSuccess component
+        <FormSuccess onReset={() => dispatch({type: 'RESET'})} />
     );
   }
 
