@@ -1,6 +1,8 @@
 import { defineConfig } from "vite";
+
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+
 import tsconfigPaths from "vite-tsconfig-paths";
 import postcssPresetEnv from "postcss-preset-env";
 import cssnano from "cssnano";
@@ -11,7 +13,7 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   plugins: [
-    tsconfigPaths(), // aligne Vite sur tsconfig paths
+    tsconfigPaths(), // align Vite with tsconfig paths
     visualizer({
       filename: "stats.html",
       template: "treemap",
@@ -20,7 +22,6 @@ export default defineConfig({
       open: false,
     }),
   ],
-
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),
@@ -31,16 +32,15 @@ export default defineConfig({
       "@perf": resolve(__dirname, "src/partials/components/perf"),
     },
   },
-
   css: {
-    // ✅ Sass résout "abstracts/globals" grâce aux chemins ci-dessous
+    // ✅ Sass resolves "abstracts/globals" via the paths below
     preprocessorOptions: {
       scss: {
         includePaths: [
           resolve(__dirname, "src/scss"),
-          resolve(__dirname, "src"), // optionnel (permet "scss/…" si besoin)
+          resolve(__dirname, "src"), // optionnel (permits "scss/..." if needed)
         ],
-        // ✅ Injection globale sans alias Vite (Sass comprend ce chemin)
+        // ✅ Global injection (Sass understands this path)
         additionalData: `@use "abstracts/globals" as *;`,
         // silenceDeprecations: ["legacy-js-api"], // facultatif
       },
@@ -59,13 +59,11 @@ export default defineConfig({
     },
     devSourcemap: true,
   },
-
   server: {
     strictPort: true,
     port: 4321,
     open: false,
   },
-
   build: {
     target: "esnext",
     assetsInlineLimit: 4096,

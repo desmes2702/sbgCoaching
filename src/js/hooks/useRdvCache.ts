@@ -1,4 +1,5 @@
 // src/js/hooks/useRdvCache.ts
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const STORAGE_KEY = "sbgcoaching.rdv.cache";
@@ -6,9 +7,9 @@ const CACHE_VERSION = 1;
 const EXPIRES_MS = 1000 * 60 * 60 * 72; // 72h
 
 type Persisted<T> = {
-  v: number;   // version
-  t: number;   // timestamp
-  e: number;   // expiresAt
+  v: number;
+  t: number;
+  e: number;
   step: number;
   data: T;
 };
@@ -24,7 +25,7 @@ function canUseStorage() {
   }
 }
 
-function loadFromStorage<T extends object>(defaults: T): { step: number; data: T } {
+function loadFromStorage<T>(defaults: T): { step: number; data: T } {
   if (!canUseStorage()) return { step: 0, data: defaults };
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -41,24 +42,25 @@ function loadFromStorage<T extends object>(defaults: T): { step: number; data: T
   }
 }
 
-export function useRdvCache<T extends object>(totalSteps: number, defaults: T) {
+export function useRdvCache<T>(totalSteps: number, defaults: T) {
   const initial = useMemo(() => loadFromStorage<T>(defaults), [defaults]);
-  const [step, setStepState] = useState<number>(initial.step);
-  const [data, setDataState] = useState<T>(initial.data);
+  const [step, setStepState] = useState(initial.step);
+  const [data, setDataState] = useState(initial.data);
 
-  // setters
-  const setStep = useCallback((fn: (s: number) => number) => {
-    setStepState(prev => {
-      const next = fn(prev);
-      return Math.min(Math.max(0, next), Math.max(0, totalSteps - 1));
-    });
-  }, [totalSteps]);
+  const setStep = useCallback(
+    (fn: (s: number) => number) => {
+      setStepState(prev => {
+        const next = fn(prev);
+        return Math.min(Math.max(0, next), Math.max(0, totalSteps - 1));
+      });
+    },
+    [totalSteps]
+  );
 
   const setData = useCallback((fn: (d: T) => T) => {
     setDataState(prev => fn(prev));
   }, []);
 
-  // persist
   useEffect(() => {
     if (!canUseStorage()) return;
     const now = Date.now();

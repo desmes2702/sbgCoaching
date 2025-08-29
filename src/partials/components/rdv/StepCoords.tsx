@@ -1,129 +1,141 @@
-// src/partials/components/rdv/StepCoords.tsx
-import { useMemo, useState, useId } from "react";
+import { useMemo, useState } from "react";
+import { validateCoords, canProceedCoords } from "@/js/validation/rdvValidation.ts";
 import type { StepCoordsProps, AppointmentData } from "@/js/types/rdvTypes.ts";
-import { ui, cx } from "@/js/forms/uiClasses.ts";
-import { validateCoords, canProceedCoords, type CoordsWarnings } from "@/js/validation/rdvValidation.ts";
+import { ui } from "@/js/forms/uiClasses.ts";
 
 export default function StepCoords({ data, onChange, onPrev, onNext, canNext = false }: StepCoordsProps) {
-  const autoId = useId();
-  const baseId = `coords-${autoId}`;
-
-  const warnings = useMemo<CoordsWarnings>(() => validateCoords(data), [data]);
+  const warnings = useMemo(() => validateCoords(data), [data]);
   const [touched, setTouched] = useState({
     firstname: false,
     lastname: false,
     email: false,
     phone: false,
     notes: false,
-    consent: false,
+    consent: false
   });
 
-  const show = (k: keyof typeof touched) => Boolean((touched[k] || (data as any)[k]) && (warnings as any)[k]);
   const localValid = canProceedCoords(data);
   const canProceed = canNext && localValid;
 
-  const onField =
-    <K extends keyof AppointmentData>(key: K) =>
-    (v: AppointmentData[K]) =>
-      onChange({ [key]: v } as Partial<AppointmentData>);
+  function handleField(key: keyof AppointmentData, value: string | boolean) {
+    onChange({ [key]: value } as Partial<AppointmentData>);
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (canProceed) onNext?.();
+  }
 
   return (
-    <section className={cx("step", "step-coords", ui.form)} role="group" aria-labelledby={`${baseId}-title`}>
-      <h3 id={`${baseId}-title`} className={cx(ui.title)} data-step-title tabIndex={-1}>Vos coordonnées</h3>
-
-      <div className={cx(ui.group)}>
-        <label htmlFor={`${baseId}-firstname`} className={cx(ui.label)}>Prénom <span aria-hidden="true">*</span></label>
-        <input
-          id={`${baseId}-firstname`}
-          className={cx(ui.input)}
-          type="text"
-          autoComplete="given-name"
-          value={data.firstname}
-          onChange={(e) => onField("firstname")(e.target.value)}
-          onBlur={() => setTouched((t) => ({ ...t, firstname: true }))}
-          aria-invalid={show("firstname")}
-        />
-        {show("firstname") && <p className={cx(ui.error)} role="alert">{warnings.firstname}</p>}
+    <form onSubmit={handleSubmit}>
+      <h2>Vos coordonnées (obligatoire)</h2>
+      <div>
+        <label>
+          Prénom *
+          <input
+            type="text"
+            value={data.firstname}
+            onChange={e => handleField("firstname", e.target.value)}
+            onBlur={() => setTouched(t => ({ ...t, firstname: true }))}
+            aria-invalid={Boolean((touched.firstname || data.firstname) && warnings.firstname)}
+            required
+            className={ui.input}
+          />
+        </label>
+        {(touched.firstname || data.firstname) && warnings.firstname && (
+          <div className={ui.error}>{warnings.firstname}</div>
+        )}
       </div>
-
-      <div className={cx(ui.group)}>
-        <label htmlFor={`${baseId}-lastname`} className={cx(ui.label)}>Nom <span aria-hidden="true">*</span></label>
-        <input
-          id={`${baseId}-lastname`}
-          className={cx(ui.input)}
-          type="text"
-          autoComplete="family-name"
-          value={data.lastname}
-          onChange={(e) => onField("lastname")(e.target.value)}
-          onBlur={() => setTouched((t) => ({ ...t, lastname: true }))}
-          aria-invalid={show("lastname")}
-        />
-        {show("lastname") && <p className={cx(ui.error)} role="alert">{warnings.lastname}</p>}
+      <div>
+        <label>
+          Nom *
+          <input
+            type="text"
+            value={data.lastname}
+            onChange={e => handleField("lastname", e.target.value)}
+            onBlur={() => setTouched(t => ({ ...t, lastname: true }))}
+            aria-invalid={Boolean((touched.lastname || data.lastname) && warnings.lastname)}
+            required
+            className={ui.input}
+          />
+        </label>
+        {(touched.lastname || data.lastname) && warnings.lastname && (
+          <div className={ui.error}>{warnings.lastname}</div>
+        )}
       </div>
-
-      <div className={cx(ui.group)}>
-        <label htmlFor={`${baseId}-email`} className={cx(ui.label)}>E‑mail <span aria-hidden="true">*</span></label>
-        <input
-          id={`${baseId}-email`}
-          className={cx(ui.input)}
-          type="email"
-          inputMode="email"
-          autoComplete="email"
-          value={data.email}
-          onChange={(e) => onField("email")(e.target.value)}
-          onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-          aria-invalid={show("email")}
-        />
-        {show("email") && <p className={cx(ui.error)} role="alert">{warnings.email}</p>}
+      <div>
+        <label>
+          E‑mail *
+          <input
+            type="email"
+            value={data.email}
+            onChange={e => handleField("email", e.target.value)}
+            onBlur={() => setTouched(t => ({ ...t, email: true }))}
+            aria-invalid={Boolean((touched.email || data.email) && warnings.email)}
+            required
+            className={ui.input}
+          />
+        </label>
+        {(touched.email || data.email) && warnings.email && (
+          <div className={ui.error}>{warnings.email}</div>
+        )}
       </div>
-
-      <div className={cx(ui.group)}>
-        <label htmlFor={`${baseId}-phone`} className={cx(ui.label)}>Téléphone <span aria-hidden="true">*</span></label>
-        <input
-          id={`${baseId}-phone`}
-          className={cx(ui.input)}
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          value={data.phone}
-          onChange={(e) => onField("phone")(e.target.value)}
-          onBlur={() => setTouched((t) => ({ ...t, phone: true }))}
-          aria-invalid={show("phone")}
-          placeholder="+32 4xx xx xx xx"
-        />
-        {show("phone") && <p className={cx(ui.error)} role="alert">{warnings.phone}</p>}
+      <div>
+        <label>
+          Téléphone *
+          <input
+            type="tel"
+            value={data.phone}
+            onChange={e => handleField("phone", e.target.value)}
+            onBlur={() => setTouched(t => ({ ...t, phone: true }))}
+            aria-invalid={Boolean((touched.phone || data.phone) && warnings.phone)}
+            required
+            className={ui.input}
+          />
+        </label>
+        {(touched.phone || data.phone) && warnings.phone && (
+          <div className={ui.error}>{warnings.phone}</div>
+        )}
       </div>
-
-      <div className={cx(ui.group)}>
-        <label htmlFor={`${baseId}-notes`} className={cx(ui.label)}>Message (optionnel)</label>
-        <textarea
-          id={`${baseId}-notes`}
-          className={cx(ui.textarea)}
-          rows={3}
-          value={data.notes}
-          onChange={(e) => onField("notes")(e.target.value)}
-          onBlur={() => setTouched((t) => ({ ...t, notes: true }))}
-        />
+      <div>
+        <label>
+          Message (optionnel)
+          <textarea
+            value={data.notes}
+            onChange={e => handleField("notes", e.target.value)}
+            onBlur={() => setTouched(t => ({ ...t, notes: true }))}
+            aria-invalid={Boolean((touched.notes || data.notes) && warnings.notes)}
+            rows={2}
+            className={ui.textarea}
+          />
+        </label>
       </div>
-
-      <label className={cx(ui.check)}>
-        <input
-          type="checkbox"
-          checked={data.consentAccepted}
-          onChange={(e) => onField("consentAccepted")(e.target.checked)}
-          onBlur={() => setTouched((t) => ({ ...t, consent: true }))}
-          aria-invalid={Boolean(warnings.consentAccepted)}
-        />
-        <span>J’accepte que mes données soient utilisées pour me recontacter.</span>
-      </label>
-      {Boolean(warnings.consentAccepted) && <p className={cx(ui.error)} role="alert">{warnings.consentAccepted}</p>}
-
-      <div className={cx(ui.actions)}>
-        <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-        <button type="button" className={cx(ui.next)} onClick={onNext} disabled={!canProceed} aria-disabled={!canProceed}>
-          Continuer
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={data.consentAccepted}
+            onChange={e => handleField("consentAccepted", e.target.checked)}
+            onBlur={() => setTouched(t => ({ ...t, consent: true }))}
+            aria-invalid={Boolean(warnings.consentAccepted)}
+            required
+          />
+          J’accepte que mes données soient utilisées pour me recontacter.
+        </label>
+        {warnings.consentAccepted && (
+          <div className={ui.error}>{warnings.consentAccepted}</div>
+        )}
+      </div>
+      <div className={ui.actions}>
+        {onPrev && (
+          <button type="button" className={ui.prev} onClick={onPrev}>
+            Précédent
+          </button>
+        )}
+        <button type="submit" className={ui.next} disabled={!canProceed}>
+          Suivant
         </button>
       </div>
-    </section>
+    </form>
   );
 }

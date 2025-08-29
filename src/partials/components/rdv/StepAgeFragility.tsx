@@ -1,87 +1,88 @@
-// src/partials/components/rdv/StepAgeFragility.tsx
-import React from "react";
 import type { StepAgeFragilityProps } from "@/js/types/rdvTypes.ts";
-import { ui, cx } from "@/js/forms/uiClasses.ts";
+import type { YesNoNa } from "@/js/types/rdvTypes.ts";
 import { AGE_MIN, AGE_MAX, MIN_FRAGILITY_CHARS, validateAgeFragility, canProceedAgeFragility } from "@/js/validation/rdvValidation.ts";
+import { ui, cx } from "@/js/forms/uiClasses.ts";
+import { useState } from "react";
+
+const fragilityChoices = [
+  { id: "yes", label: "Oui" },
+  { id: "no", label: "Non" },
+  { id: "na", label: "Ne souhaite pas préciser" }
+];
 
 export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNext }: StepAgeFragilityProps) {
+  const [touched, setTouched] = useState({ age: false, fragilityNotes: false });
   const warnings = validateAgeFragility(data);
   const valid = canProceedAgeFragility(data);
 
-  return (
-    <section className={cx("step", "step-agefragility", ui.form)} data-step="ageFragility">
-      <fieldset className={cx(ui.fieldset)}>
-        <legend className={cx(ui.legend)} data-step-title tabIndex={-1}>Âge & fragilité</legend>
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (valid) onNext?.();
+  }
 
-        <div className={cx(ui.group)}>
-          <label htmlFor="age" className={cx(ui.label)}>Âge <span aria-hidden="true">*</span></label>
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>
+          Âge*
           <input
-            id="age"
-            className={cx(ui.input)}
             type="number"
             min={AGE_MIN}
             max={AGE_MAX}
-            inputMode="numeric"
-            value={data.age === "" ? "" : data.age}
-            onChange={(e) => onChange({ age: e.currentTarget.value === "" ? "" : e.currentTarget.valueAsNumber })}
-            aria-invalid={Boolean(warnings.age)}
-            aria-describedby="age-hint"
+            value={data.age}
+            onChange={e => onChange({ age: e.target.value === "" ? "" : Number(e.target.value) })}
+            onBlur={() => setTouched(t => ({ ...t, age: true }))}
+            className={ui.input}
             required
           />
-          <p id="age-hint" className={cx(ui.hint)}>{warnings.age || `Entre ${AGE_MIN} et ${AGE_MAX} ans.`}</p>
-        </div>
-
-        <fieldset className={cx(ui.group)}>
-          <legend className={cx(ui.label)}>Avez‑vous une fragilité/handicap physique ? <span aria-hidden="true">*</span></legend>
-          <div className={cx(ui.grid)}>
-            {[
-              { id: "yes", label: "Oui" },
-              { id: "no",  label: "Non" },
-              { id: "na",  label: "Ne souhaite pas préciser" },
-            ].map(opt => {
-              const id = `frag-${opt.id}`;
-              const checked = data.isSeniorOrFragile === opt.id;
-              return (
-                <label key={opt.id} htmlFor={id} className={cx(ui.choice, checked && ui.choiceSelected)}>
-                  <input
-                    id={id}
-                    type="radio"
-                    className={cx(ui.radio)}
-                    name="fragility"
-                    checked={checked}
-                    onChange={() => onChange({ isSeniorOrFragile: opt.id as any })}
-                  />
-                  <span>{opt.label}</span>
-                </label>
-              );
-            })}
-          </div>
-        </fieldset>
-
-        {data.isSeniorOrFragile === "yes" && (
-          <div className={cx(ui.group)}>
-            <label htmlFor="fragilityNotes" className={cx(ui.label)}>
-              Précisez vos limitations (min. {MIN_FRAGILITY_CHARS} caractères)
-            </label>
-            <textarea
-              id="fragilityNotes"
-              className={cx(ui.textarea)}
-              rows={3}
-              value={data.fragilityNotes}
-              onChange={(e) => onChange({ fragilityNotes: e.target.value })}
-              aria-invalid={Boolean(warnings.fragilityNotes)}
-            />
-            {warnings.fragilityNotes && <p className={cx(ui.error)} role="alert">{warnings.fragilityNotes}</p>}
-          </div>
+        </label>
+        {(touched.age || data.age) && warnings.age && (
+          <div className={ui.error}>{warnings.age}</div>
         )}
-      </fieldset>
-
-      <div className={cx(ui.actions)}>
-        <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-        <button type="button" className={cx(ui.next)} onClick={onNext} disabled={!canNext || !valid} aria-disabled={!canNext || !valid}>
-          Continuer
+      </div>
+      <div>
+        <div>Fragilité*</div>
+        {fragilityChoices.map(opt => (
+          <label key={opt.id} className={ui.choice}>
+            <input
+              type="radio"
+              name="fragility"
+              value={opt.id}
+              checked={data.isSeniorOrFragile === opt.id}
+              onChange={e => onChange({ isSeniorOrFragile: e.target.value as YesNoNa })}
+            />
+            {opt.label}
+          </label>
+        ))}
+      </div>
+      {data.isSeniorOrFragile === "yes" && (
+        <div>
+          <label>
+            Détails
+            <textarea
+              value={data.fragilityNotes}
+              onChange={e => onChange({ fragilityNotes: e.target.value })}
+              onBlur={() => setTouched(t => ({ ...t, fragilityNotes: true }))}
+              minLength={MIN_FRAGILITY_CHARS}
+              className={ui.textarea}
+              required
+            />
+          </label>
+          {(touched.fragilityNotes || data.fragilityNotes) && warnings.fragilityNotes && (
+            <div className={ui.error}>{warnings.fragilityNotes}</div>
+          )}
+        </div>
+      )}
+      <div className={ui.actions}>
+        {onPrev && (
+          <button type="button" className={ui.prev} onClick={onPrev}>
+            Précédent
+          </button>
+        )}
+        <button type="submit" className={ui.next} disabled={!canNext}>
+          Suivant
         </button>
       </div>
-    </section>
+    </form>
   );
 }

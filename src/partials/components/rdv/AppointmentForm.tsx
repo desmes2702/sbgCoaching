@@ -1,5 +1,5 @@
-// src/partials/components/rdv/AppointmentForm.tsx
 import { useEffect, useMemo, useState } from "react";
+
 import StepHeader from "@/partials/components/rdv/StepHeader.tsx";
 import StepType from "@/partials/components/rdv/StepType.tsx";
 import StepObjective from "@/partials/components/rdv/StepObjective.tsx";
@@ -10,7 +10,7 @@ import StepReview from "@/partials/components/rdv/StepReview.tsx";
 
 import type { AppointmentData, StepKey, SubmitEvent } from "@/js/types/rdvTypes.ts";
 import { canProceedObjective, canProceedAgeFragility, canProceedDuration, canProceedCoords, isFormValid } from "@/js/validation/rdvValidation.ts";
-import { ui, cx } from "@/js/forms/uiClasses.ts";
+import { ui } from "@/js/forms/uiClasses.ts";
 
 const STEPS: StepKey[] = ["type", "objective", "ageFragility", "duration", "coords", "review"];
 const STORAGE_KEY = "rdvFormDraft_v2";
@@ -30,7 +30,7 @@ const INITIAL_DATA: AppointmentData = {
   phone: "",
   notes: "",
   consentAccepted: false,
-  website: "",
+  website: ""
 };
 
 export default function AppointmentForm() {
@@ -42,6 +42,7 @@ export default function AppointmentForm() {
       return INITIAL_DATA;
     }
   });
+
   const [stepIndex, setStepIndex] = useState(0);
   const [startedAt] = useState(() => Date.now());
   const [submitting, setSubmitting] = useState(false);
@@ -50,33 +51,25 @@ export default function AppointmentForm() {
 
   const currentStep = STEPS[stepIndex];
 
-  // autosave
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } catch {}
   }, [data]);
 
-  const goNext = () => setStepIndex((i) => Math.min(i + 1, STEPS.length - 1));
-  const goPrev = () => setStepIndex((i) => Math.max(i - 1, 0));
-  const setField = (partial: Partial<AppointmentData>) => setData((prev) => ({ ...prev, ...partial }));
+  const goNext = () => setStepIndex(i => Math.min(i + 1, STEPS.length - 1));
+  const goPrev = () => setStepIndex(i => Math.max(i - 1, 0));
+  const setField = (partial: Partial<AppointmentData>) => setData(prev => ({ ...prev, ...partial }));
 
   const canContinue = useMemo(() => {
     switch (currentStep) {
-      case "type":
-        return !!data.typeId;
-      case "objective":
-        return canProceedObjective(data);
-      case "ageFragility":
-        return canProceedAgeFragility(data);
-      case "duration":
-        return canProceedDuration(data);
-      case "coords":
-        return canProceedCoords(data);
-      case "review":
-        return isFormValid(data);
-      default:
-        return false;
+      case "type": return !!data.typeId;
+      case "objective": return canProceedObjective(data);
+      case "ageFragility": return canProceedAgeFragility(data);
+      case "duration": return canProceedDuration(data);
+      case "coords": return canProceedCoords(data);
+      case "review": return isFormValid(data);
+      default: return false;
     }
   }, [currentStep, data]);
 
@@ -84,19 +77,17 @@ export default function AppointmentForm() {
     const total = STEPS.length;
     const done = stepIndex;
     const remaining = Math.max(0, total - done - 1);
-    // estimation ~20s par step -> mn
     return Math.max(1, Math.round((remaining * 20) / 60));
   }, [stepIndex]);
 
   async function handleSubmitFinal() {
     setError("");
-
-    // honeypot
     if (data.website.trim() !== "") {
+      // Honeypot anti-spam
       setError("Une erreur est survenue.");
       return;
     }
-    // anti submit trop rapide
+
     const elapsed = Date.now() - startedAt;
     if (elapsed < MIN_SUBMIT_DELAY_MS) {
       setError("Veuillez patienter un court instant avant de valider.");
@@ -105,9 +96,7 @@ export default function AppointmentForm() {
 
     try {
       setSubmitting(true);
-      // Brancher ici ton envoi (Mailjet/Laravel/API)
-      // await sendAppointment(data)
-      await new Promise((r) => setTimeout(r, 600));
+      await new Promise(r => setTimeout(r, 600)); // simulate (remplace avec fetch réel !)
       setOk(true);
       localStorage.removeItem(STORAGE_KEY);
     } catch (err: any) {
@@ -118,68 +107,95 @@ export default function AppointmentForm() {
   }
 
   function onReviewEvent(evt: SubmitEvent) {
-    if (evt.type === "change") {
-      setField(evt.payload);
-    } else if (evt.type === "submit") {
-      handleSubmitFinal();
-    }
+    if (evt.type === "change") setField(evt.payload);
+    else if (evt.type === "submit") handleSubmitFinal();
   }
 
   if (ok) {
     return (
-      <div className="form-success">
-        <h3 className={cx(ui.title)}>Merci !</h3>
-        <p>Votre demande a bien été envoyée. Nous revenons vers vous rapidement.</p>
-      </div>
+      <section className={ui.form} aria-live="polite">
+        <h2>Merci !</h2>
+        <p>Votre demande a bien été envoyée.<br />Nous revenons vers vous rapidement.</p>
+      </section>
     );
   }
 
   return (
-    <form className={cx(ui.form)} onSubmit={(e) => e.preventDefault()} noValidate>
+    <form
+      className={ui.form}
+      aria-labelledby="appointment-form-title"
+      noValidate
+      onSubmit={e => e.preventDefault()}
+      autoComplete="off"
+    >
       <StepHeader step={stepIndex + 1} total={STEPS.length} timeLeftMin={timeLeftMin} />
-
+      <div id="appointment-form-title" className={ui.title}>
+        Prendre RDV coaching
+      </div>
       {currentStep === "type" && (
         <StepType
           data={data}
-          onChange={(value) => {
-            setField({ typeId: value });
-            console.log("✅ typeId mis à jour :", value);
-          }}
+          onChange={val => setField({ typeId: val })}
           onNext={goNext}
         />
       )}
-
       {currentStep === "objective" && (
-        <StepObjective data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={goNext} canNext={canContinue} />
-      )}
-
-      {currentStep === "ageFragility" && (
-        <StepAgeFragility data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={goNext} canNext={canContinue} />
-      )}
-
-      {currentStep === "duration" && (
-        <StepDuration data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={goNext} canNext={canContinue} />
-      )}
-
-      {currentStep === "coords" && (
-        <StepCoords data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={goNext} canNext={canContinue} />
-      )}
-
-      {currentStep === "review" && (
-        <StepReview data={data} onPrev={goPrev} onSubmit={onReviewEvent} submitting={submitting} />
-      )}
-
-      {/* honeypot anti-spam */}
-      <label className={cx(ui.srOnly)} aria-hidden="true">
-        Laissez ce champ vide
-        <input
-          type="text" name="website" tabIndex={-1} autoComplete="off"
-          value={data.website}
-          onChange={(e) => setField({ website: (e.target as HTMLInputElement).value })}
+        <StepObjective
+          data={data}
+          onChange={partial => setField(partial)}
+          onPrev={goPrev}
+          onNext={goNext}
+          canNext={canContinue}
         />
-      </label>
+      )}
+      {currentStep === "ageFragility" && (
+        <StepAgeFragility
+          data={data}
+          onChange={partial => setField(partial)}
+          onPrev={goPrev}
+          onNext={goNext}
+          canNext={canContinue}
+        />
+      )}
+      {currentStep === "duration" && (
+        <StepDuration
+          data={data}
+          onChange={partial => setField(partial)}
+          onPrev={goPrev}
+          onNext={goNext}
+          canNext={canContinue}
+        />
+      )}
+      {currentStep === "coords" && (
+        <StepCoords
+          data={data}
+          onChange={partial => setField(partial)}
+          onPrev={goPrev}
+          onNext={goNext}
+          canNext={canContinue}
+        />
+      )}
+      {currentStep === "review" && (
+        <StepReview
+          data={data}
+          onPrev={goPrev}
+          onSubmit={onReviewEvent}
+          submitting={submitting}
+        />
+      )}
 
-      {error && <p className={cx(ui.error)} role="alert" style={{ marginTop: "1rem" }}>{error}</p>}
+      {/* Honeypot anti-spam */}
+      <input
+        type="text"
+        name="website"
+        style={{ display: "none" }}
+        autoComplete="off"
+        tabIndex={-1}
+        value={data.website}
+        onChange={e => setField({ website: (e.target as HTMLInputElement).value })}
+      />
+
+      {error && <div className={ui.error} aria-live="polite">{error}</div>}
     </form>
   );
 }

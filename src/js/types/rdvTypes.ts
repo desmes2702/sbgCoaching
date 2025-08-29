@@ -1,5 +1,4 @@
 // src/js/types/rdvTypes.ts
-// Types + Props partagés
 
 export type StepKey =
   | "type"
@@ -8,61 +7,45 @@ export type StepKey =
   | "duration"
   | "coords"
   | "review";
-
 export type YesNoNa = "yes" | "no" | "na";
 export type DurationValue = "3m" | "6m" | "12m" | "other";
 
 export type AppointmentData = {
-  // 1) Type
   typeId: "entreprise" | "particulier" | "";
-
-  // 2) Objectif
   objectiveNotes: string;
-
-  // 3) Âge + fragilité
   age: number | "";
   isSeniorOrFragile: YesNoNa;
   fragilityNotes: string;
-
-  // 4) Durée
   durationId: DurationValue | "";
   durationCustom: string;
-
-  // 5) Coordonnées
   firstname: string;
   lastname: string;
   email: string;
   phone: string;
   notes: string;
-
-  // Divers
   consentAccepted: boolean; // RGPD
-  website: string;          // honeypot anti‑spam
+  website: string; // honeypot anti‑spam
 };
 
-/* --------- événements envoyés par le step Review --------- */
 export type SubmitEvent =
   | { type: "change"; payload: Partial<AppointmentData> }
   | { type: "submit" };
-
 export type SubmitEventFn = (evt: SubmitEvent) => void;
+
 export type VoidFn = () => void;
 
-/* --------- props navigation --------- */
 export interface StepNavProps {
   onPrev?: VoidFn;
   onNext?: VoidFn;
   canNext?: boolean;
 }
 
-/* --------- header --------- */
 export interface StepHeaderProps {
-  step: number;   // 1‑based
+  step: number; // 1‑based
   total: number;
   timeLeftMin?: number;
 }
 
-/* --------- chaque step --------- */
 export interface StepTypeProps extends StepNavProps {
   data: AppointmentData;
   onChange: (value: AppointmentData["typeId"]) => void;
@@ -70,26 +53,24 @@ export interface StepTypeProps extends StepNavProps {
 
 export interface StepObjectiveProps extends StepNavProps {
   data: AppointmentData;
-  onChange: (partial: Pick<AppointmentData, "objectiveNotes">) => void;
+  onChange: (partial: Partial<AppointmentData>) => void;
 }
 
 export interface StepAgeFragilityProps extends StepNavProps {
   data: AppointmentData;
-  onChange: (partial: Partial<Pick<AppointmentData, "age" | "isSeniorOrFragile" | "fragilityNotes">>) => void;
+  onChange: (partial: Partial<AppointmentData>) => void;
 }
 
 export interface StepDurationProps extends StepNavProps {
   data: AppointmentData;
-  onChange: (partial: Partial<Pick<AppointmentData, "durationId" | "durationCustom">>) => void;
+  onChange: (partial: Partial<AppointmentData>) => void;
 }
 
 export interface StepCoordsProps extends StepNavProps {
   data: AppointmentData;
-  onChange: (partial: Partial<Pick<AppointmentData,
-    "firstname" | "lastname" | "email" | "phone" | "notes" | "consentAccepted">>) => void;
+  onChange: (partial: Partial<AppointmentData>) => void;
 }
 
-/* --------- review --------- */
 export interface StepReviewProps {
   data: AppointmentData;
   onPrev?: VoidFn;

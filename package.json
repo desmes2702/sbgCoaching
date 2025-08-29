@@ -22,7 +22,7 @@
     "@types/dompurify": "^3.0.5",
     "@types/glob": "^8.1.0",
     "@types/node": "^22.15.17",
-    "@types/nodemailer": "^6.4.17",
+    "@types/nodemailer": "^6.4.19",
     "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
@@ -62,7 +62,7 @@
     "dompurify": "^3.2.6",
     "dotenv": "^16.5.0",
     "glob": "^11.0.2",
-    "nodemailer": "^7.0.3",
+    "nodemailer": "^7.0.5",
     "openai": "^4.98.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

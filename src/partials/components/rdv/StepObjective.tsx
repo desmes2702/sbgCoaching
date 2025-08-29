@@ -1,51 +1,58 @@
-// src/partials/components/rdv/StepObjective.tsx
 import type { StepObjectiveProps } from "@/js/types/rdvTypes.ts";
-import { ui, cx } from "@/js/forms/uiClasses.ts";
 import { MIN_OBJECTIVE_CHARS, canProceedObjective } from "@/js/validation/rdvValidation.ts";
+import { ui, cx } from "@/js/forms/uiClasses.ts";
+import { useState } from "react";
 
 export default function StepObjective({ data, onChange, onPrev, onNext, canNext }: StepObjectiveProps) {
+  const [touched, setTouched] = useState(false);
   const valid = canProceedObjective(data);
 
-  return (
-    <section className={cx("step", "step-objective", ui.form)} data-step="objective">
-      <fieldset className={cx(ui.fieldset)}>
-        <legend className={cx(ui.legend)} data-step-title tabIndex={-1}>
-          Votre objectif principal
-        </legend>
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (valid) onNext?.();
+  }
 
-        <div className={cx(ui.group)}>
-          <label htmlFor="objectiveNotes" className={cx(ui.label)}>
-            Décrivez brièvement votre objectif <span aria-hidden="true">*</span>
+  return (
+    <form className={ui.form} onSubmit={handleSubmit} aria-labelledby="step-objective-title">
+      <fieldset className={ui.fieldset}>
+        <legend className={cx(ui.legend, ui.title)} id="step-objective-title">
+          Votre objectif <span className={ui.srOnly}>(obligatoire)</span>
+        </legend>
+        <div className={ui.group}>
+          <label className={ui.label} htmlFor="objectiveNotes">
+            Merci de préciser votre objectif :
           </label>
           <textarea
             id="objectiveNotes"
-            className={cx(ui.textarea)}
-            rows={4}
+            name="objectiveNotes"
+            className={ui.textarea}
             value={data.objectiveNotes}
-            onChange={(e) => onChange({ objectiveNotes: e.target.value })}
-            placeholder="Perte de poids, remise en forme, préparation d’un événement, santé…"
+            onChange={e => onChange({ objectiveNotes: e.target.value })}
+            onBlur={() => setTouched(true)}
+            minLength={MIN_OBJECTIVE_CHARS}
             required
-            aria-invalid={!valid}
+            aria-required="true"
+            aria-invalid={!!(!valid && (touched || data.objectiveNotes))}
             aria-describedby="objective-hint"
+            rows={3}
           />
-          <p id="objective-hint" className={cx(ui.hint)}>
-            {data.objectiveNotes.trim().length}/{MIN_OBJECTIVE_CHARS} caractères min.
-          </p>
+          <div id="objective-hint" className={ui.hint}>
+            {data.objectiveNotes.length < MIN_OBJECTIVE_CHARS
+              ? `Minimum ${MIN_OBJECTIVE_CHARS} caractères (${MIN_OBJECTIVE_CHARS - data.objectiveNotes.length} restants)`
+              : "Objectif valide"}
+          </div>
         </div>
       </fieldset>
-
-      <div className={cx(ui.actions)}>
-        <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-        <button
-          type="button"
-          className={cx(ui.next)}
-          onClick={onNext}
-          disabled={!canNext || !valid}
-          aria-disabled={!canNext || !valid}
-        >
-          Continuer
+      <div className={ui.actions}>
+        {onPrev && (
+          <button type="button" className={ui.prev} onClick={() => onPrev()}>
+            Précédent
+          </button>
+        )}
+        <button type="submit" className={ui.next} disabled={!valid}>
+          Suivant
         </button>
       </div>
-    </section>
+    </form>
   );
 }

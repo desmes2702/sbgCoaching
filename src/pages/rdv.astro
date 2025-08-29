@@ -1,13 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import AppointmentForm from "@partials/components/rdv/AppointmentForm";
+import AppointmentForm from "@/js/forms/rdv/AppointmentForm.tsx";
 ---
 
-<BaseLayout title="Prise de rendez-vous | SBG Coaching" dataPage="rdv">
-  <section class="rdv rdv--dark wrapper-1440-black" aria-labelledby="rdv-title">
-    <div class="container rdv__container">
-      <h1 id="rdv-title" class="rdv__title">COACHING SPORTIF<span class="rdv__title-accent">_</span></h1>
-      <AppointmentForm client:load />
-    </div>
-  </section>
+<BaseLayout title="Prendre Rendez-vous | SBG Coaching" dataPage="rdv">
+  <main class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <AppointmentForm client:load />
+  </main>
 </BaseLayout>

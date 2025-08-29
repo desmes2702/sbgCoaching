@@ -1,16 +1,11 @@
 // src/js/forms/uiClasses.ts
-// Point central pour les classes utilitaires (BEM-friendly).
-// Conservé + enrichi (ajouts non-breaking).
 
 export const ui = {
-  // existants
   control: "field__control control",
   label: "field__label",
   error: "field__error",
   choice: "choice",
   choiceSelected: "is-selected",
-
-  // formulaires
   form: "form",
   fieldset: "form__fieldset",
   legend: "form__legend",
@@ -32,8 +27,6 @@ export const ui = {
   check: "check",
   radio: "radio",
   srOnly: "sr-only",
-
-  // Step header
   stepHeader: "step-header",
   stepHeaderBar: "step-header__bar",
   stepHeaderFill: "step-header__fill",
@@ -43,7 +36,7 @@ export const ui = {
   info: "step-header__info",
 };
 
-// Tiny utilitaire pour concaténer des classes
-export function cx(...parts: Array<string | false | null | undefined>) {
+// Typage sûr, compatible TS/React
+export function cx(...parts: Array<string | undefined>) {
   return parts.filter(Boolean).join(" ");
 }
