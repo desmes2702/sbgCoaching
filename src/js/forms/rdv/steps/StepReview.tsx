@@ -11,7 +11,7 @@ import StepDuration from "./StepDuration.tsx";
 import StepFragility from "./StepFragility.tsx";
 import StepObjective from "./StepObjective.tsx";
 
-import { DURATION_LABELS } from "../../data/rdv/duration.ts";
+import { DURATION_LABELS } from "../../../data/rdv/duration.ts";
 const FRAGILITY_LABELS = { oui: "Oui", non: "Non", "ne-precise-pas": "Non précisé" };
 const SECTION_LABELS: Record<SectionKey, string> = { type: "Type de coaching", duration: "Durée", fragility: "Informations", objective: "Objectif" };
 
