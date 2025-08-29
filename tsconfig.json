@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+<<<<<<< HEAD
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+=======
+    "module": "ESNext",                 // reco Astro
+    "moduleResolution": "Bundler",      // reco Astro
+>>>>>>> fix/all
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "strict": true,
@@ -15,7 +20,7 @@
       "@layouts/*": ["layouts/*"],
       "@perf/*": ["partials/components/perf/*"]
     },
-    "types": ["node", "astro/client"],
+    "types": ["node", "astro/client", "react", "react-dom"],  // ✅ clé du fix
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,

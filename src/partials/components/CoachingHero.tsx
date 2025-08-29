@@ -180,7 +180,7 @@ const CoachingHero: React.FC<HeroProps> = ({ page }) => {
 
               {!isVideo && (
                 <div className="hero__content__cta">
-                  <a href="/contact" className="button button-red">
+                  <a href="/rdv" className="button button-red">
                     Prendre rdv
                   </a>
                 </div>

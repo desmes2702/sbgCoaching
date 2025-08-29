@@ -5,6 +5,7 @@ import FooterMenu from "@partials/components/FooterMenu.astro";
 import Seo from "@partials/components/Seo.astro";
 
 
+
 export interface Props {
   title: string;
   description?: string;
@@ -85,7 +86,7 @@ const {
 
   {["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "") ? (
     <FooterMenu />
-  ) : dataPage === "contact" ? null : (
+  ) : ["contact", "rdv"].includes(dataPage ?? "") ? null : (
     <Footer />
   )}
   </body>
