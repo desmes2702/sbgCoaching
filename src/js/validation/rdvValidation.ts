@@ -50,6 +50,7 @@ export function validateCoords(data: any) {
 export function canProceedObjective(d:any){ return Object.keys(validateObjective(d)).length===0; }
 export function canProceedAgeFragility(d:any){ return Object.keys(validateAgeFragility(d)).length===0; }
 export function canProceedDuration(d:any){ return Object.keys(validateDuration(d)).length===0; }
+export function canProceedCoords(d:any){ return Object.keys(validateCoords(d)).length===0; }
 export function isFormValid(d:any){
   return canProceedObjective(d) && canProceedAgeFragility(d) && canProceedDuration(d) && Object.keys(validateCoords(d)).length===0;
 }
