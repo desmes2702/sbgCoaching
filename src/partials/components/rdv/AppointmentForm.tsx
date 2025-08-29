@@ -7,12 +7,21 @@ import StepAgeFragility from "@/partials/components/rdv/StepAgeFragility.tsx";
 import StepDuration from "@/partials/components/rdv/StepDuration.tsx";
 import StepCoords from "@/partials/components/rdv/StepCoords.tsx";
 import StepReview from "@/partials/components/rdv/StepReview.tsx";
+import Progress from "@/partials/components/rdv/Progress.tsx";
 
 import type { AppointmentData, StepKey, SubmitEvent } from "@/js/types/rdvTypes.ts";
 import { canProceedObjective, canProceedAgeFragility, canProceedDuration, canProceedCoords, isFormValid } from "@/js/validation/rdvValidation.ts";
 import { ui } from "@/js/forms/uiClasses.ts";
 
 const STEPS: StepKey[] = ["type", "objective", "ageFragility", "duration", "coords", "review"];
+const STEP_LABELS: Record<StepKey, string> = {
+  type: "Type",
+  objective: "Objectif",
+  ageFragility: "Âge & Santé",
+  duration: "Durée",
+  coords: "Coordonnées",
+  review: "Récapitulatif",
+};
 const STORAGE_KEY = "rdvFormDraft_v2";
 const MIN_SUBMIT_DELAY_MS = 1500;
 
@@ -37,13 +46,18 @@ export default function AppointmentForm() {
   const [data, setData] = useState<AppointmentData>(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? { ...INITIAL_DATA, ...JSON.parse(raw) } : INITIAL_DATA;
+      const stored = raw ? JSON.parse(raw) : {};
+      if (stored.v === 1) {
+        return { ...INITIAL_DATA, ...stored.data };
+      }
+      return INITIAL_DATA;
     } catch {
       return INITIAL_DATA;
     }
   });
 
   const [stepIndex, setStepIndex] = useState(0);
+  const [maxReachableStep, setMaxReachableStep] = useState(0);
   const [startedAt] = useState(() => Date.now());
   const [submitting, setSubmitting] = useState(false);
   const [ok, setOk] = useState(false);
@@ -53,12 +67,23 @@ export default function AppointmentForm() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ v: 1, data }));
     } catch {}
   }, [data]);
 
-  const goNext = () => setStepIndex(i => Math.min(i + 1, STEPS.length - 1));
+  const goNext = () => {
+    setStepIndex(i => {
+      const nextStep = Math.min(i + 1, STEPS.length - 1);
+      setMaxReachableStep(prev => Math.max(prev, nextStep));
+      return nextStep;
+    });
+  };
   const goPrev = () => setStepIndex(i => Math.max(i - 1, 0));
+  const goToStep = (index: number) => {
+    if (index <= maxReachableStep) {
+      setStepIndex(index);
+    }
+  };
   const setField = (partial: Partial<AppointmentData>) => setData(prev => ({ ...prev, ...partial }));
 
   const canContinue = useMemo(() => {
@@ -129,6 +154,12 @@ export default function AppointmentForm() {
       autoComplete="off"
     >
       <StepHeader step={stepIndex + 1} total={STEPS.length} timeLeftMin={timeLeftMin} />
+      <Progress
+        currentStepIndex={stepIndex}
+        maxReachableStep={maxReachableStep}
+        steps={STEPS.map(step => STEP_LABELS[step])}
+        goToStep={goToStep}
+      />
       <div id="appointment-form-title" className={ui.title}>
         Prendre RDV coaching
       </div>

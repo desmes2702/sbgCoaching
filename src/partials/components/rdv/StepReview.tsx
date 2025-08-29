@@ -14,7 +14,7 @@ import {
 
 function durationListLabel(value: DurationValue | "", custom: string) {
   if (!value) return "—";
-  if (value === "other" && custom.trim()) return `Autre (${custom.trim()})`;
+  if (value === "autre" && custom.trim()) return `Autre (${custom.trim()})`;
   return DURATION_LABELS[value as DurationValue] || "—";
 }
 
@@ -55,6 +55,15 @@ export default function StepReview({ data, onPrev, onSubmit, submitting = false 
     !coordWarnings.consentAccepted;
   const formOk = isFormValid({ ...data, ...coaching, ...health, ...coords });
 
+  const errorsBySection = useMemo(() => {
+    const errors: Record<string, string[]> = { coaching: [], health: [], coords: [] };
+    if (!canProceedObjective({ ...data, ...coaching })) errors.coaching.push("objectif");
+    if (!canProceedDuration({ ...data, ...coaching })) errors.coaching.push("durée");
+    if (!canProceedAgeFragility({ ...data, ...health })) errors.health.push("âge/fragilité");
+    if (Object.keys(coordWarnings).length > 0) errors.coords.push("coordonnées");
+    return errors;
+  }, [data, coaching, health, coords, coordWarnings]);
+
   const applyCoaching = useCallback(() => {
     if (!coachingValid) return;
     onSubmit({ type: "change", payload: coaching });
@@ -85,10 +94,29 @@ export default function StepReview({ data, onPrev, onSubmit, submitting = false 
       <h2 id="step-review-title" className={cx(ui.legend, ui.title)}>
         Récapitulatif
       </h2>
+      {Object.values(errorsBySection).some(arr => arr.length > 0) && (
+        <nav className="rdv__errors" aria-live="assertive">
+          <p>Veuillez corriger les erreurs suivantes :</p>
+          <ul>
+            {Object.entries(errorsBySection).map(([section, errors]) => (
+              errors.length > 0 && (
+                <li key={section}>
+                  <a href={`#review-${section}`}>
+                    {section === "coaching" && "Coaching"}
+                    {section === "health" && "Âge & santé"}
+                    {section === "coords" && "Coordonnées"}
+                    : {errors.join(", ")}
+                  </a>
+                </li>
+              )
+            ))}
+          </ul>
+        </nav>
+      )}
       {/* COACHING */}
       <section className={ui.fieldset} aria-labelledby="review-coaching">
         <header className={ui.stepHeader}>
-          <h3 id="review-coaching">Coaching</h3>
+          <h3 id="review-coaching">Coaching {errorsBySection.coaching.length > 0 ? <span className="badge badge--invalid">À corriger</span> : <span className="badge badge--complete">Complet</span>}</h3>
           {!editing.coaching ? (
             <button type="button" className={ui.buttonGhost} onClick={() => setEditing(e => ({ ...e, coaching: true }))}>
               Modifier
@@ -173,7 +201,7 @@ export default function StepReview({ data, onPrev, onSubmit, submitting = false 
                 </label>
               ))}
             </div>
-            {coaching.durationId === "other" && (
+            {coaching.durationId === "autre" && (
               <input
                 type="text"
                 className={ui.input}
@@ -189,7 +217,7 @@ export default function StepReview({ data, onPrev, onSubmit, submitting = false 
       {/* SANTÉ + AGE */}
       <section className={ui.fieldset} aria-labelledby="review-health">
         <header className={ui.stepHeader}>
-          <h3 id="review-health">Âge & santé</h3>
+          <h3 id="review-health">Âge & santé {errorsBySection.health.length > 0 ? <span className="badge badge--invalid">À corriger</span> : <span className="badge badge--complete">Complet</span>}</h3>
           {!editing.health ? (
             <button type="button" className={ui.buttonGhost} onClick={() => setEditing(e => ({ ...e, health: true }))}>
               Modifier
@@ -293,7 +321,7 @@ export default function StepReview({ data, onPrev, onSubmit, submitting = false 
       {/* COORDONNÉES */}
       <section className={ui.fieldset} aria-labelledby="review-coords">
         <header className={ui.stepHeader}>
-          <h3 id="review-coords">Coordonnées</h3>
+          <h3 id="review-coords">Coordonnées {errorsBySection.coords.length > 0 ? <span className="badge badge--invalid">À corriger</span> : <span className="badge badge--complete">Complet</span>}</h3>
           {!editing.coords ? (
             <button type="button" className={ui.buttonGhost} onClick={() => setEditing(e => ({ ...e, coords: true }))}>
               Modifier
@@ -419,5 +447,6 @@ export default function StepReview({ data, onPrev, onSubmit, submitting = false 
         </button>
       </div>
     </form>
+    <div className="toast" role="status" aria-live="polite"></div>
   );
 }

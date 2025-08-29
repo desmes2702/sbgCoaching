@@ -10,8 +10,13 @@ const fragilityChoices = [
   { id: "na", label: "Ne souhaite pas préciser" }
 ];
 
+const readAsDataURL = (file: File) => new Promise<string>((res,rej)=>{
+  const r=new FileReader(); r.onload=()=>res(r.result as string); r.onerror=rej; r.readAsDataURL(file);
+});
+
 export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNext }: StepAgeFragilityProps) {
   const [touched, setTouched] = useState({ age: false, fragilityNotes: false });
+  const [files, setFiles] = useState<File[]>([]);
   const warnings = validateAgeFragility(data);
   const valid = canProceedAgeFragility(data);
 
@@ -70,6 +75,36 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
           </label>
           {(touched.fragilityNotes || data.fragilityNotes) && warnings.fragilityNotes && (
             <div className={ui.error}>{warnings.fragilityNotes}</div>
+          )}
+        </div>
+        <div>
+          <label className={ui.label}>Upload documents (1-3 fichiers, max 5MB/fichier, JPG/PNG/PDF)</label>
+          <input
+            type="file"
+            multiple
+            accept="image/jpeg,image/png,application/pdf"
+            onChange={async (e) => {
+              const newFiles = Array.from(e.target.files || []);
+              setFiles(newFiles);
+              const filesData = await Promise.all(newFiles.map(async (file) => {
+                const base64 = await readAsDataURL(file);
+                return { name: file.name, type: file.type, size: file.size, base64 };
+              }));
+              onChange({ files: filesData });
+            }}
+          />
+          {data.files && data.files.length > 0 && (
+            <div>
+              <h4>Fichiers sélectionnés:</h4>
+              <ul>
+                {data.files.map((file: any, index: number) => (
+                  <li key={index}>
+                    {file.name} ({Math.round(file.size / 1024)} KB)
+                    {file.type.startsWith('image/') && <img src={file.base64} alt={file.name} style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       )}

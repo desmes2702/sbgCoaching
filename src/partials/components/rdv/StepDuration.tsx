@@ -8,20 +8,20 @@ import { ui, cx } from "@/js/forms/uiClasses.ts";
 export default function StepDuration({ data, onChange, onPrev, onNext, canNext = false }: StepDurationProps) {
   const [touched, setTouched] = useState({ durationId: false, durationCustom: false });
   const warnings = useMemo(() => validateDuration(data), [data]);
-  const isOther = data.durationId === "other";
+  const isOther = data.durationId === "autre";
   const localValid = canProceedDuration(data);
   const canProceed = canNext && localValid;
 
   function handleSelect(id: string) {
     setTouched(t => ({ ...t, durationId: true }));
     onChange({ durationId: id as DurationValue });
-    if (id !== "other" && data.durationCustom) {
+    if (id !== "autre" && data.durationCustom) {
       onChange({ durationCustom: "" });
     }
   }
   function handleOtherText(txt: string) {
     setTouched(t => ({ ...t, durationCustom: true }));
-    onChange({ durationId: "other", durationCustom: txt });
+    onChange({ durationId: "autre", durationCustom: txt });
   }
 
   function handleSubmit(e: React.FormEvent) {
