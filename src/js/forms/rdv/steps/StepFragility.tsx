@@ -5,6 +5,7 @@
 import React from "react";
 import type { StepProps, Fragility, RdvFile } from "../types/rdvTypes.ts";
 import Uploader from "../components/Uploader.tsx";
+import { validateFragility } from "../utils/validation.ts"; // Import validateFragility
 
 const options: { id: Fragility; label: string }[] = [
   { id: "non", label: "Non" },
@@ -14,6 +15,12 @@ const options: { id: Fragility; label: string }[] = [
 
 const StepFragility: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) => {
   const { fragility, files } = state.data;
+  const validationResult = validateFragility(state.data); // Get validation result
+  const fragilityError = validationResult.errors.fragility; // Error for radio group
+  const filesError = validationResult.errors.files; // Error for file count
+
+  const fragilityErrorId = "fragility-error";
+  const filesErrorId = "files-error";
 
   const handleFilesAdded = (newFiles: RdvFile[]) => {
     dispatch({ type: "ADD_FILES", payload: newFiles });
@@ -26,7 +33,7 @@ const StepFragility: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) 
   return (
     <fieldset className={mode === 'inline' ? 'fieldset--inline' : ''}>
         {mode === 'full' && (
-            <legend className="legend">
+            <legend className="legend" id="fragility-legend">
                 Informations complémentaires
             </legend>
         )}
@@ -37,6 +44,7 @@ const StepFragility: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) 
         <div
           className="radio-group--inline"
           role="radiogroup"
+          aria-labelledby={mode === 'full' ? 'fragility-legend' : undefined}
         >
           {options.map((opt) => (
             <div key={opt.id}>
@@ -48,6 +56,8 @@ const StepFragility: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) 
                 checked={fragility === opt.id}
                 onChange={() => dispatch({ type: "SET_FRAGILITY", payload: opt.id })}
                 className="radio-input"
+                aria-invalid={!!fragilityError} // Add aria-invalid
+                aria-describedby={fragilityError ? fragilityErrorId : undefined} // Link to error message
               />
               <label htmlFor={`fragility-${opt.id}`} className="radio-label">
                 {opt.label}
@@ -55,6 +65,11 @@ const StepFragility: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) 
             </div>
           ))}
         </div>
+        {fragilityError && ( // Display error for radio group
+          <p id={fragilityErrorId} className="form__field-error">
+            {fragilityError}
+          </p>
+        )}
 
       {fragility === "oui" && (
         <div className="uploader-section">
@@ -65,7 +80,24 @@ const StepFragility: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) 
             files={files}
             onFilesAdded={handleFilesAdded}
             onFileRemoved={handleFileRemoved}
+            aria-invalid={!!filesError || Object.keys(validationResult.errors).some(key => key.startsWith('file-'))} // Check for file count error or individual file errors
+            aria-describedby={filesError ? filesErrorId : undefined}
           />
+          {filesError && ( // Display error for file count
+            <p id={filesErrorId} className="form__field-error">
+              {filesError}
+            </p>
+          )}
+          {Object.entries(validationResult.errors).map(([key, message]) => {
+            if (key.startsWith('file-')) {
+              return (
+                <p key={key} className="form__field-error">
+                  {message}
+                </p>
+              );
+            }
+            return null;
+          })}
         </div>
       )}
     </fieldset>

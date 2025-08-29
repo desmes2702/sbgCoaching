@@ -46,6 +46,7 @@ export interface RdvState {
   toasts: Toast[];
   honeypot: string;
   startTime: number;
+  globalError: string | null; // New field for global errors
 }
 
 export type RdvAction =
@@ -68,7 +69,8 @@ export type RdvAction =
   | { type: "SUBMIT_ERROR"; payload: string }
   | { type: "RESET" }
   | { type: "TOAST_SHOW"; payload: { message: string } }
-  | { type: "TOAST_DISMISS"; payload: { id: string } };
+  | { type: "TOAST_DISMISS"; payload: { id: string } }
+  | { type: "SET_GLOBAL_ERROR"; payload: string | null }; // New action type
 
 // --- Component Props ---
 export interface StepProps {

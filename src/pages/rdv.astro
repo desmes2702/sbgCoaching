@@ -1,9 +1,51 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import AppointmentForm from "@/js/forms/rdv/AppointmentForm.tsx";
+
+const title = "Prendre Rendez-vous pour un Coaching Sportif | SBG Coaching";
+const description = "Réservez votre séance de coaching sportif personnalisée avec SBG Coaching. Que vous soyez un particulier ou une entreprise, atteignez vos objectifs avec nos programmes sur mesure.";
+const url = "https://sbgcoaching.be/rdv"; // Replace with actual URL if different
+const imageUrl = "https://sbgcoaching.be/img/og-image.jpg"; // Replace with actual OG image URL
 ---
 
-<BaseLayout title="Prendre Rendez-vous | SBG Coaching" dataPage="rdv">
+<BaseLayout title={title} description={description} dataPage="rdv">
+  <Fragment slot="head">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={imageUrl} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Coaching Sportif Personnalisé",
+        "description": "Réservez votre séance de coaching sportif personnalisée avec SBG Coaching. Que vous soyez un particulier ou une entreprise, atteignez vos objectifs avec nos programmes sur mesure.",
+        "serviceType": "Coaching Sportif",
+        "provider": {
+          "@type": "Organization",
+          "name": "SBG Coaching",
+          "url": "https://sbgcoaching.be"
+        },
+        "areaServed": {
+          "@type": "Place",
+          "name": "Belgique"
+        },
+        "url": {url}
+      }
+    </script>
+  </Fragment>
+
   <main class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
     <AppointmentForm client:load />
   </main>

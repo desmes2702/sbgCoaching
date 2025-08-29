@@ -4,12 +4,17 @@
  */
 import React from "react";
 import type { StepProps } from "../types/rdvTypes.ts";
-import { MIN_OBJECTIVE_LENGTH } from "../utils/validation.ts";
+import { MIN_OBJECTIVE_LENGTH, validateObjective } from "../utils/validation.ts"; // Import validateObjective
 
 const StepObjective: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) => {
   const { objective } = state.data;
+  const validationResult = validateObjective(state.data); // Get validation result
+  const objectiveError = validationResult.errors.objective; // Get specific error for objective
+
   const charCount = objective.trim().length;
-  const isError = charCount > 0 && charCount < MIN_OBJECTIVE_LENGTH;
+  // const isError = charCount > 0 && charCount < MIN_OBJECTIVE_LENGTH; // This logic is now handled by validateObjective
+
+  const errorId = "objective-error"; // Unique ID for the error message
 
   return (
     <div className={`form-group ${mode === 'inline' ? 'form-group--inline' : ''}`}>
@@ -23,22 +28,23 @@ const StepObjective: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) 
           onChange={(e) =>
             dispatch({ type: "SET_OBJECTIVE", payload: e.target.value })
           }
-          className={`textarea ${isError ? "textarea--error" : ""}`}
+          className={`textarea ${objectiveError ? "textarea--error" : ""}`} // Use objectiveError for styling
           rows={6}
           required
           minLength={MIN_OBJECTIVE_LENGTH}
-          aria-describedby="objective-footer"
+          aria-describedby={objectiveError ? errorId : "objective-footer"} // Link to error message or hint
+          aria-invalid={!!objectiveError} // Add aria-invalid
         />
         <div id="objective-footer" style={{display: 'flex', justifyContent: 'space-between'}}>
-          {isError ? (
-            <p className="form__error" aria-live="polite">
-              Minimum {MIN_OBJECTIVE_LENGTH} caractères requis.
+          {objectiveError ? ( // Display error message if present
+            <p id={errorId} className="form__field-error" aria-live="polite">
+              {objectiveError}
             </p>
           ) : (
             <span />
           )}
           <p
-            className={`char-counter ${isError ? "form__error" : ""}`}
+            className={`char-counter ${objectiveError ? "form__field-error" : ""}`} // Use objectiveError for styling
             aria-live="polite"
           >
             {charCount} / {MIN_OBJECTIVE_LENGTH}+

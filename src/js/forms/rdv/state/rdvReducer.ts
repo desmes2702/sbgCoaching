@@ -26,6 +26,7 @@ export const initialRdvState: RdvState = {
   toasts: [],
   honeypot: "",
   startTime: Date.now(),
+  globalError: null, // Initialize globalError
 };
 
 export function rdvReducer(state: RdvState, action: RdvAction): RdvState {
@@ -37,6 +38,7 @@ export function rdvReducer(state: RdvState, action: RdvAction): RdvState {
         isHydrated: true,
         submission: initialRdvState.submission,
         startTime: Date.now(),
+        globalError: null, // Clear global error on hydration
       };
     }
 
@@ -88,9 +90,13 @@ export function rdvReducer(state: RdvState, action: RdvAction): RdvState {
     case "SUBMIT_SUCCESS":
       return { ...state, submission: { status: "success", error: null } };
     case "SUBMIT_ERROR":
-      return { ...state, submission: { status: "error", error: action.payload } };
+      return { ...state, submission: { status: "error", error: action.payload }, globalError: null }; // Clear global error on submission error
     case "RESET":
       return { ...initialRdvState, isHydrated: state.isHydrated, startTime: Date.now() };
+
+    // --- New Global Error Handling ---
+    case "SET_GLOBAL_ERROR":
+      return { ...state, globalError: action.payload, submission: { status: "idle", error: null } }; // Clear submission error when setting global error
 
     // --- Toasts ---
     case "TOAST_SHOW": {

@@ -1,0 +1,140 @@
+// FILE: src/scss/components/_rdv-form.scss
+
+.rdv-form {
+  // Base styles for the form block
+  // Add any general form styling here if needed
+}
+
+.rdv-form__error {
+  // Styles for the global form error component (FormError.tsx)
+  color: var(--color-error); // Assuming a CSS variable for error color
+  background-color: var(--color-error-background); // Assuming a background color for errors
+  border: 1px solid var(--color-error);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--border-radius-small); // Assuming a border-radius variable
+
+  h3 {
+    margin-top: 0;
+    color: var(--color-error-dark);
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.form__field-error {
+  // Styles for individual field error messages
+  color: var(--color-error);
+  font-size: 0.875rem; // Smaller font size for field errors
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+// Styles for invalid input fields
+.radio-card__input[aria-invalid="true"],
+.form-input[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 2px rgba(var(--color-error-rgb), 0.2); // Assuming RGB variable for error color
+}
+
+// Styles for the progress bar (BEM naming)
+.progress {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.progress__step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  padding-bottom: 1.5rem;
+  color: var(--color-text-light); // Assuming a light text color
+
+  &::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 50%;
+    background-color: var(--color-gray-light); // Assuming a light gray color
+    color: var(--color-white);
+    display: block;
+    margin: 0 auto 0.5rem;
+    border: 2px solid var(--color-gray-light);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-gray-light);
+    top: 1rem;
+    left: 50%;
+    z-index: -1;
+  }
+
+  &:first-child::after {
+    display: none;
+  }
+
+  &--active {
+    color: var(--color-primary); // Assuming a primary color
+    font-weight: bold;
+
+    &::before {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+  }
+
+  &--done {
+    color: var(--color-success); // Assuming a success color
+
+    &::before {
+      content: '✔'; // Checkmark
+      background-color: var(--color-success);
+      border-color: var(--color-success);
+    }
+
+    &::after {
+      background-color: var(--color-success);
+    }
+  }
+}
+
+// Responsive adjustments (example)
+@media (max-width: 768px) {
+  .progress {
+    flex-wrap: wrap;
+  }
+
+  .progress__step {
+    flex-basis: 50%; // Two steps per row on smaller screens
+    margin-bottom: 1rem;
+
+    &:nth-child(odd)::after {
+      display: none; // Hide line for odd steps
+    }
+    &:nth-child(even)::after {
+      left: -50%; // Adjust line position for even steps
+    }
+  }
+}

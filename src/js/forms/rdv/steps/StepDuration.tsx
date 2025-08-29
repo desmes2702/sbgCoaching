@@ -4,7 +4,7 @@
  */
 import React from "react";
 import type { StepProps, DurationKey } from "../types/rdvTypes.ts";
-import { MIN_CUSTOM_DURATION, MAX_CUSTOM_DURATION } from "../utils/validation.ts";
+import { MIN_CUSTOM_DURATION, MAX_CUSTOM_DURATION, validateDuration } from "../utils/validation.ts"; // Import validateDuration
 
 const options: { id: DurationKey; label: string }[] = [
   { id: "3m", label: "3 mois" },
@@ -15,6 +15,12 @@ const options: { id: DurationKey; label: string }[] = [
 
 const StepDuration: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) => {
   const { durationKey, customDurationMonths } = state.data;
+  const validationResult = validateDuration(state.data); // Get validation result
+  const durationKeyError = validationResult.errors.durationKey; // Error for radio group
+  const customDurationError = validationResult.errors.customDurationMonths; // Error for custom input
+
+  const durationKeyErrorId = "durationKey-error";
+  const customDurationErrorId = "customDuration-error";
 
   const handleCustomDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = parseInt(e.target.value, 10);
@@ -25,10 +31,11 @@ const StepDuration: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) =
 
   return (
     <fieldset className={mode === 'inline' ? 'fieldset--inline' : ''}>
-        {mode === 'full' && <legend className="legend">Durée du coaching</legend>}
+        {mode === 'full' && <legend className="legend" id="duration-legend">Durée du coaching</legend>}
         <div
           className="radio-card-group"
           role="radiogroup"
+          aria-labelledby={mode === 'full' ? 'duration-legend' : undefined}
         >
           {options.map((opt) => (
             <div
@@ -45,6 +52,8 @@ const StepDuration: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) =
                 checked={durationKey === opt.id}
                 onChange={() => dispatch({ type: "SET_DURATION", payload: opt.id })}
                 className="radio-card__input"
+                aria-invalid={!!durationKeyError} // Add aria-invalid
+                aria-describedby={durationKeyError ? durationKeyErrorId : undefined} // Link to error message
               />
               <label
                 htmlFor={`duration-${opt.id}`}
@@ -55,6 +64,11 @@ const StepDuration: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) =
             </div>
           ))}
         </div>
+        {durationKeyError && ( // Display error for radio group
+          <p id={durationKeyErrorId} className="form__field-error">
+            {durationKeyError}
+          </p>
+        )}
 
       {durationKey === "autre" && (
         <div className="custom-duration form-group">
@@ -70,12 +84,18 @@ const StepDuration: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) =
               min={MIN_CUSTOM_DURATION}
               max={MAX_CUSTOM_DURATION}
               className="form-input"
-              aria-describedby="custom-duration-hint"
+              aria-describedby={customDurationError ? customDurationErrorId : "custom-duration-hint"} // Link to error or hint
+              aria-invalid={!!customDurationError} // Add aria-invalid
               required
             />
             <p id="custom-duration-hint" className="form-hint">
                 Entre {MIN_CUSTOM_DURATION} et {MAX_CUSTOM_DURATION} mois.
             </p>
+            {customDurationError && ( // Display error for custom input
+              <p id={customDurationErrorId} className="form__field-error">
+                {customDurationError}
+              </p>
+            )}
           </div>
       )}
     </fieldset>
