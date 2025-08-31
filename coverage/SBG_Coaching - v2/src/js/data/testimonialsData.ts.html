@@ -1,0 +1,442 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for SBG_Coaching - v2/src/js/data/testimonialsData.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">SBG_Coaching - v2/src/js/data</a> testimonialsData.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/119</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/119</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >export interface TestimonialType {</span></span></span>
+<span class="cstat-no" title="statement not covered" >  id: string;</span>
+<span class="cstat-no" title="statement not covered" >  name: string;</span>
+<span class="cstat-no" title="statement not covered" >  job: string | null;</span>
+<span class="cstat-no" title="statement not covered" >  photo: string;</span>
+<span class="cstat-no" title="statement not covered" >  key: "entreprise" | "general";</span>
+<span class="cstat-no" title="statement not covered" >  featured?: boolean;</span>
+<span class="cstat-no" title="statement not covered" >  text: string[];</span>
+<span class="cstat-no" title="statement not covered" >  thumbnail?: string; // ✅ Ajouté</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >export const testimonials: TestimonialType[] = [</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    id: "alice-1",</span>
+<span class="cstat-no" title="statement not covered" >    name: "Alice",</span>
+<span class="cstat-no" title="statement not covered" >    job: null,</span>
+<span class="cstat-no" title="statement not covered" >    photo: "/img/testimonials/testimonial__alice.webp",</span>
+<span class="cstat-no" title="statement not covered" >    key: "general",</span>
+<span class="cstat-no" title="statement not covered" >    text: [</span>
+<span class="cstat-no" title="statement not covered" >      "Après 6 mois de travail à raison de 2 séances/semaine, j’ai progressivement retrouvé la motivation et le goût de l’effort.",</span>
+<span class="cstat-no" title="statement not covered" >      "Je prends de nouveau plaisir à aller travailler, à bouger, à prendre soin de moi.",</span>
+<span class="cstat-no" title="statement not covered" >      "Mon moral n’en est que meilleur. Ce suivi m’a apporté bien plus qu’un simple programme sportif."</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    id: "tiffany-2",</span>
+<span class="cstat-no" title="statement not covered" >    name: "Tiffany - Duchêne SA",</span>
+<span class="cstat-no" title="statement not covered" >    job: "Chargée de communication",</span>
+<span class="cstat-no" title="statement not covered" >    photo: "/img/testimonials/testimonial__ducheneSa.webp",</span>
+<span class="cstat-no" title="statement not covered" >    key: "entreprise",</span>
+<span class="cstat-no" title="statement not covered" >    text: [</span>
+<span class="cstat-no" title="statement not covered" >      "Je voulais juste vous dire un grand merci pour les séances de sport que vous nous proposez chaque semaine.",</span>
+<span class="cstat-no" title="statement not covered" >      "Non seulement cela nous permet de rester en forme, mais en plus cela renforce la cohésion d’équipe.",</span>
+<span class="cstat-no" title="statement not covered" >      "L’ambiance est top, les exercices variés, et l’approche très pro !",</span>
+<span class="cstat-no" title="statement not covered" >      "Bref, c’est un vrai plaisir d’y participer chaque semaine.",</span>
+<span class="cstat-no" title="statement not covered" >      "Merci encore, et à bientôt pour la prochaine session !"</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    id: "udh-3",</span>
+<span class="cstat-no" title="statement not covered" >    name: "UDH SPRL",</span>
+<span class="cstat-no" title="statement not covered" >    job: "Chargé(e) de dépollution environnementale",</span>
+<span class="cstat-no" title="statement not covered" >    photo: "/img/testimonials/testimonial__udhSprl.webp",</span>
+<span class="cstat-no" title="statement not covered" >    key: "entreprise",</span>
+<span class="cstat-no" title="statement not covered" >    text: [</span>
+<span class="cstat-no" title="statement not covered" >      "Les cours de sport nous permettent de décompresser après nos journées chargées.",</span>
+<span class="cstat-no" title="statement not covered" >      "Cela nous enlève tout le stress et nous remet d’aplomb physiquement et mentalement.",</span>
+<span class="cstat-no" title="statement not covered" >      "Nous nous sentons toujours bien après une séance, même si elle est intense.",</span>
+<span class="cstat-no" title="statement not covered" >      "En plus du bien-être physique, ça renforce l’esprit d’équipe et la motivation collective."</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    id: "plenevaux-4",</span>
+<span class="cstat-no" title="statement not covered" >    name: "Moïra PLENVAUX &amp; Thérèse de NIJS",</span>
+<span class="cstat-no" title="statement not covered" >    job: "Étude notariale",</span>
+<span class="cstat-no" title="statement not covered" >    photo: "/img/testimonials/testimonial__plenevauxNijs.webp",</span>
+<span class="cstat-no" title="statement not covered" >    key: "entreprise",</span>
+<span class="cstat-no" title="statement not covered" >    text: [</span>
+<span class="cstat-no" title="statement not covered" >      "L’approche du coach est rassurante, structurée, et toujours adaptée à chacun.",</span>
+<span class="cstat-no" title="statement not covered" >      "Avant de commencer, nous avions tous des niveaux différents, mais chacun progresse à son rythme.",</span>
+<span class="cstat-no" title="statement not covered" >      "Les bienfaits vont bien au-delà du physique : meilleure humeur, plus d’énergie, et un vrai plaisir de se retrouver ensemble chaque semaine."</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    id: "justin-5",</span>
+<span class="cstat-no" title="statement not covered" >    name: "Justin",</span>
+<span class="cstat-no" title="statement not covered" >    job: null,</span>
+<span class="cstat-no" title="statement not covered" >    photo: "/img/testimonials/testimonial__justin.webp",</span>
+<span class="cstat-no" title="statement not covered" >    thumbnail: "/img/general/general__post3-thumb.webp", // ✅ Miniature Hero</span>
+<span class="cstat-no" title="statement not covered" >    key: "general",</span>
+<span class="cstat-no" title="statement not covered" >    text: [</span>
+<span class="cstat-no" title="statement not covered" >      "Chaque semaine, il ajustait mes programmes en tenant compte de tous les aspects : repos, entraînements, alimentation et étirements.",</span>
+<span class="cstat-no" title="statement not covered" >      "Ce que j’ai particulièrement apprécié, c’est sa capacité à être à l’écoute, à motiver sans jamais juger, et à trouver des solutions adaptées à chaque situation.",</span>
+<span class="cstat-no" title="statement not covered" >      "Aujourd’hui, je me sens plus polyvalent dans mes pratiques sportives et bien plus solide mentalement.",</span>
+<span class="cstat-no" title="statement not covered" >      "Pour toutes ces raisons, je recommande vivement Sam à toute personne souhaitant améliorer son bien-être de manière durable."</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    id: "christian-6",</span>
+<span class="cstat-no" title="statement not covered" >    name: "Christian",</span>
+<span class="cstat-no" title="statement not covered" >    job: null,</span>
+<span class="cstat-no" title="statement not covered" >    photo: "/img/testimonials/testimonial__christian.webp",</span>
+<span class="cstat-no" title="statement not covered" >    thumbnail: "/img/general/general__post2-thumb.webp", // ✅ Miniature Hero</span>
+<span class="cstat-no" title="statement not covered" >    key: "general",</span>
+<span class="cstat-no" title="statement not covered" >    text: [</span>
+<span class="cstat-no" title="statement not covered" >      "Quand j’ai franchi les portes de la salle pour la première fois, j’étais rempli de doutes. Je voulais me (re)mettre au sport, mais je ne savais ni par où commencer ni comment utiliser les machines correctement.",</span>
+<span class="cstat-no" title="statement not covered" >      "Dès le début, il a su m’écouter et m’orienter avec un programme parfaitement adapté à mes objectifs, mon niveau et mes contraintes physiques.",</span>
+<span class="cstat-no" title="statement not covered" >      "Et les résultats ont suivi : en quelques mois, j’ai perdu 8 kg et réduit ma masse grasse de 10 % !",</span>
+<span class="cstat-no" title="statement not covered" >      "Ces progrès ont été une vraie révélation. J’ai pris goût à l’entraînement, gagné en confiance, et aujourd’hui, ce n’est plus une question de volonté… mon corps et mon esprit réclament leurs séances !"</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    id: "labeye-7",</span>
+<span class="cstat-no" title="statement not covered" >    name: "LABEYE et LALLEMEND",</span>
+<span class="cstat-no" title="statement not covered" >    job: "Étude notariale",</span>
+<span class="cstat-no" title="statement not covered" >    photo: "/img/testimonials/testimonial__labeyeLallemend.webp",</span>
+<span class="cstat-no" title="statement not covered" >    key: "entreprise",</span>
+<span class="cstat-no" title="statement not covered" >    text: [</span>
+<span class="cstat-no" title="statement not covered" >      "Ces séances sont notre moment pour souffler. Elles nous permettent de déconnecter du travail, d’évacuer le stress et de retrouver de l’énergie.",</span>
+<span class="cstat-no" title="statement not covered" >      "Après chaque session, on se sent plus léger et concentré.",</span>
+<span class="cstat-no" title="statement not covered" >      "Partager ces entraînements nous rapproche. On se motive, on s’entraide et on découvre nos collègues sous un autre angle. Ça renforce nos liens et rend l’ambiance au travail encore plus agréable.",</span>
+<span class="cstat-no" title="statement not covered" >      "On communique mieux, on collabore plus facilement et on aborde nos journées avec plus de sérénité. Ces séances nous font vraiment du bien, autant physiquement que mentalement."</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  },</span>
+<span class="cstat-no" title="statement not covered" >  {</span>
+<span class="cstat-no" title="statement not covered" >    id: "nico-8",</span>
+<span class="cstat-no" title="statement not covered" >    name: "Nico",</span>
+<span class="cstat-no" title="statement not covered" >    job: null,</span>
+<span class="cstat-no" title="statement not covered" >    photo: "/img/testimonials/testimonial__nico.webp",</span>
+<span class="cstat-no" title="statement not covered" >    key: "general",</span>
+<span class="cstat-no" title="statement not covered" >    featured: true,</span>
+<span class="cstat-no" title="statement not covered" >    text: [</span>
+<span class="cstat-no" title="statement not covered" >      "Il y a un an, je décidais de revenir à la salle de sport après une longue pause. Six mois plus tard, j’intensifiais mes séances, puis il y a quatre mois, je rencontrais Sam, mon coach.",</span>
+<span class="cstat-no" title="statement not covered" >      "Grâce à lui, nous avons mis en place des objectifs clairs, un programme de Circuit Training, et bien plus encore. Trois séances par semaine, des marches tous les dimanches, un rééquilibrage alimentaire… Et les résultats sont là : -30kg au total et -8kg en 3 mois !",</span>
+<span class="cstat-no" title="statement not covered" >      "Des kilomètres à vélo, des heures de marche, des milliers d’escaliers montés et des litres de sueur perdus, mais surtout un mental d’acier qui m’a permis de rester fidèle à mes objectifs, même lors des jours difficiles.",</span>
+<span class="cstat-no" title="statement not covered" >      "Je tiens à remercier Samuel Billa-Garcia pour son écoute, sa motivation et son professionnalisme. C’est grâce à toi que j’ai pu accomplir tout ça ! "</span>
+<span class="cstat-no" title="statement not covered" >    ]</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+<span class="cstat-no" title="statement not covered" >];</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-08-29T20:39:16.408Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

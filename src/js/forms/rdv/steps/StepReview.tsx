@@ -3,33 +3,95 @@
  * @file Step 5: Review and Submit with advanced features
  */
 import React, { useState } from "react";
-import type { StepProps } from "../types/rdvTypes.ts";
-import { getSectionErrors, isSectionValid, isSectionModified, SectionKey } from "../utils/validation.ts";
+import type { StepProps, RdvData } from "../types/rdvTypes.ts"; // Added RdvData import
+// Import Zod for schema picking
+import { z } from "zod";
+// Import the main RdvSchema and isSectionModified from validation.ts
+import { RdvSchema, isSectionModified } from "../utils/validation.ts";
 
 import StepType from "./StepType.tsx";
 import StepDuration from "./StepDuration.tsx";
 import StepFragility from "./StepFragility.tsx";
 import StepObjective from "./StepObjective.tsx";
+import StepCoord from "./StepCoord.tsx"; // Import StepCoord for inline editing
 
 import { DURATION_LABELS } from "../../../data/rdv/duration.ts";
 const FRAGILITY_LABELS = { oui: "Oui", non: "Non", "ne-precise-pas": "Non précisé" };
-const SECTION_LABELS: Record<SectionKey, string> = { type: "Type de coaching", duration: "Durée", fragility: "Informations", objective: "Objectif" };
 
-const stepEditorComponents = { type: StepType, duration: StepDuration, fragility: StepFragility, objective: StepObjective };
+// Map section keys to their corresponding Zod schemas and step indices
+const sectionSchemas = {
+  type: { schema: RdvSchema.pick({ userType: true }), stepIndex: 0 },
+  duration: { schema: RdvSchema.pick({ durationKey: true, customDurationMonths: true }), stepIndex: 1 },
+  fragility: { schema: RdvSchema.pick({ fragility: true }), stepIndex: 2 },
+  objective: { schema: RdvSchema.pick({ objective: true }), stepIndex: 3 },
+  coord: { schema: RdvSchema.pick({ coord: true }), stepIndex: 4 }, // New coord section
+};
 
-const StepReview: React.FC<StepProps> = ({ state, dispatch }) => {
-  const [editing, setEditing] = useState({ type: false, duration: false, fragility: false, objective: false });
+type SectionKey = keyof typeof sectionSchemas; // Dynamically create SectionKey type
+
+const SECTION_LABELS: Record<SectionKey, string> = {
+  type: "Type de coaching",
+  duration: "Durée",
+  fragility: "Informations",
+  objective: "Objectif",
+  coord: "Coordonnées", // New label
+};
+
+const stepEditorComponents = {
+  type: StepType,
+  duration: StepDuration,
+  fragility: StepFragility,
+  objective: StepObjective,
+  coord: StepCoord,
+};
+
+const StepReview: React.FC<StepProps> = ({ state, dispatch, validationErrors }) => {
+  const [editing, setEditing] = useState<Record<SectionKey, boolean>>({
+    type: false,
+    duration: false,
+    fragility: false,
+    objective: false,
+    coord: false,
+  });
 
   const { data, reviewBaseline } = state;
-  const errors = getSectionErrors(data);
-  const hasErrors = Object.values(errors).some(arr => arr.length > 0);
+  const hasErrors = !!validationErrors && Object.keys(validationErrors).length > 0;
+  const allFormErrors = validationErrors || {};
 
   const handleToggleEdit = (key: SectionKey) => {
     setEditing(current => ({ ...current, [key]: !current[key] }));
   };
 
+  // isSectionModified is now imported from validation.ts
+
   const handleSave = (key: SectionKey) => {
-    if (!isSectionValid(key, data)) return;
+    // Re-validate the specific section using its Zod schema
+    const { schema } = sectionSchemas[key];
+    let sectionDataForValidation: Partial<RdvData>; // Use Partial<RdvData>
+    if (key === 'coord') {
+      sectionDataForValidation = { coord: data.coord }; // Wrap coord in an object
+    } else {
+      sectionDataForValidation = data;
+    }
+    const result = schema.safeParse(sectionDataForValidation);
+
+    if (!result.success) {
+      // If there are errors, update the global state with these errors
+      // This will trigger re-render and display errors in the section
+      dispatch({ type: "SET_VALIDATION_ERRORS", payload: { ...validationErrors, ...result.error.flatten().fieldErrors } }); // Use flatten().fieldErrors directly
+      dispatch({ type: "SET_GLOBAL_ERROR", payload: `Veuillez corriger les erreurs dans la section "${SECTION_LABELS[key]}".` });
+      return;
+    }
+    // If validation passes, clear errors related to this section from global state
+    const newValidationErrors = { ...validationErrors };
+    Object.keys(newValidationErrors).forEach(errorKey => {
+      if (errorKey.startsWith(key)) { // Simple check, might need refinement for nested errors
+        delete newValidationErrors[errorKey];
+      }
+    });
+    dispatch({ type: "SET_VALIDATION_ERRORS", payload: newValidationErrors });
+    dispatch({ type: "SET_GLOBAL_ERROR", payload: null });
+
     handleToggleEdit(key);
     dispatch({ type: "SNAPSHOT_REVIEW_BASELINE" });
     dispatch({ type: "TOAST_SHOW", payload: { message: "Modifications enregistrées." } });
@@ -38,16 +100,41 @@ const StepReview: React.FC<StepProps> = ({ state, dispatch }) => {
   const handleJumpToSection = (e: React.MouseEvent, key: SectionKey) => {
       e.preventDefault();
       setEditing(s => ({ ...s, [key]: true }));
-      const el = document.getElementById(`review-${key}`);
-      el?.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(() => el?.focus(), 300);
+      
+      // Use the global validationErrors to find the first error field
+      const sectionErrors = validationErrors || {};
+      const firstErrorFieldInSect = Object.keys(sectionErrors).find(errKey => errKey.startsWith(key));
+      
+      let elementToFocus: HTMLElement | null = null;
+      if (firstErrorFieldInSect) {
+        elementToFocus = document.getElementById(firstErrorFieldInSect);
+      } else {
+        elementToFocus = document.getElementById(`review-${key}`);
+      }
+
+      if (elementToFocus) {
+        elementToFocus.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => elementToFocus?.focus(), 300);
+      }
   }
 
   const sections: { key: SectionKey; title: string; content: React.ReactNode }[] = [
     { key: "type", title: "Type de coaching", content: <ContentItem label="Vous êtes" value={data.userType} /> },
     { key: "duration", title: "Durée", content: <ContentItem label="Durée" value={data.durationKey === "autre" ? `${data.customDurationMonths} mois` : (data.durationKey ? DURATION_LABELS[data.durationKey] : null)} /> },
-    { key: "fragility", title: "Informations", content: <><ContentItem label="Fragilité" value={data.fragility ? FRAGILITY_LABELS[data.fragility] : null} />{data.fragility === "oui" && <ContentItem label="Documents" value={data.files.length > 0 ? <ul className="file-list">{data.files.map(f => <li key={f.id}>{f.name}</li>)}</ul> : "Aucun"} />}</> },
+    { key: "fragility", title: "Informations", content: <><ContentItem label="Fragilité" value={data.fragility ? FRAGILITY_LABELS[data.fragility] : null} />{/* Removed files content */}</> },
     { key: "objective", title: "Objectif", content: <ContentItem label="Votre objectif" value={data.objective} /> },
+    { key: "coord", title: "Coordonnées", content: (
+        <>
+          <ContentItem label="Prénom" value={data.coord.firstName} />
+          <ContentItem label="Nom" value={data.coord.lastName} />
+          <ContentItem label="Email" value={data.coord.email} />
+          <ContentItem label="Téléphone" value={data.coord.phone} />
+          {data.coord.preferredSlot && <ContentItem label="Créneau préféré" value={data.coord.preferredSlot} />} 
+          {data.coord.message && <ContentItem label="Message" value={data.coord.message} />} 
+          <ContentItem label="Consentement RGPD" value={data.coord.consentRgpd ? "Oui" : "Non"} />
+        </>
+      )
+    },
   ];
 
   return (
@@ -59,10 +146,17 @@ const StepReview: React.FC<StepProps> = ({ state, dispatch }) => {
         <nav className="rdv__errors" aria-label="Résumé des erreurs" aria-live="assertive">
             <p className="rdv__errors-title">Veuillez corriger les sections suivantes :</p>
             <ul className="rdv__errors-list">
-            {Object.entries(errors).map(([section, list]) => list.length > 0 && (
-                <li key={section}>
-                <a className="errors__link" href={`#review-${section}`} onClick={(e) => handleJumpToSection(e, section as SectionKey)}>
-                    {SECTION_LABELS[section as SectionKey]} — {list[0]}
+            {Object.entries(allFormErrors).map(([field, message]) => (
+                <li key={field}>
+                <a className="errors__link" href={`#${field}`} onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById(field);
+                    if (element) {
+                        element.scrollIntoView({ behavior: "smooth", block: "center" });
+                        setTimeout(() => element.focus(), 300);
+                    }
+                }}>
+                    {message}
                 </a>
                 </li>
             ))}
@@ -73,8 +167,12 @@ const StepReview: React.FC<StepProps> = ({ state, dispatch }) => {
       {sections.map(({ key, title, content }) => {
         const Editor = stepEditorComponents[key];
         const isEditing = editing[key];
-        const isValid = isSectionValid(key, data);
-        const isModified = isSectionModified(key, data, reviewBaseline);
+        
+        // Determine if the section has errors from the global validationErrors
+        const sectionHasErrors = Object.keys(allFormErrors).some(errorKey => errorKey.startsWith(key));
+        const isValid = !sectionHasErrors; // Section is valid if no errors start with its key
+
+        const isModified = reviewBaseline ? isSectionModified(key, data, reviewBaseline) : false;
 
         return (
           <section key={key} id={`review-${key}`} tabIndex={-1} className="review__section">
@@ -91,7 +189,7 @@ const StepReview: React.FC<StepProps> = ({ state, dispatch }) => {
             </header>
             {!isEditing ? <div className="review__summary">{content}</div> : (
               <div id={`review-editor-${key}`} role="region" className="review__editor">
-                <Editor state={state} dispatch={dispatch} mode="inline" />
+                <Editor state={state} dispatch={dispatch} mode="inline" validationErrors={validationErrors} />
                 <div className="review__editor-actions">
                   <button type="button" className="button button--primary" disabled={!isValid} onClick={() => handleSave(key)}>Enregistrer</button>
                 </div>

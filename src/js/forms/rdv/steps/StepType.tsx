@@ -4,17 +4,15 @@
  */
 import React from "react";
 import type { StepProps } from "../types/rdvTypes.ts";
-import { validateType } from "../utils/validation.ts"; // Import validateType
 
 const options = [
   { id: "particulier", label: "Particulier" },
   { id: "entreprise", label: "Entreprise" },
 ] as const;
 
-const StepType: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) => {
+const StepType: React.FC<StepProps> = ({ state, dispatch, mode = 'full', validationErrors }) => {
   const { userType } = state.data;
-  const validationResult = validateType(state.data); // Get validation result
-  const userTypeError = validationResult.errors.userType; // Get specific error for userType
+  const userTypeError = validationErrors?.userType; // Get specific error for userType from props
 
   const errorId = "userType-error"; // Unique ID for the error message
 

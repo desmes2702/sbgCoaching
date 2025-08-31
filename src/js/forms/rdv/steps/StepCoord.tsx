@@ -2,9 +2,12 @@
 /**
  * @file Step 5: Contact Information and GDPR Consent
  */
-import React, { useState, useEffect } from "react";
-import type { StepProps } from "../../types/rdvTypes.ts";
-import { validateCoord } from "../../utils/validation.ts";
+// FILE: src/js/forms/rdv/steps/StepCoord.tsx
+/**
+ * @file Step 5: Contact Information and GDPR Consent
+ */
+import React, { useState } from "react";
+import type { StepProps } from "../types/rdvTypes.ts"; // Corrected path
 
 // Debounce utility (simple implementation)
 const debounce = (func: (...args: any[]) => void, delay: number) => {
@@ -17,10 +20,9 @@ const debounce = (func: (...args: any[]) => void, delay: number) => {
 
 const preferredSlotOptions = ["Matin", "Midi", "Après-midi", "Soir"];
 
-const StepCoord: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) => {
+const StepCoord: React.FC<StepProps> = ({ state, dispatch, mode = 'full', validationErrors }) => {
   const { coord } = state.data;
-  const validationResult = validateCoord(coord);
-  const errors = validationResult.errors;
+  const errors = validationErrors || {}; // Use validationErrors from props
 
   // State to track touched fields for onBlur validation
   const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -42,19 +44,6 @@ const StepCoord: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) => {
     // The actual state update via dispatch will be debounced
     debouncedSetMessage(e.target.value);
   };
-
-  // Focus management for first error field
-  useEffect(() => {
-    if (!validationResult.valid && mode === 'full') {
-      const firstErrorField = Object.keys(errors).find(key => errors[key]);
-      if (firstErrorField) {
-        const element = document.getElementById(firstErrorField);
-        if (element) {
-          element.focus();
-        }
-      }
-    }
-  }, [validationResult.valid, errors, mode]);
 
 
   return (

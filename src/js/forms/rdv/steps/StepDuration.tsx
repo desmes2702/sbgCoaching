@@ -2,9 +2,13 @@
 /**
  * @file Step 2: Duration Selection
  */
+// FILE: src/js/forms/rdv/steps/StepDuration.tsx
+/**
+ * @file Step 2: Duration Selection
+ */
 import React from "react";
 import type { StepProps, DurationKey } from "../types/rdvTypes.ts";
-import { MIN_CUSTOM_DURATION, MAX_CUSTOM_DURATION, validateDuration } from "../utils/validation.ts"; // Import validateDuration
+import { MIN_CUSTOM_DURATION, MAX_CUSTOM_DURATION } from "../utils/validation.ts"; // Import validateDuration
 
 const options: { id: DurationKey; label: string }[] = [
   { id: "3m", label: "3 mois" },
@@ -13,11 +17,10 @@ const options: { id: DurationKey; label: string }[] = [
   { id: "autre", label: "Autre durée" },
 ];
 
-const StepDuration: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) => {
+const StepDuration: React.FC<StepProps> = ({ state, dispatch, mode = 'full', validationErrors }) => {
   const { durationKey, customDurationMonths } = state.data;
-  const validationResult = validateDuration(state.data); // Get validation result
-  const durationKeyError = validationResult.errors.durationKey; // Error for radio group
-  const customDurationError = validationResult.errors.customDurationMonths; // Error for custom input
+  const durationKeyError = validationErrors?.durationKey; // Error for radio group
+  const customDurationError = validationErrors?.customDurationMonths; // Error for custom input
 
   const durationKeyErrorId = "durationKey-error";
   const customDurationErrorId = "customDuration-error";

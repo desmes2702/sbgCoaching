@@ -25,7 +25,7 @@ describe("rdvReducer", () => {
   it("crée un snapshot en entrant dans le récapitulatif", () => {
     const s1 = { ...initialRdvState, data: { ...initialRdvState.data, userType: 'particulier' } };
     const s2 = rdvReducer(s1, { type: "ENTER_REVIEW" });
-    expect(s2.currentStep).toBe(4);
+    expect(s2.currentStep).toBe(5); // Updated to 5
     expect(s2.reviewBaseline).toBeDefined();
     expect(s2.reviewBaseline?.userType).toBe('particulier');
   });
@@ -40,11 +40,7 @@ describe("rdvReducer", () => {
       currentStep: 2,
       maxReachableStep: 3,
       isHydrated: false,
-      data: {
-        ...initialRdvState.data,
-        userType: "particulier",
-        objective: "Ancien objectif",
-      },
+      // No need to explicitly set userType and objective here, as initialRdvState already has defaults
     };
     const s2 = rdvReducer(s1, { type: "HYDRATE_FROM_STORAGE", payload: hydratedPayload });
 

@@ -145,8 +145,7 @@
 .review__editor-actions { display: flex; justify-content: flex-end; margin-top: $spacing-md; }
 
 .badge {
-  display: inline-flex; align-items: center; gap: .25rem;
-  padding: .125rem .5rem; border-radius: 999px; font-size: .85rem; line-height: 1.2; font-weight: 600; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: .25rem; padding: .125rem .5rem; border-radius: 999px; font-size: .8rem; font-weight: 600; text-transform: uppercase;
   &--complete { background-color: lighten($primary-color, 40%); color: darken($primary-color, 15%); }
   &--invalid { background-color: $color-error-light; color: $color-error-text; }
   &--modified { outline: 2px solid $color-warning; }
@@ -156,15 +155,6 @@
 
 // --- Toasts ---
 .toast { position: fixed; inset-inline-end: 1rem; inset-block-end: 1rem; display: grid; gap: .5rem; z-index: 9999; }
-.toast__item { background: white; color: $darker-color; border: 1px solid $border-color; border-radius: .5rem; padding: .75rem 1rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; gap: $spacing-md; }
+.toast__item { background: $darker-color; color: white; border: $border-secondary-color; border-radius: .5rem; padding: .75rem 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; gap: $spacing-md; }
 .toast__message { margin: 0; }
-.toast__close { background: transparent; border: 0; color: $darker-color; opacity: 0.7; cursor: pointer; font-size: 1.2rem; &:hover { opacity: 1; } }
-
-.badge{display:inline-flex;gap:.25rem;padding:.125rem .5rem;border-radius:999px;font-size:.85rem;line-height:1.2;}
-.badge--complete{background:#e7f7ed;color:#1b7f3a;}
-.badge--invalid{background:#ffe8e8;color:#b00020;}
-.badge--modified{outline:2px solid #f2a900;}
-
-.toast{position:fixed;inset-inline-end:1rem;inset-block-end:1rem;display:grid;gap:.5rem;z-index:9999;}
-.toast__item{background:#fff;border:1px solid #e5e7eb;border-radius:.5rem;padding:.75rem 1rem;box-shadow:0 2px 4px rgba(0,0,0,.08);}
-.toast__close{background:transparent;border:0;cursor:pointer;font-size:1.2rem;line-height:1;}
+.toast__close { background: transparent; border: 0; color: white; opacity: 0.7; cursor: pointer; font-size: 1.5rem; &:hover { opacity: 1; } }

@@ -68,5 +68,8 @@ export default defineConfig({
     target: "esnext",
     assetsInlineLimit: 4096,
     sourcemap: false,
+    rollupOptions: {
+      external: ['@vercel/kv'],
+    },
   },
 });

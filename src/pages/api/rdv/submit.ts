@@ -8,7 +8,13 @@ import type { APIRoute } from "astro";
 import nodemailer from "nodemailer";
 import type { RdvData } from "../../../js/forms/rdv/types/rdvTypes.ts";
 import { DURATION_LABELS } from "../../../js/data/rdv/duration.ts";
-import { MAX_FILE_SIZE_BYTES, ALLOWED_FILE_TYPES } from "../../../js/forms/rdv/utils/validation.ts";
+// Removed file-related imports
+// import { MAX_FILE_SIZE_BYTES, ALLOWED_FILE_TYPES } from "../../../js/forms/rdv/utils/validation.ts";
+
+// Vercel KV for Rate Limiting
+import { kv } from '@vercel/kv';
+// DOMPurify for sanitization (Note: For server-side, consider a Node.js-compatible sanitization library)
+import DOMPurify from 'dompurify';
 
 // Environment variables (should be set in Vercel)
 const {
@@ -20,8 +26,7 @@ const {
   MAIL_TO,
 } = import.meta.env;
 
-// Max total attachment size (e.g., 10MB)
-const MAX_TOTAL_ATTACHMENT_SIZE_BYTES = 10 * 1024 * 1024; 
+// Removed MAX_TOTAL_ATTACHMENT_SIZE_BYTES
 
 // Basic check for required environment variables
 const areEnvVarsConfigured = () => {
@@ -50,9 +55,10 @@ const createHtmlBody = (data: RdvData): string => {
       ? `${escapeHtml(String(data.customDurationMonths))} mois` 
       : data.durationKey ? DURATION_LABELS[data.durationKey] : "Non renseigné";
 
-  const filesList = data.files.length > 0 
-    ? data.files.map(f => escapeHtml(f.name)).join(', ')
-    : 'Aucun';
+  // Removed filesList
+  // const filesList = data.files.length > 0 
+  //   ? data.files.map(f => escapeHtml(f.name)).join(', ')
+  //   : 'Aucun';
 
   return `
     <div style="font-family: sans-serif; line-height: 1.6;">
@@ -64,7 +70,8 @@ const createHtmlBody = (data: RdvData): string => {
         <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px; font-weight: bold;">Type de client:</td><td style="padding: 8px;">${escapeHtml(data.userType || 'Non renseigné')}</td></tr>
         <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px; font-weight: bold;">Durée souhaitée:</td><td style="padding: 8px;">${durationValue}</td></tr>
         <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px; font-weight: bold;">Fragilité/Pathologie:</td><td style="padding: 8px;">${escapeHtml(data.fragility ? FRAGILITY_LABELS[data.fragility] : 'Non renseigné')}</td></tr>
-        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px; font-weight: bold;">Fichiers joints:</td><td style="padding: 8px;">${filesList}</td></tr>
+        <!-- Removed files row -->
+        <!-- <tr style="border-bottom: 1px solid #eee;"><td style="padding: 8px; font-weight: bold;">Fichiers joints:</td><td style="padding: 8px;">${filesList}</td></tr> -->
       </table>
       <h3 style="color: #555; margin-top: 20px;">Objectif du client:</h3>
       <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #eee;">
@@ -82,31 +89,58 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const body = await request.json();
-    const { data, meta } = body;
+    const { data, meta, captchaToken } = body; // Destructure captchaToken
+
+    // --- Rate Limiting ---
+    const clientIP = request.headers.get('x-forwarded-for') || 'unknown';
+    const rateLimitKey = `rdv-rate-limit:${clientIP}`;
+    
+    const attempts = await kv.incr(rateLimitKey);
+    if (attempts === 1) {
+      await kv.expire(rateLimitKey, 300); // 5 minutes
+    }
+    if (attempts > 3) {
+      return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
+    }
 
     // --- Anti-spam checks ---
-    if (body.honeypot) {
-      return new Response(JSON.stringify({ message: "Spam detected." }), { status: 400 });
+    if (meta.honeypot) {
+      return new Response(JSON.stringify({ error: 'Spam detected' }), { status: 400 });
     }
     // Basic time check (e.g., form submitted too quickly)
     if (Date.now() - (meta?.ts ? new Date(meta.ts).getTime() : 0) < 3000) {
         return new Response(JSON.stringify({ message: "Form submitted too quickly." }), { status: 400 });
     }
 
-    // --- File validation (server-side) ---
-    let totalAttachmentsSize = 0;
-    for (const file of data.files) {
-        if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-            return new Response(JSON.stringify({ message: `Type de fichier non valide: ${file.name}` }), { status: 400 });
-        }
-        if (file.size > MAX_FILE_SIZE_BYTES) {
-            return new Response(JSON.stringify({ message: `Fichier trop lourd: ${file.name}` }), { status: 400 });
-        }
-        totalAttachmentsSize += file.size;
+    // --- CAPTCHA Verification ---
+    const CAPTCHA_SECRET_KEY = import.meta.env.CAPTCHA_SECRET_KEY; // Get secret key from env
+    const CAPTCHA_ENABLED = import.meta.env.PUBLIC_CAPTCHA_ENABLED === 'true'; // Feature flag
+
+    if (CAPTCHA_ENABLED && captchaToken) {
+      const captchaVerificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${CAPTCHA_SECRET_KEY}&response=${captchaToken}`;
+      const captchaResponse = await fetch(captchaVerificationUrl, { method: 'POST' });
+      const captchaData = await captchaResponse.json();
+
+      if (!captchaData.success) {
+        console.warn('CAPTCHA verification failed:', captchaData);
+        return new Response(JSON.stringify({ error: 'CAPTCHA verification failed' }), { status: 400 });
+      }
+    } else if (CAPTCHA_ENABLED && !captchaToken) {
+      // If CAPTCHA is enabled but no token is provided
+      return new Response(JSON.stringify({ error: 'CAPTCHA token missing' }), { status: 400 });
     }
-    if (totalAttachmentsSize > MAX_TOTAL_ATTACHMENT_SIZE_BYTES) {
-        return new Response(JSON.stringify({ message: `Taille totale des fichiers trop importante (max ${MAX_TOTAL_ATTACHMENT_SIZE_BYTES / (1024 * 1024)}Mo)` }), { status: 400 });
-    }
+
+    // --- Sanitization with DOMPurify ---
+    const sanitizedData = {
+      ...data,
+      objective: DOMPurify.sanitize(data.objective),
+      coord: {
+        ...data.coord,
+        message: data.coord.message ? DOMPurify.sanitize(data.coord.message) : ''
+      }
+    };
+
+    // Removed file validation
 
     // --- Nodemailer Transport ---
     const transporter = nodemailer.createTransport({
@@ -119,24 +153,15 @@ export const POST: APIRoute = async ({ request }) => {
       },
     });
 
-    // --- Prepare Attachments ---
-    const attachments = data.files.map((file: { base64: string; name: string; type: string; }) => {
-        if (!file.base64) return null;
-        return {
-            filename: file.name,
-            content: file.base64.split(';base64,').pop(),
-            encoding: 'base64',
-            contentType: file.type,
-        }
-    }).filter(Boolean);
+    // Removed attachments preparation
 
     // --- Mail Options ---
     const mailOptions = {
       from: `"Site Web SBG Coaching" <${ZOHO_SMTP_USER}>`,
       to: MAIL_TO,
-      subject: `Nouvelle demande de RDV (${escapeHtml(data.userType || 'Non renseigné')})`,
-      html: createHtmlBody(data),
-      attachments: attachments,
+      subject: `Nouvelle demande de RDV (${escapeHtml(sanitizedData.userType || 'Non renseigné')})`,
+      html: createHtmlBody(sanitizedData),
+      // Removed attachments
     };
 
     // --- Send Mail ---

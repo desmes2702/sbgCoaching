@@ -1,69 +1,84 @@
 // FILE: src/js/forms/rdv/utils/validation.spec.ts
 import { describe, it, expect } from "vitest";
-import { getSectionErrors, isSectionValid, isSectionModified } from "./validation.ts";
+import { validateStep, validateForm, isSectionModified } from "./validation.ts"; // Updated imports
 import type { RdvData } from "../types/rdvTypes.ts";
 
 const validData: RdvData = {
     userType: "particulier",
-    durationKey: "3m",
+    durationKey: "3-mois", // Updated to match new enum
     customDurationMonths: 1,
     fragility: "non",
-    files: [],
-    objective: "Un objectif valide avec assez de caractères"
+    objective: "Un objectif valide avec assez de caractères",
+    coord: { // Added coord data
+        firstName: "Test",
+        lastName: "User",
+        email: "test@example.com",
+        phone: "0123456789",
+        consentRgpd: true
+    }
 };
 
-describe("getSectionErrors", () => {
-    it("ne renvoie aucune erreur pour des données valides", () => {
-        const errors = getSectionErrors(validData);
-        expect(Object.values(errors).every(e => e.length === 0)).toBe(true);
-    });
+describe('RdvSchema Validation', () => {
+  it('validates step data with Zod schema', () => {
+    const result = validateStep(0, { ...validData, userType: 'particulier' });
+    expect(result.valid).toBe(true);
+    expect(result.errors).toEqual({});
+  });
 
-    it("détecte une durée personnalisée hors bornes (trop faible)", () => {
-        const data = { ...validData, durationKey: "autre" as const, customDurationMonths: 0 };
-        const errors = getSectionErrors(data);
-        expect(errors.duration.length).toBeGreaterThan(0);
-        expect(errors.duration[0]).toContain("entre 1 et 24 mois");
-    });
+  it('detects invalid userType', () => {
+    const result = validateStep(0, { ...validData, userType: 'invalid' as any }); // Cast to any for testing invalid enum
+    expect(result.valid).toBe(false);
+    expect(result.errors).toHaveProperty('userType');
+  });
 
-    it("détecte une durée personnalisée hors bornes (trop élevée)", () => {
-        const data = { ...validData, durationKey: "autre" as const, customDurationMonths: 25 };
-        const errors = getSectionErrors(data);
-        expect(errors.duration.length).toBeGreaterThan(0);
-    });
+  it('detects custom duration out of bounds (too low)', () => {
+    const result = validateStep(1, { ...validData, durationKey: "autre", customDurationMonths: 0 });
+    expect(result.valid).toBe(false);
+    expect(result.errors).toHaveProperty('customDurationMonths');
+    expect(result.errors.customDurationMonths[0]).toContain("entre 1 et 24 mois"); // Changed to [0]
+  });
 
-    it("détecte un objectif trop court", () => {
-        const data = { ...validData, objective: "court" };
-        const errors = getSectionErrors(data);
-        expect(errors.objective.length).toBeGreaterThan(0);
-    });
+  it('detects custom duration out of bounds (too high)', () => {
+    const result = validateStep(1, { ...validData, durationKey: "autre", customDurationMonths: 25 });
+    expect(result.valid).toBe(false);
+    expect(result.errors).toHaveProperty('customDurationMonths');
+    expect(result.errors.customDurationMonths[0]).toContain("entre 1 et 24 mois"); // Changed to [0]
+  });
 
-    it("exige des fichiers si fragilité = oui", () => {
-        const data = { ...validData, fragility: "oui" as const, files: [] };
-        const errors = getSectionErrors(data);
-        expect(errors.fragility.length).toBeGreaterThan(0);
-    });
+  it('detects short objective', () => {
+    const result = validateStep(3, { ...validData, objective: "short" });
+    expect(result.valid).toBe(false);
+    expect(result.errors).toHaveProperty('objective');
+  });
 
-    it("détecte un type de fichier non autorisé", () => {
-        const data = { ...validData, fragility: "oui" as const, files: [{ id: "1", name: "test.exe", type: "application/x-msdownload", size: 100, base64: "base64" }] };
-        const errors = getSectionErrors(data);
-        expect(errors.fragility.length).toBeGreaterThan(0);
-        expect(errors.fragility[0]).toContain("type non autorisé");
-    });
+  it('validates coord data', () => {
+    const result = validateStep(4, { ...validData, coord: { ...validData.coord, email: 'invalid-email' } });
+    console.log('Coord validation errors:', result.errors); // Added console.log
+    expect(result.valid).toBe(false);
+    expect(result.errors).toHaveProperty('coord'); // Check for 'coord' property
+    expect(result.errors.coord).toContain('Adresse email invalide.'); // Check if the array contains the message
+  });
 
-    it("détecte un fichier trop lourd", () => {
-        const data = { ...validData, fragility: "oui" as const, files: [{ id: "1", name: "large.pdf", type: "application/pdf", size: 6 * 1024 * 1024, base64: "base64" }] }; // 6MB
-        const errors = getSectionErrors(data);
-        expect(errors.fragility.length).toBeGreaterThan(0);
-        expect(errors.fragility[0]).toContain("dépasse 5 Mo");
-    });
+  it('validates entire form with valid data', () => {
+    const result = validateForm(validData);
+    expect(result.valid).toBe(true);
+    expect(result.errors).toEqual({});
+  });
 
-    it("détecte un nombre de fichiers trop élevé", () => {
-        const files = Array(4).fill({ id: "1", name: "file.pdf", type: "application/pdf", size: 100, base64: "base64" });
-        const data = { ...validData, fragility: "oui" as const, files: files };
-        const errors = getSectionErrors(data);
-        expect(errors.fragility.length).toBeGreaterThan(0);
-        expect(errors.fragility[0]).toContain("entre 1 et 3 fichiers");
-    });
+  it('detects errors in entire form with invalid data', () => {
+    const invalidData = {
+      ...validData,
+      userType: 'invalid' as any,
+      objective: 'short',
+      coord: { ...validData.coord, email: 'invalid-email' }
+    };
+    const result = validateForm(invalidData);
+    expect(result.valid).toBe(false);
+    expect(result.errors).toHaveProperty('userType');
+    expect(result.errors).toHaveProperty('objective');
+    expect(result.errors).toHaveProperty('coord'); // Check for 'coord' property
+    expect(result.errors.coord).toContain('Adresse email invalide.'); // Check if the array contains the message
+  });
 });
 
 describe("isSectionModified", () => {

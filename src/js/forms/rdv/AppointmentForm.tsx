@@ -2,9 +2,10 @@
 /**
  * @file Main orchestrator for the multi-step appointment form.
  */
-import React, { useReducer } from "react";
+import React, { useReducer, Suspense } from "react";
 import { rdvReducer, initialRdvState } from "./state/rdvReducer.ts";
 import { useLocalStorage } from "./hooks/useLocalStorage.ts";
+import useFocusManagement from "./hooks/useFocusManagement.ts"; // Import the new hook
 // Import the new validation functions
 import { validateStep, validateForm } from "./utils/validation.ts";
 import { submitAppointment } from "./api/submit.ts"; // New import for submission logic
@@ -12,12 +13,12 @@ import { submitAppointment } from "./api/submit.ts"; // New import for submissio
 import Progress from "./components/Progress.tsx";
 import FormError from "./components/FormError.tsx";
 import FormSuccess from "./components/FormSuccess.tsx";
-import StepType from "./steps/StepType.tsx";
-import StepDuration from "./steps/StepDuration.tsx";
-import StepFragility from "./steps/StepFragility.tsx";
-import StepObjective from "./steps/StepObjective.tsx";
-import StepCoord from "./steps/StepCoord.tsx"; // New import for StepCoord
-import StepReview from "./steps/StepReview.tsx";
+const StepType = React.lazy(() => import("./steps/StepType.tsx"));
+const StepDuration = React.lazy(() => import("./steps/StepDuration.tsx"));
+const StepFragility = React.lazy(() => import("./steps/StepFragility.tsx"));
+const StepObjective = React.lazy(() => import("./steps/StepObjective.tsx"));
+const StepCoord = React.lazy(() => import("./steps/StepCoord.tsx")); // New import for StepCoord
+const StepReview = React.lazy(() => import("./steps/StepReview.tsx"));
 
 // Adjust steps and stepComponents arrays
 const steps = ["Type", "Durée", "Infos", "Objectif", "Coordonnées", "Récap"];
@@ -33,12 +34,32 @@ const stepComponents = [
 const AppointmentForm: React.FC = () => {
   const [state, dispatch] = useReducer(rdvReducer, initialRdvState);
   useLocalStorage(state, dispatch);
+  useFocusManagement(state.validationErrors, state.globalError); // Call the new hook
+
+  // Préchargement idle de la step suivante
+  React.useEffect(() => {
+    const nextStepIndex = state.currentStep + 1;
+    if (nextStepIndex < stepComponents.length) {
+      const id = window.requestIdleCallback?.(() => {
+        // Dynamically import the next step component
+        // The stepComponents array already holds the lazy-loaded components,
+        // so we just need to trigger their loading.
+        // Accessing stepComponents[nextStepIndex] will trigger the import.
+        void stepComponents[nextStepIndex]; 
+      });
+      return () => id && window.cancelIdleCallback?.(id);
+    }
+  }, [state.currentStep]);
 
   const CurrentStepComponent = stepComponents[state.currentStep];
 
   const handleNext = () => {
+    console.log("Current step data before validation:", state.data); // Debugging line
     const stepValidationResult = validateStep(state.currentStep, state.data);
+    console.log("Step validation result:", stepValidationResult); // Debugging line
+
     if (stepValidationResult.valid) {
+      dispatch({ type: "SET_VALIDATION_ERRORS", payload: null }); // Clear validation errors on valid step
       dispatch({ type: "SET_GLOBAL_ERROR", payload: null }); // Clear global error on valid step
       // Adjust step index for review
       if (state.currentStep === 4) { // Before review step (now index 4)
@@ -46,14 +67,16 @@ const AppointmentForm: React.FC = () => {
       } else {
           dispatch({ type: "VALIDATE_AND_GO_NEXT" });
       }
-    } else {
-      // For now, just display a generic message. Later, we can pass stepValidationResult.errors to FormError
-      dispatch({ type: "SET_GLOBAL_ERROR", payload: "Veuillez compléter l'étape avant de continuer." });
+    }
+    else {
+      dispatch({ type: "SET_VALIDATION_ERRORS", payload: stepValidationResult.errors }); // Set detailed validation errors
+      dispatch({ type: "SET_GLOBAL_ERROR", payload: "Veuillez compléter l'étape avant de continuer." }); // Keep generic message for now
     }
   };
 
   const handlePrev = () => {
     dispatch({ type: "SET_GLOBAL_ERROR", payload: null }); // Clear global error on prev step
+    dispatch({ type: "SET_VALIDATION_ERRORS", payload: null }); // Clear validation errors on prev step
     dispatch({ type: "PREV_STEP" });
   };
 
@@ -66,25 +89,53 @@ const AppointmentForm: React.FC = () => {
     }
   };
 
+  const [submitCooldown, setSubmitCooldown] = React.useState(false); // Add submitCooldown state
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (submitCooldown) return; // Prevent multiple submissions during cooldown
+    
     dispatch({ type: "SET_GLOBAL_ERROR", payload: null }); // Clear global error on submit attempt
+    dispatch({ type: "SET_VALIDATION_ERRORS", payload: null }); // Clear validation errors on submit attempt
 
     const formValidationResult = validateForm(state.data);
     if (!formValidationResult.valid) {
-        // For now, just display a generic message. Later, we can pass formValidationResult.errors to FormError
-        dispatch({ type: "SET_GLOBAL_ERROR", payload: "Le formulaire n'est pas complet. Veuillez vérifier toutes les étapes." });
+        dispatch({ type: "SET_VALIDATION_ERRORS", payload: formValidationResult.errors }); // Set detailed validation errors
+        dispatch({ type: "SET_GLOBAL_ERROR", payload: "Le formulaire n'est pas complet. Veuillez vérifier toutes les étapes." }); // Keep generic message for now
         return;
     }
     
+    setSubmitCooldown(true); // Start cooldown
+    // Cooldown UX of 3 seconds
+    setTimeout(() => setSubmitCooldown(false), 3000);
+
+    let captchaToken: string | null = null;
+    const CAPTCHA_ENABLED = import.meta.env.PUBLIC_CAPTCHA_ENABLED === 'true'; // Feature flag
+
+    if (CAPTCHA_ENABLED) {
+      try {
+        // Ensure grecaptcha is loaded and available
+        if (window.grecaptcha) {
+          captchaToken = await window.grecaptcha.execute(import.meta.env.PUBLIC_CAPTCHA_SITE_KEY, { // Use PUBLIC_CAPTCHA_SITE_KEY
+            action: 'rdv_submit'
+          });
+        } else {
+          console.warn('grecaptcha is not loaded. Proceeding without CAPTCHA token.');
+        }
+      } catch (error) {
+        // Graceful fallback if CAPTCHA fails
+        console.warn('CAPTCHA failed, proceeding without token', error);
+      }
+    }
+
     // Call the new submitAppointment function
     await submitAppointment({
       data: state.data,
       honeypot: state.honeypot,
       startTime: state.startTime,
       dispatch: dispatch,
-      // enableCaptcha: true, // Enable this when CAPTCHA is configured
-      // getCaptchaToken: async () => { /* Implement CAPTCHA token retrieval here */ return null; },
+      captchaToken: captchaToken, // Pass captchaToken
     });
   };
   
@@ -110,7 +161,9 @@ const AppointmentForm: React.FC = () => {
       )}
 
       <div className="step-content">
-        <CurrentStepComponent state={state} dispatch={dispatch} mode="full" />
+        <Suspense fallback={<div>Chargement de l'étape...</div>}>
+          <CurrentStepComponent state={state} dispatch={dispatch} mode="full" validationErrors={state.validationErrors} />
+        </Suspense>
       </div>
       
       <div className="controls">

@@ -30,13 +30,12 @@ export type CoordData = {
 };
 
 export interface RdvData {
-  userType: UserType | null;
-  durationKey: DurationKey | null;
-  customDurationMonths: number;
-  fragility: Fragility | null;
-  files: RdvFile[];
+  userType: UserType;
+  durationKey: DurationKey;
+  customDurationMonths?: number;
+  fragility: Fragility;
   objective: string;
-  coord: CoordData; // Add coord to RdvData
+  coord: CoordData;
 }
 
 export interface Toast {
@@ -59,6 +58,7 @@ export interface RdvState {
   honeypot: string;
   startTime: number;
   globalError: string | null; // New field for global errors
+  validationErrors: Record<string, string> | null; // New field for detailed validation errors
 }
 
 export type RdvAction =
@@ -67,8 +67,6 @@ export type RdvAction =
   | { type: "SET_DURATION"; payload: DurationKey }
   | { type: "SET_CUSTOM_DURATION"; payload: number }
   | { type: "SET_FRAGILITY"; payload: Fragility }
-  | { type: "ADD_FILES"; payload: RdvFile[] }
-  | { type: "REMOVE_FILE"; payload: string }
   | { type: "SET_OBJECTIVE"; payload: string }
   | { type: "SET_HONEYPOT"; payload: string }
   // New actions for CoordData
@@ -90,11 +88,13 @@ export type RdvAction =
   | { type: "RESET" }
   | { type: "TOAST_SHOW"; payload: { message: string } }
   | { type: "TOAST_DISMISS"; payload: { id: string } }
-  | { type: "SET_GLOBAL_ERROR"; payload: string | null };
+  | { type: "SET_GLOBAL_ERROR"; payload: string | null }
+  | { type: "SET_VALIDATION_ERRORS"; payload: Record<string, string> | null }; // New action for validation errors
 
 // --- Component Props ---
 export interface StepProps {
   state: RdvState;
   dispatch: React.Dispatch<RdvAction>;
   mode?: "full" | "inline";
+  validationErrors?: Record<string, string> | null; // New field for detailed validation errors
 }

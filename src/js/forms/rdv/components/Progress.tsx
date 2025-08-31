@@ -1,7 +1,4 @@
 // FILE: src/js/forms/rdv/components/Progress.tsx
-/**
- * @file Displays the progress of the multi-step form.
- */
 import React from "react";
 import type { RdvAction } from "../types/rdvTypes.ts";
 
@@ -12,34 +9,48 @@ interface ProgressProps {
   dispatch: React.Dispatch<RdvAction>;
 }
 
-const Progress: React.FC<ProgressProps> = ({ currentStep, maxReachableStep, steps, dispatch }) => {
+const Progress: React.FC<ProgressProps> = ({
+  currentStep,
+  maxReachableStep,
+  steps,
+  dispatch,
+}) => {
+  console.log("Progress Component Render:");
+  console.log("  currentStep:", currentStep);
+  console.log("  maxReachableStep:", maxReachableStep);
+
   return (
     <nav aria-label="Progression du formulaire">
-      <div className="progress">
-        {steps.map((label, index) => {
+      <ol role="list" className="progress-steps">
+        {steps.map((stepName, index) => {
+          console.log(`  Step ${index} (${stepName}):`);
+          console.log(`    index < currentStep: ${index < currentStep}`);
+          console.log(`    index <= maxReachableStep: ${index <= maxReachableStep}`);
+          console.log(`    isDone: ${index < currentStep || index <= maxReachableStep}`);
+          console.log(`    isClickable: ${index <= maxReachableStep}`);
+
           return (
-            <button
-              type="button"
-              data-step={index}
-              key={label}
-              className={[
-                "progress__step",
-                index === currentStep ? "progress__step--current" : "",
-                index <= maxReachableStep ? "progress__step--clickable" : "progress__step--locked"
-              ].filter(Boolean).join(" ")}
+            <li
+              key={stepName}
               aria-current={index === currentStep ? "step" : undefined}
-              aria-disabled={index > maxReachableStep}
-              disabled={index > maxReachableStep}
-              tabIndex={index > maxReachableStep ? -1 : 0}
-              onClick={() => dispatch({ type: "GO_TO_STEP", payload: index })}
+              className={`progress-step ${
+                index === currentStep ? "progress-step--current" : ""
+              } ${index <= maxReachableStep ? "progress-step--completed" : ""}`}
             >
-              <span className="progress__label">{label}</span>
-            </button>
+              {index < currentStep && <span aria-hidden="true">✓</span>}
+              <button
+                type="button"
+                disabled={index > maxReachableStep}
+                onClick={() => dispatch({ type: "GO_TO_STEP", payload: index })}
+              >
+                {stepName}
+              </button>
+            </li>
           );
         })}
-      </div>
+      </ol>
     </nav>
   );
 };
 
-export default Progress;
+export default React.memo(Progress);

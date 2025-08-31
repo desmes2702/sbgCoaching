@@ -2,14 +2,17 @@
 /**
  * @file Step 4: User's Objective
  */
+// FILE: src/js/forms/rdv/steps/StepObjective.tsx
+/**
+ * @file Step 4: User's Objective
+ */
 import React from "react";
 import type { StepProps } from "../types/rdvTypes.ts";
-import { MIN_OBJECTIVE_LENGTH, validateObjective } from "../utils/validation.ts"; // Import validateObjective
+import { MIN_OBJECTIVE_LENGTH } from "../utils/validation.ts"; // Import MIN_OBJECTIVE_LENGTH
 
-const StepObjective: React.FC<StepProps> = ({ state, dispatch, mode = 'full' }) => {
+const StepObjective: React.FC<StepProps> = ({ state, dispatch, mode = 'full', validationErrors }) => {
   const { objective } = state.data;
-  const validationResult = validateObjective(state.data); // Get validation result
-  const objectiveError = validationResult.errors.objective; // Get specific error for objective
+  const objectiveError = validationErrors?.objective; // Get specific error for objective from props
 
   const charCount = objective.trim().length;
   // const isError = charCount > 0 && charCount < MIN_OBJECTIVE_LENGTH; // This logic is now handled by validateObjective
