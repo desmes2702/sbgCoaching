@@ -108,7 +108,7 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     <script>
   (function () {
     // valeur injectée au build par Astro
-    const GA_ID = String("{GA_MEASUREMENT_ID}")
+    const GA_ID = String("{GA_MEASUREMENT_ID}");
 
     // exécute uniquement si GA_ID est défini ET différent du placeholder
     if (GA_ID && GA_ID !== "G-XXXXXXXXXX") {
@@ -153,13 +153,13 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     }, { passive: true });
 
     /* Service-Worker si présent */
-    window.addEventListener("load", async () => {
+    /* window.addEventListener("load", async () => {
       if (!("serviceWorker" in navigator)) return;
       try {
         const r = await fetch("/sw.js", { method: "HEAD" });
         if (r.ok) await navigator.serviceWorker.register("/sw.js");
-      } catch {/* ignore */ }
-    });
+      } catch {}
+    }); */
   })();
 </script>
   </body>
