@@ -75,5 +75,12 @@
     "openai": "^4.98.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
-  }
+  },
+   "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.40.1"
+  },
+  "overrides": {
+    "vite": {
+      "rollup": "npm:@rollup/wasm-node"
+    }
 }
