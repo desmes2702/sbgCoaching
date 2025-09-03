@@ -5,69 +5,256 @@ node_modules/
 .astro/
 .vite/
 .cache/
+.parcel-cache/
+.rollup.cache/
+.turbo/
+.swc/
+.next/
+.nuxt/
+dist/
+dist_astro/
+build/
+out/
+coverage/
+.nyc_output/
+.tsbuildinfo
+*.tsbuildinfo
+
 
 # ---------------------------
-# ⚙️ Astro Content (auto)
+# ⚙️ Astro Content & Generated Files
 # ---------------------------
 content-assets.mjs
 content-modules.mjs
 content.d.ts
 types.d.ts
 data-store.json
+.astro-components.json
+.astro-islands.json
+astro-env.d.ts
+
 
 # ---------------------------
-# 📝 Logs
+# 📦 Package Managers
 # ---------------------------
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+
+# ---------------------------
+# 📝 Logs & Debug
+# ---------------------------
+logs
+*.log
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+debug.log
+error.log
+
 
 # ---------------------------
-# 💻 IDE / OS files
-# ---------------------------
-.DS_Store
-Thumbs.db
-
-# ---------------------------
-# 🔐 Env
+# 🔐 Environment & Secrets
 # ---------------------------
 .env
-.env.*.local
+.env.*
 .env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.staging.local
+.vercel/.env
+.netlify/.env
+
 
 # ---------------------------
-# 🧩 VSCode (shared only)
+# 💻 IDE & OS Files
 # ---------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+*~
+
 
 # ---------------------------
-# 🚫 Archives et fichiers volumineux (générique)
+# 🚀 Deployment & Hosting
+# ---------------------------
+.netlify/
+.vercel/
+.firebase/
+.surge/
+.now/
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+vercel-build-output/
+
+
+# ---------------------------
+# 🧪 Testing & Coverage
+# ---------------------------
+coverage/
+.nyc_output/
+junit.xml
+test-results/
+playwright-report/
+test-results.xml
+.jest/
+.vitest/
+__tests__/__coverage__/
+
+
+# ---------------------------
+# 📊 Analysis & Performance
+# ---------------------------
+lighthouse/
+.lighthouse/
+dist/stats.html
+bundle-analyzer/
+.bundle-analyzer/
+.size-limit.json
+.webpack-bundle-analyzer/
+stats.json
+
+
+# ---------------------------
+# 🎨 SCSS & CSS
+# ---------------------------
+.sass-cache/
+*.css.map
+*.scss.map
+*.sass.map
+*.less.map
+.stylelintcache
+
+
+# ---------------------------
+# 📱 Mobile & Capacitor
+# ---------------------------
+.capacitor/
+android/
+ios/
+dist_electron/
+
+
+# ---------------------------
+# 🔄 Temporary & Cache Files
+# ---------------------------
+*.tmp
+*.temp
+.temp/
+.tmp/
+.cache/
+.eslintcache
+.stylelintcache
+.prettiercache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+
+# ---------------------------
+# 📦 Archives & Large Files
 # ---------------------------
 *.zip
 *.ZIP
 *.rar
 *.RAR
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+*.tar.bz2
+
 
 # ---------------------------
-# Fichiers Netlify et Astro à ignorer
+# 🚫 Project Specific Exclusions
 # ---------------------------
-.netlify/
-.vercel/
-dist_astro/
-dist/
-dist/stats.html
-lighthouse/
 SBG_Coaching - v2.zip
 pages.zip
 public.zip
 src/pages/actualite-generale.astro
-
-# ---------------------------
-# 🚫 Dépôts et artefacts parasites
-# ---------------------------
 sbg-clean.git/
 sbgCoaching/
 *.git
+
+
+# ---------------------------
+# 🔧 Runtime & System
+# ---------------------------
+.runtime/
+.pids
+*.pid
+*.seed
+*.pid.lock
+.grunt
+lib-cov
+.lock-wscript
+.wafpickle-N
+.node_repl_history
+*.tgz
+.npm
+.eslintcache
+.node_repl_history
+.yarn-integrity
+.next
+
+
+# ---------------------------
+# 🎯 Optional: Editor Backup Files
+# ---------------------------
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+
+# ---------------------------
+# 🎯 Optional: Misc Development
+# ---------------------------
+.histoire/
+storybook-static/
+.storybook/
+chromatic-build/
+.chromatic/
+
+
+# ---------------------------
+# 🔍 Security & Audit
+# ---------------------------
+.audit/
+security-report.json
+audit.json
