@@ -4601,7 +4601,7 @@ body[data-page="about"] .wrapper-982-black {
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
-.form__question__choice:not-(:last-child) {
+.form__question__choice:not(:last-child) {
   margin-left: 1rem;
 }
 .form__question__choice:hover {
