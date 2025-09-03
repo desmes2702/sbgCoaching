@@ -49,6 +49,7 @@
   "include": [
     "src/**/*",
     "src/types/**/*",
+    "src/js/types/**/*",
     "astro.config.ts", 
     "vite.config.ts"
   ],

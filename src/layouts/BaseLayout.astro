@@ -1,14 +1,10 @@
 ---
-// src/layouts/BaseLayout.astro - VERSION CORRIGÉE FINALE
-
+// src/layouts/BaseLayout.astro — version finale
 import Menu from "@partials/components/Menu";
 import Footer from "@partials/components/Footer.astro";
 import FooterMenu from "@partials/components/FooterMenu.astro";
-import Seo from "@partials/components/Seo.astro";
-import { companyInfos, getSeoKeywords, getSchemaForPage } from '@js/data/CompanyData';
-
-// ✅ IMPORT SCSS DYNAMIQUE - Hot-reload fonctionnel
-import '../scss/main.scss';
+import { getSeoKeywords, getSchemaForPage } from "@js/data/CompanyData";
+import "../scss/main.scss";
 
 export interface Props {
   title: string;
@@ -17,7 +13,7 @@ export interface Props {
   dataPage?: string;
   dataModules?: string;
   dataVariant?: string;
-  pageType?: 'home' | 'entreprise' | 'general';
+  pageType?: "home" | "entreprise" | "general";
   seo?: {
     url: string;
     image?: string;
@@ -33,79 +29,54 @@ const {
   dataPage,
   dataModules,
   dataVariant = "white",
-  pageType = 'home',
+  pageType = "home",
   seo,
-  preloadImage
+  preloadImage,
 } = Astro.props;
 
-// 🎯 GÉNÉRATION SEO DYNAMIQUE
-const getSeoTitle = (title: string, pageType: 'home' | 'entreprise' | 'general') => {
-  const baseName = "SBG Coaching - Samuel Billa Garcia";
-  
-  switch(pageType) {
-    case 'entreprise':
-      return `${title} | Coaching Sportif Entreprise Liège | ${baseName}`;
-    case 'general':
-      return `${title} | Personal Trainer Liège | ${baseName}`;
-    default:
-      return `${title} | ${baseName}`;
-  }
-};
+const baseName = "SBG Coaching - Samuel Billa Garcia";
+const getSeoTitle = (t, p) =>
+  p === "entreprise"
+    ? `${t} | Coaching Sportif Entreprise Liège | ${baseName}`
+    : p === "general"
+    ? `${t} | Personal Trainer Liège | ${baseName}`
+    : `${t} | ${baseName}`;
 
-const getSeoDescription = (description?: string, pageType?: string) => {
-  if (description) return description;
-  
-  switch(pageType) {
-    case 'entreprise':
-      return "Coaching sportif en entreprise à Liège : team building, bien-être au travail, cohésion d'équipe. Programme sur mesure Province de Liège. Devis gratuit.";
-    case 'general':
-      return "Coach sportif personnel à Liège. Programme fitness personnalisé, perte de poids, musculation. Première séance offerte. Province de Liège.";
-    default:
-      return "SBG Coaching - Coach sportif à Liège. Coaching personnel et entreprise, team building, bien-être. Samuel Billa Garcia, coach certifié Province de Liège.";
-  }
+const getSeoDescription = (d, p) => {
+  if (d) return d;
+  if (p === "entreprise")
+    return "Coaching sportif en entreprise à Liège : team-building, cohésion d’équipe…";
+  if (p === "general")
+    return "Coach sportif personnel à Liège. Programme fitness personnalisé…";
+  return "SBG Coaching – coach sportif à Liège, coaching personnel et entreprise.";
 };
 
 const optimizedTitle = getSeoTitle(title, pageType);
 const optimizedDescription = getSeoDescription(description, pageType);
-const keywords = getSeoKeywords(pageType === 'home' ? 'all' : pageType);
+const keywords = getSeoKeywords(pageType === "home" ? "all" : pageType);
 const canonicalUrl = seo?.url || `https://sbgcoaching.be${Astro.url.pathname}`;
-const ogImage = seo?.image || '/img/og-coaching-liege.webp';
+const ogImage = seo?.image || "/img/og-coaching-liege.webp";
+const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env */
 ---
 
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- 🏆 SEO META TAGS OPTIMISÉS -->
     <title>{optimizedTitle}</title>
     <meta name="description" content={optimizedDescription} />
-    <meta name="keywords" content={keywords.join(', ')} />
-    <meta name="author" content="Samuel Billa Garcia - SBG Coaching" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-
-    <!-- 🔗 CANONICAL -->
+    <meta name="keywords" content={keywords.join(", ")} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- 🎯 FAVICON OPTIMISÉ -->
-    <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.svg" />
+    <link rel="icon" href="/img/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- ⚡ PRELOAD RESSOURCES CRITIQUES -->
     <link rel="preload" as="font" href="/font/Nexa-Bold.woff2" type="font/woff2" crossorigin />
     <link rel="preload" as="font" href="/font/Nexa-Regular.woff2" type="font/woff2" crossorigin />
-    
-    {preloadImage && (
-      <link rel="preload" as="image" href={preloadImage} />
-    )}
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} type="image/png" />}
 
-    <!-- 🎨 FONTS GOOGLE OPTIMISÉES -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
-
-    <!-- 📱 OPEN GRAPH COACHING -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={optimizedTitle} />
     <meta property="og:description" content={optimizedDescription} />
@@ -113,12 +84,10 @@ const ogImage = seo?.image || '/img/og-coaching-liege.webp';
     <meta property="og:image" content={`https://sbgcoaching.be${ogImage}`} />
     <meta property="og:site_name" content="SBG Coaching" />
 
-    <!-- 🏢 SCHEMA.ORG JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(getSchemaForPage(pageType))}></script>
-
-    <!-- 📊 GOOGLE ANALYTICS 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-
+    {GA_BUILD_ID && (
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_BUILD_ID}`}></script>
+    )}
     <slot name="head" />
   </head>
 
@@ -128,103 +97,69 @@ const ogImage = seo?.image || '/img/og-coaching-liege.webp';
     data-module={dataModules ?? ""}
     data-variant={dataVariant}
   >
-    <!-- 🏗️ NAVIGATION OPTIMISÉE -->
     <Menu client:only="react" variant={dataVariant as "white" | "black"} />
-
-    <!-- 📄 CONTENU PRINCIPAL -->
     <slot />
+    {["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "")
+      ? <FooterMenu />
+      : ["contact", "rdv"].includes(dataPage ?? "")
+      ? null
+      : <Footer />}
 
-    <!-- 🦶 FOOTER CONDITIONNEL -->
-    {["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "") ? (
-      <FooterMenu />
-    ) : ["contact", "rdv"].includes(dataPage ?? "") ? null : (
-      <Footer />
-    )}
+    <script>
+      (function () {
+  // valeur injectée au build
+      const GA_ID = "{GA_MEASUREMENT_ID}" as string;   // ← cast string
 
-    <!-- 🚀 SCRIPTS PERFORMANCE CORRIGÉS -->
-    <script define:vars={{ 
-      optimizedTitle, 
-      canonicalUrl, 
-      pageType, 
-      dataVariant 
-    }}>
-      // ✅ Fonction sécurisée - côté client uniquement
-      (function() {
-        if (typeof window === 'undefined') return;
-
-        // ✅ Initialiser dataLayer et gtag
+      // exécute uniquement si GA_ID est défini ET différent du placeholder
+      if (GA_ID && GA_ID !== "G-XXXXXXXXXX") {
         window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          window.dataLayer.push(arguments);
-        }
+        window.gtag = (...args) => window.dataLayer.push(args);
 
-        // ✅ Web Vitals avec gestion d'erreurs
-        import('web-vitals')
-          .then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-            getCLS(metric => gtag('event', 'CLS', { 
-              event_category: 'Web Vitals', 
-              value: Math.round(metric.value * 1000) 
-            }));
-            getFID(metric => gtag('event', 'FID', { 
-              event_category: 'Web Vitals', 
-              value: Math.round(metric.value) 
-            }));
-            getFCP(metric => gtag('event', 'FCP', { 
-              event_category: 'Web Vitals', 
-              value: Math.round(metric.value) 
-            }));
-            getLCP(metric => gtag('event', 'LCP', { 
-              event_category: 'Web Vitals', 
-              value: Math.round(metric.value) 
-            }));
-            getTTFB(metric => gtag('event', 'TTFB', { 
-              event_category: 'Web Vitals', 
-              value: Math.round(metric.value) 
-            }));
-          })
-          .catch(err => console.log('Web Vitals non disponible:', err));
-
-        // ✅ Google Analytics 4 configuration
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID', {
-          page_title: optimizedTitle,
-          page_location: canonicalUrl,
-          custom_map: {
-            'custom_dimension_1': pageType,
-            'custom_dimension_2': dataVariant
-          }
+        window.gtag("js", new Date());
+        window.gtag("config", GA_ID, {
+          page_title: document.title,
+          page_location: window.location.href,
         });
 
-        // ✅ Conversion tracking
-        function trackCoachingEvent(eventName, parameters) {
-          gtag('event', eventName, {
-            event_category: 'coaching',
-            page_type: pageType,
-            ...(parameters || {})
-          });
+          (async () => {
+            try {
+              const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import("web-vitals");
+              const send = (m) =>
+                window.gtag("event", m.name, {
+                  event_category: "Web Vitals",
+                  value: Math.round(m.name === "CLS" ? m.value * 1000 : m.value),
+                  non_interaction: true,
+                });
+              getCLS(send); getFID(send); getFCP(send); getLCP(send); getTTFB(send);
+            } catch {
+              console.log("Web Vitals non disponible");
+            }
+          })();
         }
 
-        // ✅ Engagement tracking
-        let engagementTimer = 0;
-        const engagementInterval = setInterval(() => {
-          engagementTimer += 5;
-          if (engagementTimer === 30) {
-            trackCoachingEvent('engagement_30s');
-          }
-          if (engagementTimer === 60) {
-            trackCoachingEvent('engagement_1min');
-            clearInterval(engagementInterval);
-          }
-        }, 5000);
+        /* Engagement 30 s / 60 s */
+        let t = 0, hit30 = false, hit60 = false;
+        const iv = setInterval(() => {
+          t += 10;
+          if (t >= 30 && !hit30) { window.gtag?.("event", "engagement_30s"); hit30 = true; }
+          if (t >= 60 && !hit60) { window.gtag?.("event", "engagement_60s"); hit60 = true; clearInterval(iv); }
+        }, 10_000);
 
-        // ✅ Service Worker (optionnel)
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
-              .then(registration => console.log('SW registered:', registration))
-              .catch(error => console.log('SW registration failed:', error));
-          });
-        }
+        /* Scroll 75 % */
+        let max = 0, sent = false;
+        window.addEventListener("scroll", () => {
+          const p = Math.round((scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100);
+          if (p > max) { max = p; if (p >= 75 && !sent) { window.gtag?.("event", "scroll_75_percent"); sent = true; } }
+        }, { passive: true });
+
+        /* Service-Worker si présent */
+        window.addEventListener("load", async () => {
+          if (!("serviceWorker" in navigator)) return;
+          try {
+            const r = await fetch("/sw.js", { method: "HEAD" });
+            if (r.ok) await navigator.serviceWorker.register("/sw.js");
+          } catch {/* ignore */ }
+        });
       })();
     </script>
   </body>
