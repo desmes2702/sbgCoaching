@@ -1,10 +1,10 @@
-// astro.config.ts — VERSION COMPLÈTE CORRIGÉE
+// astro.config.ts — VERSION COMPLÈTE CORRIGÉE avec base et site
 
 import { defineConfig } from 'astro/config';
 import react   from '@astrojs/react';
 import node    from '@astrojs/node';
 import vercel  from '@astrojs/vercel';
-import critters from 'astro-critters';      // ➜ Critical CSS inline
+import critters from 'astro-critters';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
@@ -22,15 +22,18 @@ const getAdapter = () =>
 
 /* ---------- CONFIGURATION ASTRO ---------- */
 export default defineConfig({
+  /* ---------- SITE & BASE CONFIGURATION ---------- */
+  site: 'https://sbgcoaching.be',      // ✅ URL canonique du site
+  base: '/',                           // ✅ Force les chemins absolus (évite les 404)
+  trailingSlash: 'ignore',            // ✅ Gestion cohérente des URLs
+
   /* ---------- INTÉGRATIONS ---------- */
   integrations: [
-  react({ include: ['**/react/*', '**/partials/**/*.tsx'] }),
-
-  critters({
-          // 0 = silencieux · 1 = infos · 2 = debug
-    // preloadFonts n’existe pas dans l’API → à retirer
-  })
-],
+    react({ include: ['**/react/*', '**/partials/**/*.tsx'] }),
+    critters({
+      // Critical CSS inline pour de meilleures performances
+    })
+  ],
 
   /* ---------- ADAPTER ---------- */
   adapter: getAdapter(),
@@ -102,10 +105,11 @@ export default defineConfig({
                   'astro-core': ['@astrojs/react'],
                   vendor:       ['dompurify', 'nodemailer']
                 },
+                // ✅ Pas de modification des chemins CSS - laisse Astro gérer
                 assetFileNames: info =>
                   info.name?.endsWith('.css')
-                    ? 'css/[name].[hash].css'
-                    : 'assets/[name].[hash][extname]'
+                    ? '_astro/[name].[hash].css'      // ✅ Garde le préfixe _astro/
+                    : '_astro/[name].[hash][extname]'
               }
             },
             cssMinify: 'lightningcss',
