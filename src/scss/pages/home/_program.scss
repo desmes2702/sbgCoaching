@@ -37,8 +37,8 @@
 	}
 
 	&__arrow {
-		height: 30px;
 		width: auto !important;
+		height: 30px;
 	}
 
 	&__program{
@@ -96,6 +96,7 @@
 		&__program {
 			position: relative;
 			justify-content: center;
+
 			/* min-height: 500px; */
 			max-width: 768px;
 			flex-direction: row;

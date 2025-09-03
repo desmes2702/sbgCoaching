@@ -2,9 +2,9 @@
 
 
 .header {
+    z-index: 1;
     width: 100%;
     max-width: 1440px;
-    z-index: 1;
 
     &__container {
         display: flex;
@@ -152,11 +152,11 @@
 
     button {
         position: relative;
+        width: 24px;
+        height: 24px;
         margin: 0 0 2rem;
         background: url('/img/icon__close.svg') no-repeat center;
         background-size: contain;
-        width: 24px;
-        height: 24px;
 
     }
 

@@ -11,10 +11,10 @@
   height: 1px;
   padding: 0;
   margin: -1px;
+  border: 0;
   overflow: hidden;
   clip: rect(0,0,0,0);
   clip-path: inset(50%);
-  border: 0;
   white-space: nowrap;
 }
 
@@ -26,11 +26,11 @@
 
 .step-review__section {
   padding: 1rem;
-  background: transparent;
-  border: 0px;
   padding: 0 !important;
-  margin-bottom: 2rem;
   gap: 2rem !important;
+  border: 0;
+  background: transparent;
+  margin-bottom: 2rem;
 
   @media (min-width: $breakpoint-tablet) {
     padding: 1.25rem;
@@ -44,7 +44,7 @@
     color: white;
   }
 
-  input[type=checkbox]{
+  input[type="checkbox"]{
     margin-right: 0.5rem;
   }
 
@@ -55,30 +55,29 @@
 
 .step-review__head{
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 
     .step-review__title {
+      margin: 0;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-transform: uppercase;
       font-family: $font-secondary;
       font-family: white;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      font-weight: 500;
-      margin: 0;
-    
-      color: #fff;
     }
 
     .step-review__badge{
+      max-height: fit-content;
       padding: 0.5rem 0.75rem;
       border: 1px solid;
       border-radius: 16px;
       font-size: 12px;
-      max-height: fit-content;
       
       &--ok {
-        color: rgba(0, 200, 120, 0.8);
-        border-color: rgba(0, 200, 120, 0.2);
+        color: rgb(0 200 120 / 80%);
+        border-color: rgb(0 200 120 / 20%);
       }
 
       &--warn{
@@ -86,11 +85,13 @@
         border-color: $color-error-border;
       }
     }
+
     &-meta{
         display: flex;
         align-items: center;
         gap: 1rem;
     }
+
     &-actions{
       display: flex;
       gap: 1rem;
@@ -102,13 +103,13 @@
 /* ---------- Lignes clé/valeur ---------- */
 .step-review__kv {
   display: grid;
-  grid-template-columns: 10rem 1fr;
-  gap: 0.5rem 1rem;
   align-items: start;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 0.75rem;
   padding: 1rem;
+  gap: 0.5rem 1rem;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 0.75rem;
   background-color: transparent;
+  grid-template-columns: 10rem 1fr;
 
   @media (max-width: $breakpoint-mobile) {
     grid-template-columns: 1fr;
@@ -116,7 +117,7 @@
 }
 
 .step-review__key {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(255 255 255 / 50%);
   font-weight: 500;
 }
 
@@ -132,18 +133,18 @@
   margin-top: 0.5rem;
 
   textarea{
-    min-height: 89px;
     width: 100%;
+    min-height: 89px;
   }
 
   &--duration{
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
-    gap: 0 !important;
-    margin: 0;
     padding: 0;
+    margin: 0;
+    gap: 0 !important;
     border: none;
+    flex-direction: column;
 
     legend{
       margin-bottom: .5rem;
@@ -163,7 +164,7 @@
 
   &--fragility{
     textarea{
-      margin: 1rem 0 0 0;
+      margin: 1rem 0 0;
     }
   }
 }
@@ -178,8 +179,8 @@ label{
 }
 
 textarea {
-  min-height: 89px;
   width: 100%;
+  min-height: 89px;
 }
 
 
@@ -187,8 +188,8 @@ textarea {
 
 .step-review__actions {
   display: flex;
-  gap: 0.5rem;
   justify-content: flex-end;
+  gap: 0.5rem;
   margin-top: 0.75rem;
 }
 
@@ -199,14 +200,14 @@ textarea {
 /* ---------- Bandeau d’état ---------- */
 .step-review__status {
   padding: 0.75rem 1rem;
+  border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 0.5rem;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgb(255 255 255 / 6%);
   color: #fff;
 
   &--error {
-    border-color: rgba(255, 0, 0, 0.4);
-    box-shadow: 0 0 0 0.125rem rgba(255, 0, 0, 0.2);
+    border-color: rgb(255 0 0 / 40%);
+    box-shadow: 0 0 0 0.125rem rgb(255 0 0 / 20%);
   }
 }
 

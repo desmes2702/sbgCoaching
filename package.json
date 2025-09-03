@@ -15,8 +15,11 @@
     "check:types": "tsc --noEmit",
     "inject:abstracts": "node scripts/injectUseAbstracts.js",
     "fix:partials": "node src/js/replaceComponentsWithPartials.js",
-    "lint:scss": "stylelint 'src/**/*.scss' --cache",
-    "lint:scss:fix": "stylelint 'src/**/*.scss' --fix --cache",
+    "scss:watch": "sass --watch src/scss:dist/css",
+    "dev:full": "npm run scss:watch & npm run dev",
+    "scss:compile": "sass src/scss:dist/css",
+    "lint:scss": "stylelint \"src/scss/**/*.scss\" --cache",
+    "lint:scss:fix": "stylelint \"src/scss/**/*.scss\" --fix --cache",
     "lint:ts": "eslint 'src/**/*.{ts,tsx}' --cache",
     "lint:ts:fix": "eslint 'src/**/*.{ts,tsx}' --fix --cache",
     "lint:all": "npm run lint:scss && npm run lint:ts",
@@ -37,6 +40,7 @@
     "@typescript-eslint/parser": "^8.33.0",
     "astro": "^5.10.1",
     "astro-compress": "^2.3.8",
+    "astro-critters": "^2.2.1",
     "cssnano": "^7.0.7",
     "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
@@ -74,7 +78,8 @@
     "nodemailer": "^7.0.3",
     "openai": "^4.98.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "web-vitals": "^5.1.0"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.40.1"

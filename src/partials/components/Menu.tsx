@@ -1,10 +1,30 @@
+// src/partials/components/Menu.tsx - VERSION CORRIGÉE TYPES ASTRO
+
 import { useEffect, useRef, useState } from "react";
 
+// ✅ INTERFACE ÉTENDUE AVEC DIRECTIVES ASTRO
 interface MenuProps {
   variant?: "white" | "black";
+  // Directives client Astro
+  "client:load"?: boolean;
+  "client:idle"?: boolean;  
+  "client:visible"?: boolean;
+  "client:media"?: string;
+  "client:only"?: boolean | string;
+  // Props Astro génériques
+  [key: string]: any;
 }
 
-const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
+const Menu: React.FC<MenuProps> = ({ 
+  variant = "white",
+  // Ignorer les props Astro spécifiques dans le composant React
+  "client:only": _clientOnly,
+  "client:load": _clientLoad,
+  "client:idle": _clientIdle,
+  "client:visible": _clientVisible,
+  "client:media": _clientMedia,
+  ...otherProps
+}) => {
   const isWhite = variant === "white";
   const wrapperClass = isWhite ? "wrapper-1440-black" : "wrapper-1440";
 
@@ -12,13 +32,13 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => setIsClient(true), []);
 
-  // Etat & refs pour le menu (activés seulement côté client)
+  // État & refs pour le menu (activés seulement côté client)
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const openBtnRef = useRef<HTMLButtonElement>(null);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
 
-  // Gestion de l’ouverture (classes + focus)
+  // Gestion de l'ouverture (classes + focus)
   useEffect(() => {
     if (!isClient) return;
     const menu = menuRef.current;
@@ -75,7 +95,7 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
                 <img
                   id="menu__logo"
                   src={`/img/logo-${variant === "black" ? "black" : "white"}.svg`}
-                  alt="Logo SBG"
+                  alt="Logo SBG Coaching"
                 />
               </a>
             </div>
@@ -124,7 +144,7 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
               <img
                 id="menu__logo"
                 src={`/img/logo-${variant === "black" ? "black" : "white"}.svg`}
-                alt="Logo SBG"
+                alt="Logo SBG Coaching"
               />
             </a>
           </div>
@@ -173,6 +193,7 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
           aria-label="Fermer le menu"
           onClick={() => setIsOpen(false)}
         >
+          ×
         </button>
         <nav className="menu__nav">
           <section className="menu__section">
@@ -182,23 +203,37 @@ const Menu: React.FC<MenuProps> = ({ variant = "white" }) => {
               <li className="menu__item"><a href="/temoignages" className="menu__link link-underline-appear">Témoignages</a></li>
               <li className="menu__item"><a href="/a-propos" className="menu__link link-underline-appear">À Propos</a></li>
               <li className="menu__item"><a href="/contact" className="menu__link link-underline-appear">Contact</a></li>
-              <li className="menu__item menu__item__rdv"><a href="/rdv" className="menu__link link-underline-replay">Prise de rendez-vous</a></li>
+              <li className="menu__item menu__item__rdv">
+                <a href="/rdv" className="menu__link link-underline-replay">Prise de rendez-vous</a>
+              </li>
             </ul>
           </section>
           <section className="menu__section">
             <h2 className="menu__title">Coaching</h2>
             <ul className="menu__list">
-              <li className="menu__item"><a href="/coaching-entreprise" className="menu__link link-underline-appear">Entreprise</a></li>
-              <li className="menu__item"><a href="/coaching-sportif-video" className="menu__link link-underline-appear">Vidéos</a></li>
-              <li className="menu__item"><a href="/coaching-general" className="menu__link link-underline-appear">Général</a></li>
+              <li className="menu__item">
+                <a href="/coaching-entreprise" className="menu__link link-underline-appear">Entreprise</a>
+              </li>
+              <li className="menu__item">
+                <a href="/coaching-sportif-video" className="menu__link link-underline-appear">Vidéos</a>
+              </li>
+              <li className="menu__item">
+                <a href="/coaching-general" className="menu__link link-underline-appear">Général</a>
+              </li>
             </ul>
           </section>
           <section className="menu__section menu__section__profil">
             <h2 className="menu__title">Mon espace</h2>
             <ul className="menu__list">
-              <li className="menu__item menu__item__program"><a href="#my-programs" className="menu__link link-underline-appear">Mes programmes</a></li>
-              <li className="menu__item menu__item__info"><a href="#my-info" className="menu__link link-underline-appear">Mes informations</a></li>
-              <li className="menu__item menu__item__disconnect"><a href="#logout" className="menu__link link-underline-appear">Se déconnecter</a></li>
+              <li className="menu__item menu__item__program">
+                <a href="#my-programs" className="menu__link link-underline-appear">Mes programmes</a>
+              </li>
+              <li className="menu__item menu__item__info">
+                <a href="#my-info" className="menu__link link-underline-appear">Mes informations</a>
+              </li>
+              <li className="menu__item menu__item__disconnect">
+                <a href="#logout" className="menu__link link-underline-appear">Se déconnecter</a>
+              </li>
             </ul>
           </section>
         </nav>

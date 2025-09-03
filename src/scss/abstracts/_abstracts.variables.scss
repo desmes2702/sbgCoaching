@@ -12,14 +12,13 @@ $border-secondary-color: 1px solid rgb(240 240 240 / 20%);
 
 // Couleurs d'état et feedback
 $color-warning: #ffc107;
-$color-warning-light: rgba(255, 193, 7, 0.1);
-$color-warning-border: rgba(255, 193, 7, 0.3);
-$color-warning-text: rgba(255, 193, 7, 0.8);
-
+$color-warning-light: rgb(255 193 7 / 10%);
+$color-warning-border: rgb(255 193 7 / 30%);
+$color-warning-text: rgb(255 193 7 / 80%);
 $color-error: #ffc107;
-$color-error-light: rgba(255, 193, 7, 0.1);
-$color-error-border: rgba(255, 193, 7, 0.3);
-$color-error-text: rgba(255, 193, 7, 0.8);
+$color-error-light: rgb(255 193 7 / 10%);
+$color-error-border: rgb(255 193 7 / 30%);
+$color-error-text: rgb(255 193 7 / 80%);
 
 // ===============================
 // TYPOGRAPHIE

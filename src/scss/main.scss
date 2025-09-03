@@ -1,10 +1,14 @@
+// src/scss/main.scss - VERSION CORRIGÉE POUR HOT-RELOAD
+
 @use "./abstracts" as *;
 
-// 📦 SCSS forwards (doivent être tout en haut)
+// 🔥 IMPORTS DIRECTS pour hot-reload fonctionnel
+@use "base/global";
+@use "base/reset"; 
+@use "base/typography";
 
+// 📦 SCSS forwards (après les imports directs)
 @forward "base/index";
-@forward "components/index";
+@forward "components/index"; 
 @forward "layout/index";
 @forward "pages/index";
-
-

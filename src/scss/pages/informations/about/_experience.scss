@@ -16,6 +16,7 @@
 	}
 
 	&__subtitle {
+	  z-index: 1;
 	  color: $primary-color;
 	  font-size: 1rem;
 	  font-weight: 600;
@@ -23,7 +24,6 @@
 	  font-style: normal;
 	  font-family: $font-secondary;
 	  margin-bottom: 2rem;
-	  z-index: 1;
 	}
 
 	&__title, &__subtitle {

@@ -127,7 +127,7 @@
 		}
 	}
 
-	@media(min-width: 400px) {
+	@media(width >= 400px) {
 		&__name {
 			margin-bottom: 2rem !important;
 		}

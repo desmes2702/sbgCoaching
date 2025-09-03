@@ -1,67 +1,119 @@
+// astro.config.ts — VERSION COMPLÈTE CORRIGÉE
+
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import node from '@astrojs/node';
-import vercel from '@astrojs/vercel';
+import react   from '@astrojs/react';
+import node    from '@astrojs/node';
+import vercel  from '@astrojs/vercel';
+import critters from 'astro-critters';      // ➜ Critical CSS inline
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-// Configuration compatible Windows/Mac/Linux
+/* ---------- VARIABLES GLOBALES ---------- */
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname  = path.dirname(__filename);
 
 const isVercel = process.env.VERCEL === '1';
+const isDev    = process.env.NODE_ENV === 'development';
 
-const getAdapter = () => {
-  if (isVercel) return vercel({
-    webAnalytics: { enabled: true }
-  });
-  return node({ mode: 'standalone' });
-};
+const getAdapter = () =>
+  isVercel
+    ? vercel({ webAnalytics: { enabled: true } })
+    : node({ mode: 'standalone' });
 
+/* ---------- CONFIGURATION ASTRO ---------- */
 export default defineConfig({
+  /* ---------- INTÉGRATIONS ---------- */
   integrations: [
-    react({
-      include: ['**/react/*', '**/partials/**/*.tsx']
-    })
-  ],
+  react({ include: ['**/react/*', '**/partials/**/*.tsx'] }),
+
+  critters({
+          // 0 = silencieux · 1 = infos · 2 = debug
+    // preloadFonts n’existe pas dans l’API → à retirer
+  })
+],
+
+  /* ---------- ADAPTER ---------- */
   adapter: getAdapter(),
-  output: 'server',
-  
+  output:  'server',
+
+  /* ---------- VITE ---------- */
   vite: {
+    /* ---- DEV SERVER ---- */
+    server: {
+      host: '0.0.0.0',
+      port: 4321,
+      strictPort: false,
+      open: false,
+      hmr: { port: 4322, overlay: true, clientPort: isDev ? 4322 : undefined },
+      watch: {
+        usePolling: process.platform === 'win32',
+        interval: 100,
+        binaryInterval: 300,
+        ignored: ['**/node_modules/**', '**/dist/**', '**/.git/**']
+      }
+    },
+
+    /* ---- CSS/SCSS ---- */
     css: {
+      devSourcemap: true,
       preprocessorOptions: {
         scss: {
-          additionalData: `
-            @use "src/scss/abstracts/_variables.scss" as *;
-            @use "src/scss/abstracts/_mixins.scss" as *;
-            @use "src/scss/abstracts/_functions.scss" as *;
-          `
+          additionalData: `@use "scss/abstracts" as *;`,
+          charset: false,
+          outputStyle: isDev ? 'expanded' : 'compressed',
+          includePaths: [
+            path.resolve(__dirname, 'src/scss'),
+            path.resolve(__dirname, 'src/scss/abstracts'),
+            path.resolve(__dirname, 'node_modules')
+          ]
         }
-      }
-    },
-    
-    // 🔧 CORRECTION : Alias compatible Windows
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "src"),
-        "@scss": path.resolve(__dirname, "src/scss"),
-        "@js": path.resolve(__dirname, "src/js"),
-        "@partials": path.resolve(__dirname, "src/partials"),
-        "@layouts": path.resolve(__dirname, "src/layouts"),
-        "@perf": path.resolve(__dirname, "src/partials/components/perf"),
       }
     },
 
-    build: {
-      cssCodeSplit: true,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'react-core': ['react', 'react-dom'],
-            'astro-core': ['@astrojs/react']
-          }
-        }
+    /* ---- ALIAS ---- */
+    resolve: {
+      alias: {
+        '@':          path.resolve(__dirname, 'src'),
+        '@scss':      path.resolve(__dirname, 'src/scss'),
+        '@js':        path.resolve(__dirname, 'src/js'),
+        '@partials':  path.resolve(__dirname, 'src/partials'),
+        '@layouts':   path.resolve(__dirname, 'src/layouts'),
+        '@perf':      path.resolve(__dirname, 'src/partials/components/perf'),
+        '@components':path.resolve(__dirname, 'src/partials/components')
       }
-    }
-  }
+    },
+
+    /* ---- BUILD diff DEV/PROD ---- */
+    ...(isDev
+      ? {
+          optimizeDeps: { include: ['react', 'react-dom'], force: false },
+          cacheDir: 'node_modules/.vite',
+          build:   { sourcemap: true, minify: false, cssCodeSplit: false }
+        }
+      : {
+          build: {
+            sourcemap:   false,
+            minify:      'terser',
+            cssCodeSplit:true,
+            rollupOptions: {
+              output: {
+                manualChunks: {
+                  'react-core': ['react', 'react-dom'],
+                  'astro-core': ['@astrojs/react'],
+                  vendor:       ['dompurify', 'nodemailer']
+                },
+                assetFileNames: info =>
+                  info.name?.endsWith('.css')
+                    ? 'css/[name].[hash].css'
+                    : 'assets/[name].[hash][extname]'
+              }
+            },
+            cssMinify: 'lightningcss',
+            terserOptions: { compress: { drop_console: true, drop_debugger: true } }
+          }
+        })
+  },
+
+  /* ---------- TOOLBAR DEV ---------- */
+  ...(isDev && { devToolbar: { enabled: true } })
 });
