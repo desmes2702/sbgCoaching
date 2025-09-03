@@ -1,0 +1,39 @@
+---
+import { testimonials } from "@/js/data/testimonialsData";
+
+const featured = testimonials.find((t) => t.featured === true);
+---
+{featured && (
+<div class="wrapper-1440 " id="wrapper-1440__testimonial-new">
+  <section class="testimonial-new">
+    <h1 class="testimonial-new__title title">Des témoignages authentiques</h2>
+    <h2 class="testimonial-new__subtitle">Des résultats concrets</h3>
+    <p class="testimonial-new__description">
+      Que ce soit pour améliorer leurs performances, optimiser leur condition physique ou adopter un mode de vie plus sain,
+      ces témoignages reflètent les résultats d’un travail sérieux et structuré.
+    </p>
+
+    <h3 class="testimonials__type">Le plus récent</h4>
+
+    <div class="testimonial-new__wrapper">
+      <div
+        class="testimonial-new__image"
+        style={`background-image: url('${featured.photo}')`}
+        role="img"
+        aria-label={`Photo de ${featured.name}`}
+      ></div>
+
+      <div class="testimonial-new__content">
+        <h4 class="testimonial-new__name">{featured.name}</h4>
+        <p class="testimonial-new__meta">
+          {featured.job && <span class="testimonial-new__job">{featured.job}</span>}
+          {/* Ajoute d'autres métadonnées ici si besoin */}
+        </p>
+        <blockquote class="testimonial-new__quote">
+          {featured.text.map((p) => <p>{p}</p>)}
+        </blockquote>
+      </div>
+    </div>
+  </section>
+</div>
+)}

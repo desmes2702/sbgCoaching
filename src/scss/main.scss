@@ -1,0 +1,10 @@
+@use "./abstracts" as *;
+
+// 📦 SCSS forwards (doivent être tout en haut)
+
+@forward "base/index";
+@forward "components/index";
+@forward "layout/index";
+@forward "pages/index";
+
+

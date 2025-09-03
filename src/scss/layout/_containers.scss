@@ -1,0 +1,27 @@
+@use "../abstracts" as *;
+
+
+// ===============================
+// WRAPPERS & CONTAINERS
+// ===============================
+
+.wrapper-1440 {
+	@include wrapper(90rem); // 1440px
+  }
+
+  .wrapper-1440-black {
+	@include wrapper(90rem, $secondary-color);
+  }
+
+  .wrapper-982 {
+	@include wrapper(61.375rem); // 982px
+  }
+
+  .wrapper-982-black {
+	@include wrapper(61.375rem, $secondary-color);
+  }
+
+  .subWrapper__col2 {
+	width: 100%;
+	max-width: 90rem; // 1440px
+  }

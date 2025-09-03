@@ -1,0 +1,13 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import AppointmentForm from "@partials/components/rdv/AppointmentForm";
+---
+
+<BaseLayout title="Prise de rendez-vous | SBG Coaching" dataPage="rdv">
+  <section class="rdv rdv--dark wrapper-1440-black" aria-labelledby="rdv-title">
+    <div class="container rdv__container">
+      <h1 id="rdv-title" class="rdv__title">COACHING SPORTIF<span class="rdv__title-accent">_</span></h1>
+      <AppointmentForm client:load />
+    </div>
+  </section>
+</BaseLayout>

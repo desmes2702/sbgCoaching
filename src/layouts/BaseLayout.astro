@@ -1,0 +1,93 @@
+---
+import Menu from "@partials/components/Menu"
+import Footer from "@partials/components/Footer.astro";
+import FooterMenu from "@partials/components/FooterMenu.astro";
+import Seo from "@partials/components/Seo.astro";
+
+
+
+export interface Props {
+  title: string;
+  description?: string;
+  pageClass?: string;
+  dataPage?: string;
+  dataModules?: string;
+  dataVariant?: string;
+  seo?: {
+    url: string;
+    image?: string;
+    schemaType?: "LocalBusiness" | "Organization" | "Article" | "Review";
+  };
+  preloadImage?: string; 
+}
+
+const {
+  title,
+  description,
+  pageClass,
+  dataPage,
+  dataModules,
+  dataVariant = "white",
+  seo,
+  preloadImage
+} = Astro.props;
+---
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/img/logo.svg" />
+    <link rel="icon" type="image/svg" sizes="32x32" href="/img/logo.svg" />
+    <link rel="icon" type="image/svg" sizes="16x16" href="/img/logo.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/logo.svg" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Preload des polices critiques -->
+    <link rel="preload" as="font" href="/font/Nexa-Bold.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="/font/Nexa-Regular.woff2" type="font/woff2" crossorigin />
+
+    <!-- Roboto (import Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {seo && (
+      <Seo
+        title={title}
+        description={description ?? ""}
+        url={seo.url}
+        image={seo.image}
+        schemaType={seo.schemaType}
+        slot="head"
+      />
+    )}
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} />
+    )}
+    <link rel="preload" href="/style/min_css/main.min.css" as="style" />
+    <link rel="stylesheet" href="/style/min_css/main.min.css" />
+    <slot name="head" />
+  </head>
+
+  <body
+    class={pageClass ?? ""}
+    data-page={dataPage ?? ""}
+    data-module={dataModules ?? ""}
+    data-variant={dataVariant}
+  >
+    <Menu client:only variant={dataVariant as "white" | "black"} />
+
+      <slot />
+
+  {["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "") ? (
+    <FooterMenu />
+  ) : ["contact", "rdv"].includes(dataPage ?? "") ? null : (
+    <Footer />
+  )}
+  </body>
+</html>

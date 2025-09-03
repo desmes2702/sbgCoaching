@@ -1,0 +1,188 @@
+@use "../../../abstracts" as *;
+
+/* body[data-page="about"] .wrapper-1440-black {
+	background-color: rgba(47, 47, 47, .5);
+}
+
+body[data-page="about"] .wrapper-982-black {
+	background-color: rgba(47, 47, 47, .5);
+} */
+.about__hero__img{
+		position: fixed;
+		top: 0;
+		z-index: 0;
+		background-image: url(../../img/index__hero.png);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		width: 100vw !important;
+		height: 100vh !important;
+		max-width: 100vw !important;
+		top: 0;
+		left: 0;
+	}
+
+.about__hero {
+	display: flex;
+	align-items: center;
+	max-width: 800px !important;
+	color: #fff;
+	flex-direction: column;
+	position: relative;
+	
+
+	&__content {
+	  position: relative;
+	  width: 100%;
+	  text-align: left;
+	  z-index: 1;
+	}
+
+	&__role {
+	  color: white;
+	  font-size: 1.2rem;
+	  font-weight: 700;
+	  text-transform: uppercase;
+	  margin-bottom: 0;
+	  font-family: $font-secondary;
+
+	  span:first-child  {
+		color: $primary-color;
+		font-weight: 700;
+		margin-right: 5px;
+	  }
+
+	  .light {
+		color: white;
+		font-size: .8rem ;
+		font-weight: 300;
+		opacity: 0.8;
+	  }
+	}
+
+	&__name {
+	  font-family: $font-primary;
+	  color: white;
+	  font-weight: 700;
+	}
+
+	&__quote {
+	  position: relative;
+	  margin: 0;
+	  font-size: 1.4rem;
+	  font-weight: 400;
+	  font-style: italic;
+
+	  &::before{
+		position: absolute;
+		top: -2.5rem;
+		left: 0;
+		width: 25px;
+		height: 25px;
+		content: "";
+		background-image: url("../../img/icon__temoignage.svg");
+		background-size: cover;
+		background-repeat: no-repeat;
+
+	}
+
+	  .about__hero__signature {
+		display: block;
+		width: 100%;
+		height: 100px;
+		opacity: .5;
+		background-image: url('../../img/signature-white.svg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: left;
+	mask-image: linear-gradient(to right, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 0%) 90%);
+	mask-repeat: no-repeat;
+	mask-size: 100% 100%;
+	  }
+	}
+
+	// ===============================
+	// ✅ MEDIA QUERIES (mobile → +)
+	// ===============================
+	@media(max-width: $breakpoint-mobile-max) {
+		.about__hero{
+			&__content{
+				width: 100%;
+				max-width: 400px;
+			}
+
+			&__quote{
+				position: relative;
+
+				&::before{
+					position: absolute;
+					top: -2.5rem;
+					left: 0;
+					width: 25px;
+					height: 25px;
+					content: "";
+					background-image: url("../../img/icon__temoignage.svg");
+					background-size: cover;
+					background-repeat: no-repeat;
+
+				}
+			}
+
+			&__name{
+				margin-bottom: 5rem;
+			}
+		}
+	}
+
+	@media(min-width: 400px) {
+		&__name {
+			margin-bottom: 2rem !important;
+		}
+
+		&__quote{
+			padding-left: 2.5rem;
+
+			&::before{
+				top: 6px !important;
+				left: 5px !important;
+				width: 20px !important;
+				height: 20px !important;
+			}
+		}
+	}
+	@include responsive(mobile) {
+	  display: grid;
+	  grid-template-columns: 1fr 1fr;
+	  align-items: center;
+	  gap: 0;
+
+	  &__content {
+		text-align: left;
+	  }
+
+	  &__name{
+		margin-bottom: 3rem;
+	  }
+
+	  &__quote{
+		padding-left: 2.5rem;
+
+		&::before{
+			top: 6px;
+			left: 5px;
+			width: 20px;
+			height: 20px;
+		}
+
+		.about__hero__signature{
+			background-position: right;
+		}
+	  }
+	}
+
+	@include responsive(tablet) {
+		&__content{
+			min-height: 50vh;
+		}
+ 	}
+  }

@@ -1,0 +1,41 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@partials/index/Hero.astro";
+import Program from "@partials/index/Program.astro";
+import CoachingBusiness from "@partials/index/CoachingBusiness.astro";
+import Testimonials from "@partials/index/Testimonials.astro";
+/* import OfflineInfo from "@partials/index/OfflineInfo.astro"; */
+import FAQ from "@partials/components/Faq.astro";
+import LazyFadeIn from "@partials/performance/LazyFadeIn";
+---
+
+<BaseLayout
+  title="Accueil | Coaching Sportif"
+  description="Coaching sportif professionnel, individuel et en groupe. Découvrez nos services adaptés à vos besoins et vos objectifs."
+  pageClass="page__accueil"
+  dataPage="index";
+  dataVariant="white"
+  seo={{
+    url: "https://sbgcoaching.be/",
+    /* image: "/img/og-home.webp", */
+    schemaType: "LocalBusiness"
+  }}
+  preloadImage="/img/index__hero.png"
+>
+  <main class="main">
+    <Hero currentPage="index" />
+    <LazyFadeIn client:load>
+    <Program currentPage="index" />
+    </LazyFadeIn>
+    <LazyFadeIn client:load>
+    <CoachingBusiness currentPage="index" />
+    </LazyFadeIn>
+    <LazyFadeIn client:load>
+    <Testimonials currentPage="index" />
+    </LazyFadeIn>
+    <!-- <OfflineInfo currentPage="index" /> -->
+  </main>
+  <LazyFadeIn client:load>
+    <FAQ />
+  </LazyFadeIn>
+</BaseLayout>

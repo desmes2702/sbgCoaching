@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    
+    // Mode strict assoupli pour build fonctionnel
+    "strict": true,
+    "noImplicitAny": false,
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": false,
+    
+    // Résolution de modules optimisée
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"],
+      "@scss/*": ["scss/*"],
+      "@js/*": ["js/*"],
+      "@partials/*": ["partials/*"],
+      "@layouts/*": ["layouts/*"],
+      "@perf/*": ["partials/components/perf/*"]
+    },
+    
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"],
+    
+    // Optimisations compilation
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    
+    // Features ES2024
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": false
+  },
+  "include": [
+    "src/**/*", 
+    "astro.config.ts", 
+    "vite.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public"
+  ]
+}

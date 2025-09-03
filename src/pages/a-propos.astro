@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@partials/about/Hero.astro";
+import Experience from "@partials/about/Experience.astro";
+import Slogan from "@partials/about/Slogan.astro";
+import Message from "@partials/about/Message.astro";
+import Faq from "@partials/components/Faq.astro";
+import LazyFadeIn from "@partials/performance/LazyFadeIn";
+---
+
+<BaseLayout
+  title="À propos de SBG Coaching | Bien-être, performance et rigueur"
+  description="SBG Coaching, spécialiste du coaching sportif à Huy, vous accompagne avec rigueur et bienveillance. Découvrez sa mission, ses valeurs et son approche centrée sur l'humain."
+  pageClass="page"
+  dataPage="about"
+  dataModules="links faq"
+  dataVariant="white"
+  seo={{
+    url: "https://sbgcoaching.be/about",
+    /* image: "/img/og-about.webp", */ // modifiable
+    schemaType: "LocalBusiness"
+  }}
+  preloadImage="/img/about__hero.png"
+>
+    <main>
+      <Hero />
+
+    <LazyFadeIn client:load>
+      <Experience />
+    </LazyFadeIn>
+
+    <LazyFadeIn client:load>
+      <Slogan />
+    </LazyFadeIn>
+
+    <LazyFadeIn client:load>
+      <Message />
+    </LazyFadeIn>
+
+    <LazyFadeIn client:load>
+      <Faq />
+    </LazyFadeIn>
+  </main>
+</BaseLayout>

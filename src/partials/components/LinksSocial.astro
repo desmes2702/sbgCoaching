@@ -1,0 +1,38 @@
+---
+import { socialLinks } from "@/js/data/socialLinks";
+import LinksSocialReact from "./LinksSocial.tsx";
+const { variant = "black", size = 24 } = Astro.props;
+---
+
+<!-- ✅ Fallback statique SSR -->
+<noscript>
+  <ul class="social__list">
+    {
+      Object.entries(socialLinks).map(([_, { url, icon, label }]) => {
+        return `
+          <li>
+            <a
+              href="${url}"
+              class="social__link"
+              aria-label="${label}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/img/${icon}-${variant}.svg"
+                alt="${label} icon"
+                width="${size}"
+                height="${size}"
+                loading="lazy"
+              />
+            </a>
+          </li>
+        `;
+      }).join('')
+    }
+  </ul>
+</noscript>
+
+
+<!-- 🚀 Progressive enhancement en React -->
+<LinksSocialReact client:load variant={variant} size={size} />

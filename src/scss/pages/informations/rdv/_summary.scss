@@ -1,0 +1,223 @@
+@use "../../../abstracts" as *;
+
+/* =========================================================
+   STEP REVIEW — Récapitulatif et validation finale (DOM conservé)
+   ========================================================= */
+
+/* Utilitaire accessibilité */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
+/* ---------- Sections principales ---------- */
+.step-review {
+  display: grid;
+  gap: 1rem;
+}
+
+.step-review__section {
+  padding: 1rem;
+  background: transparent;
+  border: 0px;
+  padding: 0 !important;
+  margin-bottom: 2rem;
+  gap: 2rem !important;
+
+  @media (min-width: $breakpoint-tablet) {
+    padding: 1.25rem;
+  }
+
+  .step-review__title{
+    color: white;
+  }
+
+  p{
+    color: white;
+  }
+
+  input[type=checkbox]{
+    margin-right: 0.5rem;
+  }
+
+  select{
+    width: fit-content;
+  }
+}
+
+.step-review__head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+    .step-review__title {
+      font-family: $font-secondary;
+      font-family: white;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin: 0;
+    
+      color: #fff;
+    }
+
+    .step-review__badge{
+      padding: 0.5rem 0.75rem;
+      border: 1px solid;
+      border-radius: 16px;
+      font-size: 12px;
+      max-height: fit-content;
+      
+      &--ok {
+        color: rgba(0, 200, 120, 0.8);
+        border-color: rgba(0, 200, 120, 0.2);
+      }
+
+      &--warn{
+        color: $color-error;
+        border-color: $color-error-border;
+      }
+    }
+    &-meta{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    &-actions{
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+
+
+/* ---------- Lignes clé/valeur ---------- */
+.step-review__kv {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 0.5rem 1rem;
+  align-items: start;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background-color: transparent;
+
+  @media (max-width: $breakpoint-mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.step-review__key {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+.step-review__val {
+  color: #fff;
+}
+
+/* ---------- Zones éditables ---------- */
+.step-review__edit {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+
+  textarea{
+    min-height: 89px;
+    width: 100%;
+  }
+
+  &--duration{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0 !important;
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    legend{
+      margin-bottom: .5rem;
+    }
+
+    p{
+      font-size: 12px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &--type{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0 !important;
+  }
+
+  &--fragility{
+    textarea{
+      margin: 1rem 0 0 0;
+    }
+  }
+}
+
+.step-review__edit-block{
+min-width: 100%;
+margin-top: 1rem;
+
+label{
+  display: block;
+  margin-bottom: .5rem;
+}
+
+textarea {
+  min-height: 89px;
+  width: 100%;
+}
+
+
+}
+
+.step-review__actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+}
+
+/* Réutilisation des styles champs/boutons du formulaire */
+.step-review .form__label { @extend .form__label; }
+.step-review .input       { @extend .input; }
+
+/* ---------- Bandeau d’état ---------- */
+.step-review__status {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+
+  &--error {
+    border-color: rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 0 0.125rem rgba(255, 0, 0, 0.2);
+  }
+}
+
+/* ---------- Boutons CTA validation ---------- */
+.step-review__cta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+
+  .btn { @extend .btn; }
+  .btn--ghost { @extend .btn--ghost; }
+  .btn--primary { @extend .btn--primary; }
+}

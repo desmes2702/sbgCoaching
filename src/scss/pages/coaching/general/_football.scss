@@ -1,0 +1,118 @@
+@use "../../../abstracts" as *;
+
+
+.jeune__footballer {
+	display: flex;
+	flex-direction: column;
+
+	&__title {
+		margin-bottom: 2rem;
+
+		span {
+		  display: block;
+		  color: $secondary-color;
+		}
+
+		em {
+		  font-style: normal;
+		  color: $primary-color;
+		  font-size: 1.2rem;
+		  text-transform: none;
+		  font-family: $font-primary;
+		  font-weight: 500;
+		}
+	}
+
+	&__content {
+	  display: flex;
+	  flex: 1;
+	  gap: 2rem;
+	  flex-direction: column;
+
+	  h3 {
+			color: $secondary-color;
+			font-size: 1rem;
+			font-weight: 800;
+			font-family: $font-secondary;
+			margin-bottom: 1rem;
+			text-transform: uppercase;
+	  }
+
+	  p {
+			color: $secondary-color;
+			font-size: 1rem;
+			margin-bottom: .5rem;
+	  }
+	}
+
+	&__bloc-1{
+			margin-bottom: 2rem;
+		}
+
+	&__img {
+		height: 500px;
+		background-image: url("../../img/football.webp");
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		border-radius: 10px;
+	}
+}
+
+
+
+@media (min-width: $breakpoint-mobile) {
+	.jeune__footballer{
+		&__img{
+			border-radius: 5px;
+		}
+	}
+
+	.jeune__footballer__title em{
+		font-size: 1.5rem;
+	}
+}
+
+
+@media (max-width: $breakpoint-tablet-max) {
+	.jeune__footballer{
+		&__title{
+			order: 1;
+		}
+
+		&__content{
+			order: 3;
+		}
+
+		&__img{
+			width: 100%;
+			order: 2;
+			margin-bottom: 2rem;
+		}
+	}
+}
+
+@media (min-width: $breakpoint-tablet) {
+	.jeune__footballer__content {
+	  display: grid;
+	  grid-template-columns: 1fr 1fr;
+		grid-row: auto auto;
+	  grid-template-rows: min-content auto auto;
+	  column-gap: 5rem;
+	  align-content: center;
+
+	  .jeune__footballer__bloc {
+			grid-column: 1;
+			max-height: fit-content;
+	  }
+
+	  .jeune__footballer__img {
+			grid-column: 2;
+			grid-row: 1/3;
+			align-self: start;
+			padding-left: 5rem;
+	  }
+	}
+}
+
+

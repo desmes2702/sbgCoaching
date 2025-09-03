@@ -1,0 +1,125 @@
+@use "../../abstracts" as *;
+
+
+/// BUSINESS-COACHING
+.business-coaching {
+	display: flex;
+	align-items: center;
+	max-width: 1024px !important;
+	background-color: var(--secondary-color);
+	flex-direction: column;
+
+	& * {
+		color: white;
+	}
+
+	&__title {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		margin-bottom: 1rem;
+		font-weight: 500;
+	}
+
+	&__highlight {
+		width: 100%;
+		color: $primary-color;
+		text-transform: uppercase;
+		margin-top: 5px;
+	}
+
+	&__desc {
+		margin-bottom: 10px;
+	}
+
+	&__collaboration {
+		width: 100%;
+		opacity: .5;
+		margin-bottom: 2rem;
+	}
+
+	&__quote {
+		position: relative;
+		padding: 2rem 0 0 2.4rem;
+		margin: 0;
+		margin-bottom: 2rem;
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: 28px;
+			left: 0;
+			width: 24px;
+			height: 24px;
+			background: url("../../img/icon__temoignage.svg") no-repeat center;
+			background-size: contain;
+
+		}
+
+
+		&-text {
+			margin-bottom: 10px;
+		}
+
+		&-author {
+			display: block;
+			width: 100%;
+			font-weight: 500;
+			text-align: right;
+			font-family: Roboto, Nexa, sans-serif;
+			text-decoration: underline;
+		}
+	}
+
+	&__cta {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 500px;
+		padding: 2.5rem 2rem 1.5rem;
+		border-radius: 5px;
+		background-color: $primary-color;
+		flex-direction: column;
+
+		&-text {
+			font-size: 20px;
+			font-weight: 500;
+			text-align: center;
+			margin-bottom: 2rem;
+		}
+
+	}
+}
+
+.business-coaching____media {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 0 !important;
+}
+
+.business-coaching__video-container {
+	position: relative;
+	width: 100%;
+	border-radius: 5px;
+	background: black;
+	overflow: hidden;
+	aspect-ratio: 16 / 9;
+
+}
+
+.business-coaching__video {
+		  display: block;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+		  object-fit: cover;
+  }
+
+@media (min-width: $breakpoint-mobile){
+	.business-coaching{
+		&__highlight {
+			margin: 0;
+		}
+	}
+}

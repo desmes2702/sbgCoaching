@@ -1,0 +1,15 @@
+---
+import Layout from "@layouts/BaseLayout.astro";
+import VideoGallery from "@partials/components/VideosGallery.tsx";
+---
+
+<Layout
+  title="Exercices en vidéo"
+  description="Des capsules vidéos courtes présentant l'exécution précise des mouvements par votre coach."
+  pageClass="video-page"
+  dataPage="videos"
+  dataVariant="white"
+>
+
+<VideoGallery client:load />
+</Layout>

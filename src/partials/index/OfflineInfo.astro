@@ -1,0 +1,38 @@
+<!-- ---
+import { Link } from 'astro';
+
+const offlineInfo = [
+  {
+    title: "💡 Accès hors ligne disponible",
+    text: "Ce site fonctionne même sans connexion internet. Une fois chargé une première fois, son contenu est mis en cache automatiquement.",
+    list: [
+      "Vous pouvez consulter les pages déjà visitées",
+      "Le chargement reste rapide, même sans Wi-Fi",
+      "Le site reste disponible dans les zones sans réseau"
+    ],
+    hint: "Astuce : sur mobile, ajoutez ce site à votre écran d’accueil pour l’utiliser comme une véritable application."
+  }
+];
+
+const offlineInfoList = offlineInfo.map((item) => (
+  <li key={offlineInfo.indexOf(item)}>{item.list[offlineInfo.indexOf(item)]}</li>
+));
+
+const offlineHint = offlineInfo.map((item) => item.hint);
+
+const offlineText = offlineInfo.map((item) => item.text);
+---
+
+<div class="wrapper-1440">
+  <section class="offline-info">
+    <div class="offline-info__content">
+      <h2 class="offline-info__title">{offlineInfo[0].title}</h2>
+      <p class="offline-info__text">{offlineText[0]}</p>
+      <ul class="offline-info__list">
+        {offlineInfoList}
+      </ul>
+      <p class="offline-info__hint">{offlineHint[0]}</p>
+    </div>
+  </section>
+</div>
+``` -->

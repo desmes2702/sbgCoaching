@@ -1,0 +1,30 @@
+@use "../../../abstracts" as *;
+
+.legal {
+  > h2 {
+    margin-top: 3rem;
+  }
+
+  h1, h2, p, li {
+    color: white;
+  }
+
+  li {
+    padding-left: 1rem;
+    position: relative;
+
+    &::before {
+      content: "-";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1rem;
+    }
+  }
+  
+  &__droits {
+    li:last-child {
+      margin-bottom: 1rem;
+    }
+  }
+}

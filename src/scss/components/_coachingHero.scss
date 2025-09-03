@@ -1,0 +1,429 @@
+@use "../abstracts" as *;
+
+.coaching__hero {
+	h2{
+		width: 100%;
+		max-width: 708px;
+		color: white;
+		font-size: 1.2rem;
+		text-align: left;
+		margin-bottom: 1.2rem;
+
+		& span {
+			color: $primary-color;
+			font-weight: 500;
+			text-transform: none;
+			font-family: $font-primary;
+		}
+
+
+
+	&-col1 {
+		position: relative;
+		left: -1px;
+		width: 100%;
+		margin: 0 0 2rem;
+
+		.coaching__hero__content {
+			border-radius: 5px;
+			box-shadow: 0 4px 10px rgb(0 0 0 / 40%);
+		}
+	}
+
+	&__desc {
+		position: relative;
+	}
+
+	&__content {
+		height: 100%;
+
+		&__bck {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 60vh;
+			min-height: 370px;
+			max-height: 500px;
+			padding: 4rem 24px 24px;
+			border-radius: 5px;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			flex-direction: column;
+
+			> p{
+				width: 100%;
+				max-width: 708px;
+				color: white;
+				padding-bottom: 0;
+			}
+		}
+	}
+
+	.hero__content__btn {
+			position: absolute;
+			top: 36px;
+			right: 24px;
+			z-index: 2;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: transparent;
+			color: white;
+
+			.hero__index {
+				font-size: 16px;
+				margin-left: 1rem;
+				margin-right: 3px
+			}
+
+			.hero__index-slash {
+				font-size: 10px;
+				opacity: .5;
+				margin-right: 1rem;
+			}
+
+			.hero__nav--left {
+				background-image: url("../../img/icon__left.svg");
+			}
+
+			.hero__nav--right {
+				background-image: url("../../img/icon__right.svg");
+			}
+
+			&-disabled {
+				opacity: .5;
+			}
+
+			button {
+				width: 12px;
+				height: 21px;
+				background-color: transparent;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			span {
+				font-family: Roboto, sans-serif;
+			}
+	}
+
+	.hero__content__cta {
+			display: flex;
+			justify-content: flex-end;
+			width: 100%;
+			max-width: 708px;
+			margin-top: 14px;
+
+      a {
+        position: relative;
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &::after {
+          position: absolute;
+          bottom: -0.1em;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background: currentcolor;
+          transition: transform 0.3s ease;
+          transform: scaleX(0);
+          content: "";
+          transform-origin: left;
+        }
+
+        &:hover::after {
+          transform: scaleX(1);
+        }
+      }
+  }
+	}
+
+
+	&-col2 {
+		/* width: 100%; */
+		display: flex;
+		align-items: center;
+		padding: 24px 0 0;
+		flex-direction: column;
+
+		h2 {
+			width: 100%;
+			max-width: 354px;
+			font-size: 16px;
+			text-align: right;
+			font-family: Roboto, sans-serif;
+		}
+
+		.coaching__hero__content-secondary {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 180px;
+			max-width: 354px;
+			border-radius: 5px;
+			overflow: hidden;
+			cursor: pointer;
+			background-size: cover;
+			background-position: center;
+
+			&-1 {
+				margin-bottom: 2rem;
+			}
+
+			* {
+				display: none !important; // cache tout le contenu interne
+			}
+		}
+	}
+
+	.coaching__hero__social {
+		display: flex;
+		justify-content: flex-end;
+		width: 100%;
+		max-width: 354px;
+		margin-top: 48px;
+
+		> .social__list{
+			display: flex;
+
+			li:not(:last-child){
+				margin-right: 1rem;
+			}
+		}
+	}
+}
+
+
+@media(max-width: $breakpoint-menu-max) {
+		h2 span{
+				display: block;
+		}
+}
+
+@media (min-width:$breakpoint-menu){
+	.coaching__hero__content__bck{
+		padding: 4rem 2rem 1.5rem !important;
+		border-radius: 5px;
+
+		video{
+			border-radius: 5px;
+		}
+	}
+}
+
+
+@media (min-width:$breakpoint-menu) and (max-width:$breakpoint-tablet-max) {
+	.wrapper-center{
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
+
+	.coaching__hero-col2 {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 354px));
+		grid-column-gap: 2rem;
+		align-items: flex-start;
+
+
+		>h2 {
+			grid-column: 1;
+			text-align: left;
+		}
+
+		.coaching__hero__social {
+			grid-column: 2;
+			grid-row: 3;
+			align-items: flex-start;
+			margin: 0;
+		}
+	}
+}
+
+// HERO-1024
+@media (min-width: $breakpoint-tablet) {
+	.coaching__hero {
+		display: grid;
+		grid-template-columns: 65% 35%;
+
+
+		&-col1 {
+			width: 100%;
+			border-radius: 5px;
+			padding-right: 2rem;
+		}
+
+		&-col2 {
+			position: relative;
+			display: flex;
+			align-items: flex-end;
+			padding: 0;
+
+			>h2 {
+				position: absolute;
+				top: -2.5rem;
+				text-align: right;
+				opacity: .8;
+			}
+		}
+	}
+}
+
+// ENTREPRISE
+// slide 2
+
+.coaching__hero__video {
+	padding: 0 !important;
+	background: black;
+
+	.video-wrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: 5px;
+		background: black;
+		overflow: hidden;
+		aspect-ratio: 16 / 9;
+
+		&::after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		height: 30%;
+		background: linear-gradient(to bottom, black, transparent);
+		content: '';
+		pointer-events: none;
+	  }
+
+		> video {
+		  display: block;
+		  width: 100%;
+		  height: 100%;
+		  background-color: transparent;
+		  object-fit: cover;
+		}
+
+	}
+}
+
+  // slide 3
+  .coaching__hero__content-primary {
+	background-color: $secondary-color;
+	color: white;
+
+	h2, p, a, span {
+	  color: white;
+
+
+	}
+
+	h2{
+		padding: 0!important;
+
+	}
+}
+
+	#entreprise-slide-3 {
+		h2{
+			span{
+				color: white;
+			}
+		}
+
+		>p {
+			color: white;
+
+      >a{
+        font-weight: 500;
+		  }
+
+
+			&:nth-of-type(1) {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+
+  // GENERAL
+  // slide 1
+
+
+#general-slide-1{
+  >p{
+    margin-bottom: 0.5rem;
+  }
+}
+
+
+@media (min-width: $breakpoint-mobile){
+  #general-slide-1{
+    p{
+      margin-bottom: 0;
+    }
+
+    p:last-of-type{
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+
+// slide-testimonial
+
+.is-testimonial{
+  position: relative;
+  justify-content: flex-end !important;
+  padding-bottom: 2rem !important;
+
+
+
+  h2, p, div{
+    position: relative;
+    z-index: 2;
+  }
+
+  h2{
+    padding-left: 2rem ;
+    margin-bottom: 0.7rem;
+
+    &::before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 21px;
+      height: 21px;
+      background-image: url("/img/icon__temoignage.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  p>a{
+    color: white;
+  }
+
+  &::before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: $secondary-color;
+    opacity: 0.8;
+    content: "";
+  }
+
+
+}

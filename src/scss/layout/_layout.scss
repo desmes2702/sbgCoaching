@@ -1,0 +1,145 @@
+@use "../abstracts" as *;
+
+
+// ===============================
+// LAYOUT SCSS
+// ===============================
+
+// ===============================
+// GRID SYSTEM (12 COLONNES)
+// ===============================
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 (-$spacing-sm);
+  }
+
+  .col {
+	padding: 0 (-$spacing-sm);
+
+	// Colonne pleine largeur
+	&--full {
+	  flex: 0 0 100%;
+	  max-width: 100%;
+	}
+
+	// Colonne moitié (1/2)
+	&--half {
+	  flex: 0 0 50%;
+	  max-width: 50%;
+	}
+
+	// Colonne tiers (1/3)
+	&--one-third {
+	  flex: 0 0 33.333%;
+	  max-width: 33.333%;
+	}
+
+	// Colonne quart (1/4)
+	&--one-fourth {
+	  flex: 0 0 25%;
+	  max-width: 25%;
+	}
+
+	// Responsive mobile
+	@include responsive(mobile) {
+	  &--half,
+	  &--one-third,
+	  &--one-fourth {
+		flex: 0 0 100%;
+		max-width: 100%;
+	  }
+	}
+  }
+
+  // ===============================
+  // GRID CONTAINER (VARIANTES)
+  // ===============================
+
+  .grid {
+	display: grid;
+	gap: $spacing-md;
+
+	// Grille 2 colonnes
+	&--2 {
+	  grid-template-columns: repeat(2, 1fr);
+	}
+
+	// Grille 3 colonnes
+	&--3 {
+	  grid-template-columns: repeat(3, 1fr);
+	}
+
+	// Grille 4 colonnes
+	&--4 {
+	  grid-template-columns: repeat(4, 1fr);
+	}
+
+	// Responsive
+	@include responsive(mobile) {
+	  grid-template-columns: 1fr;
+	}
+  }
+
+  // ===============================
+  // FLEX HELPERS
+  // ===============================
+
+  .flex {
+	display: flex;
+
+	&--center {
+	  align-items: center;
+	  justify-content: center;
+	}
+
+	&--between {
+	  justify-content: space-between;
+	}
+
+	&--around {
+	  justify-content: space-around;
+	}
+
+	&--column {
+	  flex-direction: column;
+	}
+
+	&--wrap {
+	  flex-wrap: wrap;
+	}
+  }
+
+  // ===============================
+  // STACK (ESPACEMENT VERTICAL)
+  // ===============================
+
+  .stack {
+	display: flex;
+	flex-direction: column;
+
+	&--sm > * + * {
+	  margin-top: $spacing-sm;
+	}
+
+	&--md > * + * {
+	  margin-top: $spacing-md;
+	}
+
+	&--lg > * + * {
+	  margin-top: $spacing-lg;
+	}
+  }
+
+  // ===============================
+  // SECTION SPACING HELPERS
+  // ===============================
+
+  .section-padding {
+	padding: clamp(3rem, 5vw, 6rem) 0;
+  }
+
+  .section-margin {
+	margin-bottom: clamp(3rem, 5vw, 6rem);
+  }
