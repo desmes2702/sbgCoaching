@@ -106,61 +106,61 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
       : <Footer />}
 
     <script>
-      (function () {
-  // valeur injectée au build
-      const GA_ID = "{GA_MEASUREMENT_ID}" as string;   // ← cast string
+  (function () {
+    // valeur injectée au build par Astro
+    const GA_ID = String("{GA_MEASUREMENT_ID}")
 
-      // exécute uniquement si GA_ID est défini ET différent du placeholder
-      if (GA_ID && GA_ID !== "G-XXXXXXXXXX") {
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = (...args) => window.dataLayer.push(args);
+    // exécute uniquement si GA_ID est défini ET différent du placeholder
+    if (GA_ID && GA_ID !== "G-XXXXXXXXXX") {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = (...args) => window.dataLayer.push(args);
 
-        window.gtag("js", new Date());
-        window.gtag("config", GA_ID, {
-          page_title: document.title,
-          page_location: window.location.href,
-        });
+      window.gtag("js", new Date());
+      window.gtag("config", GA_ID, {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
 
-          (async () => {
-            try {
-              const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import("web-vitals");
-              const send = (m) =>
-                window.gtag("event", m.name, {
-                  event_category: "Web Vitals",
-                  value: Math.round(m.name === "CLS" ? m.value * 1000 : m.value),
-                  non_interaction: true,
-                });
-              getCLS(send); getFID(send); getFCP(send); getLCP(send); getTTFB(send);
-            } catch {
-              console.log("Web Vitals non disponible");
-            }
-          })();
+      (async () => {
+        try {
+          const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import("web-vitals");
+          const send = (m) =>
+            window.gtag("event", m.name, {
+              event_category: "Web Vitals",
+              value: Math.round(m.name === "CLS" ? m.value * 1000 : m.value),
+              non_interaction: true,
+            });
+          getCLS(send); getFID(send); getFCP(send); getLCP(send); getTTFB(send);
+        } catch {
+          console.log("Web Vitals non disponible");
         }
-
-        /* Engagement 30 s / 60 s */
-        let t = 0, hit30 = false, hit60 = false;
-        const iv = setInterval(() => {
-          t += 10;
-          if (t >= 30 && !hit30) { window.gtag?.("event", "engagement_30s"); hit30 = true; }
-          if (t >= 60 && !hit60) { window.gtag?.("event", "engagement_60s"); hit60 = true; clearInterval(iv); }
-        }, 10_000);
-
-        /* Scroll 75 % */
-        let max = 0, sent = false;
-        window.addEventListener("scroll", () => {
-          const p = Math.round((scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100);
-          if (p > max) { max = p; if (p >= 75 && !sent) { window.gtag?.("event", "scroll_75_percent"); sent = true; } }
-        }, { passive: true });
-
-        /* Service-Worker si présent */
-        window.addEventListener("load", async () => {
-          if (!("serviceWorker" in navigator)) return;
-          try {
-            const r = await fetch("/sw.js", { method: "HEAD" });
-            if (r.ok) await navigator.serviceWorker.register("/sw.js");
-          } catch {/* ignore */ }
-        });
       })();
-    </script>
+    }
+
+    /* Engagement 30 s / 60 s */
+    let t = 0, hit30 = false, hit60 = false;
+    const iv = setInterval(() => {
+      t += 10;
+      if (t >= 30 && !hit30) { window.gtag?.("event", "engagement_30s"); hit30 = true; }
+      if (t >= 60 && !hit60) { window.gtag?.("event", "engagement_60s"); hit60 = true; clearInterval(iv); }
+    }, 10_000);
+
+    /* Scroll 75 % */
+    let max = 0, sent = false;
+    window.addEventListener("scroll", () => {
+      const p = Math.round((scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100);
+      if (p > max) { max = p; if (p >= 75 && !sent) { window.gtag?.("event", "scroll_75_percent"); sent = true; } }
+    }, { passive: true });
+
+    /* Service-Worker si présent */
+    window.addEventListener("load", async () => {
+      if (!("serviceWorker" in navigator)) return;
+      try {
+        const r = await fetch("/sw.js", { method: "HEAD" });
+        if (r.ok) await navigator.serviceWorker.register("/sw.js");
+      } catch {/* ignore */ }
+    });
+  })();
+</script>
   </body>
 </html>
