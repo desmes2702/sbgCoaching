@@ -204,7 +204,7 @@ const Menu: React.FC<MenuProps> = ({
               <li className="menu__item"><a href="/a-propos" className="menu__link link-underline-appear">À Propos</a></li>
               <li className="menu__item"><a href="/contact" className="menu__link link-underline-appear">Contact</a></li>
               <li className="menu__item menu__item__rdv">
-                <a href="/rdv" className="menu__link link-underline-replay">Prise de rendez-vous</a>
+                <a href="/contact" className="menu__link link-underline-replay">Prise de rendez-vous</a>
               </li>
             </ul>
           </section>

@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sbgcoaching.be/sitemap.xml
+
+# Optimisations spécifiques coaching
+Allow: /coaching-sportif-video
+Allow: /temoignages  
+Allow: /contact
+Allow: /rdv
+
+# Bloquer ressources techniques
+Disallow: /_astro/
+Disallow: /dist/
+Disallow: /.well-known/
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1

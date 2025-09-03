@@ -203,6 +203,7 @@ SBG_Coaching - v2.zip
 pages.zip
 public.zip
 src/pages/actualite-generale.astro
+src/pages/rdv.astro
 sbg-clean.git/
 sbgCoaching/
 *.git

@@ -93,7 +93,7 @@ export const companyInfos: CompanyInfos = {
       "@type": "PostalAddress",
       "streetAddress": "Route de Yernée 264",
       "addressLocality": "Engis",
-      "addressRegion": "Province de Liège",
+      "addressRegion": "Liège",
       "postalCode": "4480", 
       "addressCountry": "BE"
     },

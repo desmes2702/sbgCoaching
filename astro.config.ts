@@ -1,43 +1,104 @@
-// astro.config.ts — VERSION COMPLÈTE CORRIGÉE avec base et site
+// astro.config.ts — SOLUTION FINALE AVEC ENUMCHANGEFREQ
 
 import { defineConfig } from 'astro/config';
 import react   from '@astrojs/react';
 import node    from '@astrojs/node';
 import vercel  from '@astrojs/vercel';
 import critters from 'astro-critters';
+import sitemap from '@astrojs/sitemap';
+
+// Define EnumChangefreq locally if not available from the package
+enum EnumChangefreq {
+  ALWAYS = "always",
+  HOURLY = "hourly",
+  DAILY = "daily",
+  WEEKLY = "weekly",
+  MONTHLY = "monthly",
+  YEARLY = "yearly",
+  NEVER = "never"
+}
+import { visualizer } from 'rollup-plugin-visualizer';
 import { fileURLToPath } from 'url';
 import path from 'path';
+
 
 /* ---------- VARIABLES GLOBALES ---------- */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
+
 const isVercel = process.env.VERCEL === '1';
 const isDev    = process.env.NODE_ENV === 'development';
+
 
 const getAdapter = () =>
   isVercel
     ? vercel({ webAnalytics: { enabled: true } })
     : node({ mode: 'standalone' });
 
+
 /* ---------- CONFIGURATION ASTRO ---------- */
 export default defineConfig({
   /* ---------- SITE & BASE CONFIGURATION ---------- */
-  site: 'https://sbgcoaching.be',      // ✅ URL canonique du site
-  base: '/',                           // ✅ Force les chemins absolus (évite les 404)
-  trailingSlash: 'ignore',            // ✅ Gestion cohérente des URLs
+  site: 'https://sbgcoaching.be',
+  base: '/',
+  trailingSlash: 'ignore',
+
 
   /* ---------- INTÉGRATIONS ---------- */
   integrations: [
     react({ include: ['**/react/*', '**/partials/**/*.tsx'] }),
     critters({
       // Critical CSS inline pour de meilleures performances
+    }),
+    sitemap({
+      customPages: [
+        'https://sbgcoaching.be/',
+        'https://sbgcoaching.be/coaching-sportif-video',
+        'https://sbgcoaching.be/coaching-entreprise',      
+        'https://sbgcoaching.be/coaching-general',         
+        'https://sbgcoaching.be/temoignages',
+        'https://sbgcoaching.be/contact'
+      ],
+      filter: (page) => {
+        return !page.includes('/_astro/') && 
+               !page.includes('/dist/') && 
+               !page.includes('/admin/') &&
+               !page.includes('/api/');
+      },
+  changefreq: EnumChangefreq.WEEKLY,  // enum value
+      priority: 0.7,
+      lastmod: new Date(),
+      serialize(item) {
+        if (item.url === 'https://sbgcoaching.be/') {
+          item.priority = 1.0;
+          item.changefreq = EnumChangefreq.WEEKLY;  // enum value
+        } else if (item.url.includes('coaching-sportif-video')) {
+          item.priority = 0.9;
+          item.changefreq = EnumChangefreq.WEEKLY;
+        } else if (item.url.includes('coaching-entreprise')) {
+          item.priority = 0.9;
+          item.changefreq = EnumChangefreq.WEEKLY;
+        } else if (item.url.includes('coaching-general')) {
+          item.priority = 0.8;
+          item.changefreq = EnumChangefreq.WEEKLY;
+        } else if (item.url.includes('temoignages')) {
+          item.priority = 0.8;
+          item.changefreq = EnumChangefreq.MONTHLY;  // enum value
+        } else if (item.url.includes('contact')) {
+          item.priority = 0.7;
+          item.changefreq = EnumChangefreq.MONTHLY;
+        }
+        return item;
+      }
     })
   ],
+
 
   /* ---------- ADAPTER ---------- */
   adapter: getAdapter(),
   output:  'server',
+
 
   /* ---------- VITE ---------- */
   vite: {
@@ -56,6 +117,7 @@ export default defineConfig({
       }
     },
 
+
     /* ---- CSS/SCSS ---- */
     css: {
       devSourcemap: true,
@@ -73,6 +135,7 @@ export default defineConfig({
       }
     },
 
+
     /* ---- ALIAS ---- */
     resolve: {
       alias: {
@@ -85,6 +148,7 @@ export default defineConfig({
         '@components':path.resolve(__dirname, 'src/partials/components')
       }
     },
+
 
     /* ---- BUILD diff DEV/PROD ---- */
     ...(isDev
@@ -99,16 +163,25 @@ export default defineConfig({
             minify:      'terser',
             cssCodeSplit:true,
             rollupOptions: {
+              /* ---- VISUALIZER INTÉGRÉ ---- */
+              plugins: [
+                visualizer({
+                  filename: './dist/bundle-report.html',
+                  open: true,
+                  gzipSize: true,
+                  brotliSize: true,
+                  template: 'treemap'
+                })
+              ],
               output: {
                 manualChunks: {
                   'react-core': ['react', 'react-dom'],
                   'astro-core': ['@astrojs/react'],
                   vendor:       ['dompurify', 'nodemailer']
                 },
-                // ✅ Pas de modification des chemins CSS - laisse Astro gérer
                 assetFileNames: info =>
                   info.name?.endsWith('.css')
-                    ? '_astro/[name].[hash].css'      // ✅ Garde le préfixe _astro/
+                    ? '_astro/[name].[hash].css'
                     : '_astro/[name].[hash][extname]'
               }
             },
@@ -117,6 +190,7 @@ export default defineConfig({
           }
         })
   },
+
 
   /* ---------- TOOLBAR DEV ---------- */
   ...(isDev && { devToolbar: { enabled: true } })

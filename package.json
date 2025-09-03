@@ -24,7 +24,7 @@
     "lint:ts:fix": "eslint 'src/**/*.{ts,tsx}' --fix --cache",
     "lint:all": "npm run lint:scss && npm run lint:ts",
     "lint:fix": "npm run lint:scss:fix && npm run lint:ts:fix",
-    "analyze": "npm run build && npx vite-bundle-analyzer dist",
+    "analyze": "npm run build && npx rollup-plugin-visualizer dist/client --open",
     "perf:audit": "npm run build && npx lighthouse http://localhost:4321 --view"
   },
   "devDependencies": {
@@ -69,6 +69,7 @@
     "@astrojs/netlify": "^6.4.0",
     "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.3.0",
+    "@astrojs/sitemap": "^3.5.1",
     "@astrojs/vercel": "^8.0.4",
     "@vercel/speed-insights": "^1.2.0",
     "chalk": "^5.4.1",
