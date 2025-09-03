@@ -1,23 +1,71 @@
 {
   "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install", 
+  "devCommand": "npm run dev", 
+  "installCommand": "npm install",
   "framework": "astro",
   "outputDirectory": "dist",
   
   "headers": [
     {
-      "source": "/_astro/(.*).css",
+      "source": "/_astro/(.*)\\.css$",
       "headers": [
-        { "key": "Content-Type", "value": "text/css" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Content-Type", "value": "text/css; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
       ]
     },
     {
-      "source": "/_astro/(.*).js", 
+      "source": "/_astro/(.*)\\.js$", 
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)\\.mjs$", 
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)\\.woff2?$",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)\\.(?:png|jpg|jpeg|gif|webp|avif|svg)$",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/css/(.*)\\.css$",
+      "headers": [
+        { "key": "Content-Type", "value": "text/css; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/js/(.*)\\.js$",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/sw\\.js$",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
       ]
     },
     {
@@ -26,7 +74,9 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" }
+        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
       ]
     }
   ],
@@ -37,5 +87,21 @@
       "destination": "/coaching-sportif-video", 
       "permanent": true
     }
-  ]
+  ],
+
+  "rewrites": [
+    {
+      "source": "/sw.js",
+      "destination": "/sw.js"
+    }
+  ],
+
+  "functions": {
+    "app/server.mjs": {
+      "includeFiles": "dist/**"
+    }
+  },
+
+  "trailingSlash": false,
+  "cleanUrls": true
 }
