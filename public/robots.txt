@@ -1,18 +1,14 @@
 User-agent: *
-Allow: /
+# Ouvrir toutes les ressources Astro (CSS/JS/images/fonts)
+Allow: /_astro/
+# Bloquer uniquement les sourcemaps
+Disallow: /_astro/*.map
 
+# Laisser /.well-known/ accessible (ne rien bloquer ici)
+# Ne pas mentionner /dist/ ni /.vercel/ (non publics)
+
+# Sitemap
 Sitemap: https://sbgcoaching.be/sitemap.xml
 
-# Optimisations spécifiques coaching
-Allow: /coaching-sportif-video
-Allow: /temoignages  
-Allow: /contact
-Allow: /rdv
-
-# Bloquer ressources techniques
-Disallow: /_astro/
-Disallow: /dist/
-Disallow: /.well-known/
-
-# Crawl-delay pour éviter la surcharge
-Crawl-delay: 1
+# Optionnel (non pris en compte par Google) :
+# Crawl-delay: 1
