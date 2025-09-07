@@ -1,0 +1,15 @@
+{
+  "mode": "full",
+  "confirmEdits": false,                 
+  "shell": "pwsh -NoProfile",
+  "includeGlobs": ["src/**/*.astro","src/**/*.tsx","src/**/*.ts","public/robots.txt","vercel.json","astro.config.ts","package.json"],
+  "excludeGlobs": ["node_modules/**","dist/**",".astro/**",".vercel/**","public/_astro/**"],
+  "allowCommands": [
+    "git status","git checkout -b","git checkout -B","git add -A","git commit",
+    "npm ci","npm run check:types","npm run lint:fix","npm run build","npm run preview -- --host --port 4321"
+  ],
+  "denyCommands": [
+    "git push origin main","git reset --hard","rm -rf *","curl http*"
+  ],
+  "notes": ["Respect BEM; pas de refactor structure; imports avec extension; 1 seul <h1>/page."]
+}

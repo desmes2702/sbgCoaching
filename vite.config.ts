@@ -54,6 +54,7 @@ export default defineConfig({
     sourcemap: false,
     assetsInlineLimit: 4096,
     chunkSizeWarningLimit: 500,
+    cssCodeSplit: false,
     
     terserOptions: {
       compress: {

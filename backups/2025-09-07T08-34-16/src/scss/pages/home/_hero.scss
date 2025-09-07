@@ -1,0 +1,292 @@
+@use "../../abstracts" as *;
+
+.subWrapper-col2 {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background-color: $secondary-color;
+
+}
+
+.hero {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	width: 100%;
+	height: 100%;
+	
+
+	&__content {
+	  position: relative;
+	  z-index: 2;
+	  display: flex;
+	  align-items: flex-end;
+	  flex-direction: column;
+
+	  h1,p{
+		width: 100%;
+		text-align: left;
+	  }
+
+
+	}
+
+	& * {
+	  z-index: 2;
+	  color: white;
+	}
+
+	&__title {
+	  font-family: $font-secondary;
+	}
+
+	&__subtitle {
+		font-family: Nexa-Trial, Roboto, sans-serif;
+		margin-bottom: 1.5rem;
+	}
+
+	/* &__cta{
+		position: relative;
+		right: 0;
+	} */
+
+	&__video{
+		position: fixed;
+		z-index: 0;
+		width: 100vw !important;
+		height: 100vh !important;
+		max-width: 100vw !important;
+	
+		> video{
+			object-fit: cover;   // Ajoute cette ligne !
+			position: absolute;
+			top: 260px;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
+
+
+  // ===============================
+  // GALLERY IN HERO
+  // ===============================
+
+.gallery {
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: $spacing-lg 0 0 0;
+	flex-direction: column;
+
+	& * {
+	  color: white;
+	}
+
+	&__head{
+		display: flex;
+		justify-content: space-between;
+		 width: 100%;
+	  	max-width: 21.25rem;
+
+		> a{
+			font-weight: 400;
+			text-decoration: underline;
+		}
+	}
+
+	&__title {
+	  font-size: 1rem;
+	  font-weight: 500;
+	  text-align: right;
+	  text-transform: uppercase;
+	  margin-bottom: $spacing-md;
+	  font-family: $font-primary;
+	}
+
+	&__grid {
+	  display: flex;
+	  align-items: center;
+	  width: 100%;
+	  flex-direction: column;
+
+	}
+
+	&__item {
+	  position: relative;
+	  width: 100%;
+	  height: 140px;
+	  max-width: 21.25rem;
+	  margin-bottom: 2rem;
+	  box-shadow: 0 5px 10px rgb(0 0 0 / 40%);
+	  transition: transform ease-in-out .3s;
+
+	  &:hover,
+	  &:has(.gallery__button:hover) {
+		z-index: 2;
+		transform: scale(1.05);
+	  }
+
+	  
+	  
+
+	  >img{
+		min-width: 100%;
+		min-height: 100%;
+		border: $border-secondary-color;
+		border-radius: 5px;
+	  }
+
+	  .gallery__button {
+		position: absolute;
+		right: $spacing-sm;
+		bottom: $spacing-sm;
+		padding: 0.5rem 2rem;
+		border: $border-secondary-color;
+		border-radius: 5px;
+		background-color: $secondary-color;
+		transition: background-color ease-in-out .4s, transform ease-in-out .4s;
+	  }
+
+	  &:hover>.gallery__button{
+		background-color: rgb(24 24 24);
+		transform: translateY(-10px);
+		
+	  }
+
+
+	}
+
+	&__social{
+		width: 100%;
+		max-width: 21.25rem;
+	}
+}
+
+
+  // ===============================
+  // HERO RESPONSIVE
+  // ===============================
+
+
+@include responsive(mobile) {
+	body[data-page="index"] .wrapper-1440-black {
+		background-color: rgb(47 47 47 / 50%);
+	}
+
+	body[data-page="index"] .wrapper-982-black {
+		background-color: rgb(47 47 47 / 80%);
+	}
+
+	.gallery__item>img{
+		width: 100%;
+		min-width: none;
+	}
+}
+
+@include responsive-max(mobile) {
+	.hero__video{
+		background-image: url("../../img/index__hero.png") !important;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		top: 0;
+
+		video{
+			display: none;
+		}
+	}
+
+}
+
+
+@include responsive-max(tablet) {
+	.subWrapper-col2{
+		flex-direction: column;
+
+		.hero{
+			&__content {
+				align-items: flex-start;
+				width: 100%;
+				padding: 0 0 2rem;
+			  }
+		}
+
+		.gallery__grid{
+			max-width: 713px;
+		}
+	}
+  }
+
+  @media (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet-max) {
+	.hero{
+		&__content{
+			h1,p{
+				width: 70%;
+			}
+		}
+	}
+
+	.gallery__head{
+		max-width: 713px;
+	}
+
+	.gallery__grid{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-column-gap: 2rem;
+		justify-items: end;
+
+		.gallery__item{
+			&-new {
+				grid-column: 1;
+			  }
+
+			  &-mid {
+				grid-column: 2;
+			  }
+
+			  &-last {
+				grid-column: 2;
+			  }
+		}
+
+		.gallery__social{
+			grid-column: 2;
+
+		}
+	}
+}
+
+  @include responsive(tablet) {
+	.subWrapper-col2{
+		display: grid;
+		grid-template-columns: 50% 50%;
+
+		.gallery{
+			z-index: 2;
+			align-items: flex-end;
+			width: 100%;
+			padding: 0;
+
+			&__grid{
+				align-items: flex-end;
+			}
+		}
+
+		
+
+	}
+}
+
+ /*  @include responsive(desktop) {
+	.hero{
+
+	}
+
+
+
+  }  */

@@ -1,0 +1,11 @@
+import { readFileSync, writeFileSync } from 'fs';
+const p = 'package.json';
+const pkg = JSON.parse(readFileSync(p, 'utf8'));
+pkg.scripts ||= {};
+pkg.scripts.precodex = pkg.scripts.precodex || 'node scripts/snapshot.mjs';
+pkg.scripts.prebuild = pkg.scripts.prebuild || 'node ensureOg.mjs';
+pkg.scripts['codex:audit'] = 'node scripts/codex/audit.mjs';
+pkg.scripts['codex:run']   = 'npm run precodex && npm run lint:fix && npm run check:types && npm run build && npm run codex:audit';
+pkg.scripts['codex:ci']    = 'npm ci && npm run codex:run';
+writeFileSync(p, JSON.stringify(pkg, null, 2));
+console.log('✅ package.json patché.');

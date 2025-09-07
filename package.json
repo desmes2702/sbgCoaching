@@ -25,7 +25,12 @@
     "lint:all": "npm run lint:scss && npm run lint:ts",
     "lint:fix": "npm run lint:scss:fix && npm run lint:ts:fix",
     "analyze": "npm run build && npx rollup-plugin-visualizer dist/client --open",
-    "perf:audit": "npm run build && npx lighthouse http://localhost:4321 --view"
+    "perf:audit": "npm run build && npx lighthouse http://localhost:4321 --view",
+    "precodex": "node scripts/snapshot.mjs",
+    "prebuild": "node ensureOg.mjs",
+    "codex:audit": "node scripts/codex/audit.mjs",
+    "codex:run": "npm run precodex && npm run lint:fix && npm run check:types && npm run build && npm run codex:audit",
+    "codex:ci": "npm ci && npm run codex:run"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",

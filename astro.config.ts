@@ -42,7 +42,7 @@ export default defineConfig({
   /* ---------- SITE & BASE CONFIGURATION ---------- */
   site: 'https://sbgcoaching.be',
   base: '/',
-  trailingSlash: 'ignore',
+  trailingSlash: 'never',
 
 
   /* ---------- INTÉGRATIONS ---------- */
@@ -61,10 +61,11 @@ export default defineConfig({
         'https://sbgcoaching.be/contact'
       ],
       filter: (page) => {
-        return !page.includes('/_astro/') && 
-               !page.includes('/dist/') && 
-               !page.includes('/admin/') &&
-               !page.includes('/api/');
+        const isRoot = page === 'https://sbgcoaching.be/';
+        const hasTrailingSlash = /.+\/$/.test(page);
+        const isAsset = page.includes('/_astro/') || page.includes('/dist/') || page.includes('/admin/') || page.includes('/api/');
+        const isProgramme = page.includes('/programme');
+        return (isRoot || !hasTrailingSlash) && !isAsset && !isProgramme;
       },
   changefreq: EnumChangefreq.WEEKLY,  // enum value
       priority: 0.7,
