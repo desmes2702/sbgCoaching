@@ -32,7 +32,11 @@ const items = provided ?? getFaqForPath(Astro.url.pathname);
           <article class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <div class="faq__question">
               <h4 itemprop="name">{item.question}</h4>
-              <button class="faq__btn-more" aria-expanded="false"></button>
+              <button
+                class="faq__btn-more"
+                aria-expanded="false"
+                aria-label={`Afficher la réponse : ${item.question}`}
+              ></button>
             </div>
             <div class="faq__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
               <p itemprop="text">{item.answer}</p>
@@ -50,4 +54,3 @@ import { initFAQ } from '../../js/global/_faq.ts';
 
 document.addEventListener('DOMContentLoaded', initFAQ);
 </script>
-

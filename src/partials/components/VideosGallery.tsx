@@ -75,12 +75,16 @@ const VideoGallery: React.FC = () => {
                     alt={video.title}
                     className={`video__gallery__position video__gallery__position--${video.id}`}
                     draggable={false}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <img
                     src={video.thumbnail}
                     alt={video.title}
                     className={`video__gallery__thumbnail video__gallery__thumbnail--${video.id}`}
                     draggable={false}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               )}

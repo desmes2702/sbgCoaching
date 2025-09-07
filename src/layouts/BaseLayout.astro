@@ -95,6 +95,8 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
 
     <link rel="icon" href="/img/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#ffffff" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
     <link rel="preload" as="font" href="/font/Nexa-Bold.woff2" type="font/woff2" crossorigin />
     <link rel="preload" as="font" href="/font/Nexa-Regular.woff2" type="font/woff2" crossorigin />
@@ -143,7 +145,7 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     data-variant={dataVariant}
   >
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-    <Menu client:only="react" variant={dataVariant as "white" | "black"} />
+    <Menu client:idle variant={dataVariant as "white" | "black"} />
     <slot />
     {["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "")
       ? <FooterMenu />

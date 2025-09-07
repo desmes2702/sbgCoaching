@@ -14,7 +14,7 @@ const IndexHeroActu: React.FC<IndexHeroActuProps> = ({
   className = "",
 }) => (
   <div className={`gallery__item ${className}`}>
-	<img src={image} alt="" />
+	<img src={image} alt="" loading="lazy" decoding="async" />
     <a href={link} className="gallery__button">
       {buttonText}
     </a>
