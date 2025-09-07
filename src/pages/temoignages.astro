@@ -1,29 +1,28 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import TestimonialNew from "@partials/testimonials/TestimonialNew.astro";
-import TestimonialsList from "@partials/testimonials/TestimonialsList.tsx"; // ⚠️ nouveau wrapper TSX
+import TestimonialsList from "@partials/testimonials/TestimonialsList.tsx";
 import TestimonialsSubmit from "@partials/testimonials/TestimonialsSubmit.astro";
 import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
 ---
 
 <BaseLayout
   title="Témoignages clients | Coaching sportif personnalisé à Huy"
-  description="Découvrez les avis authentiques de nos clients sur leur expérience de coaching avec SBG Coaching. Transformation, bien-être et motivation au rendez-vous."
+  description="Découvrez les avis authentiques de nos clients sur leur expérience de coaching avec SBG Coaching. Transformation, bien‑être et motivation au rendez-vous."
   pageClass="page__testimonials"
   dataVariant="black"
-  seo={{
-    url: "https://sbgcoaching.be/temoignages",   schemaType: "Review"
-  }}
+  seo={{ url: "https://sbgcoaching.be/temoignages", schemaType: "Review" }}
 >
   <main id="main-content" class="main">
     <TestimonialNew />
-    
-    <LazyFadeIn client:load>
-      <TestimonialsList client:load />
+
+    <LazyFadeIn client:visible>
+      <TestimonialsList client:visible />
     </LazyFadeIn>
 
-    <LazyFadeIn client:load>
+    <LazyFadeIn client:visible>
       <TestimonialsSubmit />
     </LazyFadeIn>
   </main>
 </BaseLayout>
+

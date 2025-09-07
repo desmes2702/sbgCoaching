@@ -51,9 +51,26 @@ const getSeoDescription = (d, p) => {
   return "SBG Coaching – coach sportif à Liège, coaching personnel et entreprise.";
 };
 
-const optimizedTitle = getSeoTitle(title, pageType);
+// Correctifs FR pour la description SEO par défaut
+const getSeoDescriptionFixed = (d, p) => {
+  if (d) return d;
+  if (p === "entreprise")
+    return "Coaching sportif en entreprise à Liège: team building, cohésion d’équipe.";
+  if (p === "general")
+    return "Coach sportif personnel à Liège. Programme fitness personnalisé.";
+  return "SBG Coaching – coach sportif à Liège, coaching personnel et entreprise.";
+};
+
+const getSeoTitleFixed = (t, p) =>
+  p === "entreprise"
+    ? `${t} | Coaching sportif en entreprise à Liège | ${baseName}`
+    : p === "general"
+    ? `${t} | Coach sportif à Liège | ${baseName}`
+    : `${t} | ${baseName}`;
+
+const optimizedTitle = getSeoTitleFixed(title, pageType);
 const optimizedTitleFr = optimizedTitle.replace('Personal Trainer Li��ge', 'Coach sportif Li��ge');
-const optimizedDescription = getSeoDescription(description, pageType);
+const optimizedDescription = getSeoDescriptionFixed(description, pageType);
 const keywords = getSeoKeywords(pageType === "home" ? "all" : pageType);
 const canonicalUrl = seo?.url || `https://sbgcoaching.be${Astro.url.pathname}`;
 const rawOgImage = seo?.image ?? "/img/og-default.webp";
@@ -68,7 +85,7 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <title>{optimizedTitleFr}</title>
+    <title>{optimizedTitle}</title>
     <meta name="description" content={optimizedDescription} />
     <meta name="keywords" content={keywords.join(", ")} />
     <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
@@ -82,7 +99,7 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     {preloadImage && <link rel="preload" as="image" href={preloadImage} type="image/png" />}
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={optimizedTitleFr} />
+    <meta property="og:title" content={optimizedTitle} />
     <meta property="og:description" content={optimizedDescription} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />

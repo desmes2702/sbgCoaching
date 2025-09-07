@@ -1,24 +1,20 @@
-// src/partials/components/Menu.tsx - VERSION CORRIGÉE TYPES ASTRO
+// src/partials/components/Menu.tsx - Version corrigée FR
 
 import { useEffect, useRef, useState } from "react";
 
-// ✅ INTERFACE ÉTENDUE AVEC DIRECTIVES ASTRO
 interface MenuProps {
   variant?: "white" | "black";
-  // Directives client Astro
   "client:load"?: boolean;
-  "client:idle"?: boolean;  
+  "client:idle"?: boolean;
   "client:visible"?: boolean;
   "client:media"?: string;
   "client:only"?: boolean | string;
-  // Props Astro génériques
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
-const Menu: React.FC<MenuProps> = ({ 
+const Menu: React.FC<MenuProps> = ({
   variant = "white",
-  // Ignorer les props Astro spécifiques dans le composant React
   "client:only": _clientOnly,
   "client:load": _clientLoad,
   "client:idle": _clientIdle,
@@ -29,17 +25,14 @@ const Menu: React.FC<MenuProps> = ({
   const isWhite = variant === "white";
   const wrapperClass = isWhite ? "wrapper-1440-black" : "wrapper-1440";
 
-  // Trick SSR/client
   const [isClient, setIsClient] = useState(false);
   useEffect(() => setIsClient(true), []);
 
-  // État & refs pour le menu (activés seulement côté client)
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const openBtnRef = useRef<HTMLButtonElement>(null);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
 
-  // Gestion de l'ouverture (classes + focus)
   useEffect(() => {
     if (!isClient) return;
     const menu = menuRef.current;
@@ -59,7 +52,6 @@ const Menu: React.FC<MenuProps> = ({
     }
   }, [isClient, isOpen]);
 
-  // ESC pour fermer
   useEffect(() => {
     if (!isClient) return;
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -69,7 +61,6 @@ const Menu: React.FC<MenuProps> = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isClient, isOpen]);
 
-  // Focus trap
   const trapFocus = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key !== "Tab" || !menuRef.current) return;
     const focusable = menuRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex="0"]');
@@ -84,20 +75,14 @@ const Menu: React.FC<MenuProps> = ({
     }
   };
 
-  // ---------- RENDU SSR ----------
   if (!isClient) {
-    // HTML sans état, menu fermé (SEO OK, jamais cassé)
     return (
       <div className={wrapperClass}>
         <header className="header">
           <div className="header__container">
             <div className={`header__logo ${variant === "black" ? "header__logo-black" : ""}`}>
               <a href="/" className="header__logo-link">
-                <img
-                  id="menu__logo"
-                  src={`/img/logo-${variant === "black" ? "black" : "white"}.svg`}
-                  alt="Logo SBG Coaching"
-                />
+                <img id="menu__logo" src={`/img/logo-${variant === "black" ? "black" : "white"}.svg`} alt="Logo SBG Coaching" />
               </a>
             </div>
             <nav className={`header__nav ${variant === "black" ? "header__nav-black" : ""}`}>
@@ -112,7 +97,6 @@ const Menu: React.FC<MenuProps> = ({
                 </li>
               </ul>
             </nav>
-            {/* Bouton menu burger statique, pas d'interaction SSR */}
             <button
               className="header__btn__menu menu__toggle"
               aria-label="Ouvrir le menu"
@@ -122,31 +106,21 @@ const Menu: React.FC<MenuProps> = ({
               tabIndex={-1}
               style={{ opacity: 0.5, pointerEvents: "none" }}
             >
-              <img
-                id="menu__icon"
-                src={`/img/icon__burger-${variant === "black" ? "black" : "white"}.svg`}
-                alt="Ouvrir le menu"
-              />
+              <img id="menu__icon" src={`/img/icon__burger-${variant === "black" ? "black" : "white"}.svg`} alt="Ouvrir le menu" />
             </button>
           </div>
         </header>
-        {/* Menu masqué */}
       </div>
     );
   }
 
-  // ---------- RENDU CLIENT ----------
   return (
     <div className={wrapperClass} suppressHydrationWarning>
       <header className="header" suppressHydrationWarning>
         <div className="header__container">
           <div className={`header__logo ${variant === "black" ? "header__logo-black" : ""}`}>
             <a href="/" className="header__logo-link">
-              <img
-                id="menu__logo"
-                src={`/img/logo-${variant === "black" ? "black" : "white"}.svg`}
-                alt="Logo SBG Coaching"
-              />
+              <img id="menu__logo" src={`/img/logo-${variant === "black" ? "black" : "white"}.svg`} alt="Logo SBG Coaching" />
             </a>
           </div>
           <nav className={`header__nav ${variant === "black" ? "header__nav-black" : ""}`} suppressHydrationWarning>
@@ -172,11 +146,7 @@ const Menu: React.FC<MenuProps> = ({
               setIsOpen(true);
             }}
           >
-            <img
-              id="menu__icon"
-              src={`/img/icon__burger-${variant === "black" ? "black" : "white"}.svg`}
-              alt="Ouvrir le menu"
-            />
+            <img id="menu__icon" src={`/img/icon__burger-${variant === "black" ? "black" : "white"}.svg`} alt="Ouvrir le menu" />
           </button>
         </div>
       </header>
@@ -189,11 +159,7 @@ const Menu: React.FC<MenuProps> = ({
         tabIndex={-1}
         onKeyDown={trapFocus}
       >
-        <button
-          className="menu__close"
-          aria-label="Fermer le menu"
-          onClick={() => setIsOpen(false)}
-        >
+        <button className="menu__close" aria-label="Fermer le menu" onClick={() => setIsOpen(false)}>
           ×
         </button>
         <nav className="menu__nav">
@@ -202,7 +168,7 @@ const Menu: React.FC<MenuProps> = ({
             <ul className="menu__list">
               <li className="menu__item"><a href="/" className="menu__link link-underline-appear">Accueil</a></li>
               <li className="menu__item"><a href="/temoignages" className="menu__link link-underline-appear">Témoignages</a></li>
-              <li className="menu__item"><a href="/a-propos" className="menu__link link-underline-appear">À Propos</a></li>
+              <li className="menu__item"><a href="/a-propos" className="menu__link link-underline-appear">À propos</a></li>
               <li className="menu__item"><a href="/contact" className="menu__link link-underline-appear">Contact</a></li>
               <li className="menu__item menu__item__rdv">
                 <a href="/contact" className="menu__link link-underline-replay">Prise de rendez-vous</a>
@@ -244,3 +210,4 @@ const Menu: React.FC<MenuProps> = ({
 };
 
 export default Menu;
+

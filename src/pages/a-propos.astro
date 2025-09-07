@@ -25,20 +25,21 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
     <main id="main-content">
       <Hero />
 
-    <LazyFadeIn client:load>
+    <LazyFadeIn client:visible>
       <Experience />
     </LazyFadeIn>
 
-    <LazyFadeIn client:load>
+    <LazyFadeIn client:visible>
       <Slogan />
     </LazyFadeIn>
 
-    <LazyFadeIn client:load>
+    <LazyFadeIn client:visible>
       <Message />
     </LazyFadeIn>
 
-    <LazyFadeIn client:load>
+    <LazyFadeIn client:visible>
       <Faq />
     </LazyFadeIn>
   </main>
 </BaseLayout>
+

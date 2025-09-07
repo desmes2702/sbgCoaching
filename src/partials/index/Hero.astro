@@ -42,14 +42,14 @@ const actus = [
       <div class="gallery__grid">
         {actus.map((actu) => (
           <IndexHeroActu
-			client:load
+			client:visible
 			image={getImagePath(actu.image)}
 			link={getLinkFromImage(actu.image)}
 			className={actu.className}
 		/>
         ))}
         <div class="gallery__social">
-          <LinksSocial client:load variant="white" />
+          <LinksSocial client:visible variant="white" />
         </div>
       </div>
     </section>
@@ -59,7 +59,7 @@ const actus = [
   <video autoplay muted playsinline aria-hidden="true">
     <source src="/videos/index-hero-video.mp4" type="video/mp4">
   </video>
-</div>
+  </div>
 
   <!-- <div class="hero__photo">
     <img
@@ -71,3 +71,4 @@ const actus = [
     />
   </div> -->
 </div>
+

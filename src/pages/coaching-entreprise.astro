@@ -11,7 +11,7 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
 
 <BaseLayout
   title="Coaching d’entreprise | Santé et performance au travail avec SBG Coaching"
-  description="Boostez la productivité et le bien-être en entreprise grâce à un coaching sportif adapté. Interventions sur site, team building, ergonomie et prévention santé."
+  description="Boostez la productivité et le bien‑être en entreprise grâce à un coaching sportif adapté. Interventions sur site, team building, ergonomie et prévention santé."
   pageClass="page"
   dataPage="coaching-entreprise"
   dataVariant="black"
@@ -28,14 +28,14 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
     
     <Performance client:idle />
     
-    <LazyFadeIn client:load>
-    <Improve />
+    <LazyFadeIn client:visible>
+      <Improve />
     </LazyFadeIn>
-    <LazyFadeIn client:load>
-    <TestimonialsPreview client:load category="entreprise" />
+    <LazyFadeIn client:visible>
+      <TestimonialsPreview client:visible category="entreprise" />
     </LazyFadeIn>
   </main>
-  <!-- <LazyFadeIn client:load>
+  <!-- <LazyFadeIn client:visible>
   <Faq />
   </LazyFadeIn> -->
 </BaseLayout>

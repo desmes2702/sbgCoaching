@@ -24,18 +24,19 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
 >
   <main id="main-content" class="main">
     <Hero currentPage="index" />
-    <LazyFadeIn client:load>
-    <Program currentPage="index" />
+    <LazyFadeIn client:visible>
+      <Program currentPage="index" />
     </LazyFadeIn>
-    <LazyFadeIn client:load>
-    <CoachingBusiness currentPage="index" />
+    <LazyFadeIn client:visible>
+      <CoachingBusiness currentPage="index" />
     </LazyFadeIn>
-    <LazyFadeIn client:load>
-    <Testimonials currentPage="index" />
+    <LazyFadeIn client:visible>
+      <Testimonials currentPage="index" />
     </LazyFadeIn>
     <!-- <OfflineInfo currentPage="index" /> -->
   </main>
-  <LazyFadeIn client:load>
+  <LazyFadeIn client:visible>
     <FAQ />
   </LazyFadeIn>
 </BaseLayout>
+

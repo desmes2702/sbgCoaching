@@ -9,7 +9,7 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
 ---
 
 <BaseLayout
-  title="Coaching Sportif Général | SBG Coaching – Santé, Bien-être et Performance"
+  title="Coaching Sportif Général | SBG Coaching – Santé, Bien‑être et Performance"
   description="Découvrez nos programmes de coaching sportif général adaptés à tous les niveaux. SBG Coaching vous accompagne dans votre transformation physique et mentale."
   pageClass="page"
   dataPage="general"
@@ -25,14 +25,15 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
     <h1 class="visually-hidden">Coaching sportif général</h1>
     <CoachingHero client:visible page="general" />
     <Type client:idle />
-    <LazyFadeIn client:load>
-    <Football />
+    <LazyFadeIn client:visible>
+      <Football />
     </LazyFadeIn>
-    <LazyFadeIn client:load>
-    <TestimonialsPreview client:load category="general" />
+    <LazyFadeIn client:visible>
+      <TestimonialsPreview client:visible category="general" />
     </LazyFadeIn>
   </main>
-  <!-- <LazyFadeIn client:load>
+  <!-- <LazyFadeIn client:visible>
   <Faq />
   </LazyFadeIn> -->
 </BaseLayout>
+
