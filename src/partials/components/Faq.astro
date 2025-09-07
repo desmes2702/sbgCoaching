@@ -1,48 +1,48 @@
 ---
-const faq = [
-  {
-    question: "Combien de temps faudra-t-il pour voir des résultats ?",
-    answer:
-      "La durée nécessaire pour voir des résultats dépend de plusieurs facteurs, notamment de votre niveau de forme physique actuel, de la fréquence et de l'intensité de vos entraînements, ainsi que de votre alimentation. En général, vous pouvez commencer à remarquer des améliorations en termes d'énergie, d'humeur et de condition physique après 2 à 4 semaines d'entraînement régulier.",
-  },
-  {
-    question: "Quel type de programme est adapté à mes objectifs ?",
-    answer:
-      "Nos programmes sont personnalisés en fonction de vos besoins et objectifs spécifiques, allant de la remise en forme à la performance sportive. Nous évaluons votre condition physique et vos attentes afin de vous proposer un plan d'entraînement et de nutrition adapté.",
-  },
-  {
-    question: "Comment vais-je gérer la fatigue et les courbatures ?",
-    answer:
-      "Pour mieux gérer la fatigue et les courbatures, il est essentiel d'inclure des périodes de récupération dans votre routine d'entraînement. Assurez-vous de bien vous hydrater, de pratiquer des étirements après chaque séance et d'intégrer des techniques comme le massage ou les bains chauds pour soulager les tensions musculaires. Une bonne qualité de sommeil et une alimentation riche en protéines et en nutriments essentiels contribuent également à une meilleure récupération.",
-  },
-  {
-    question: "Que dois-je changer dans mon alimentation pour maximiser les résultats ?",
-    answer:
-      "Pour optimiser vos résultats, privilégiez une alimentation équilibrée comprenant des protéines de qualité (viandes maigres, poissons, œufs, légumineuses), des glucides complexes (riz complet, patates douces, quinoa) et des lipides sains (avocats, noix, huile d'olive). Pensez également à bien vous hydrater et à ajuster votre apport calorique en fonction de votre niveau d'activité physique. Les suppléments comme la whey protéine, les BCAA ou la créatine peuvent aussi être utiles selon vos objectifs.",
-  },
-];
+import type { FaqItem } from '@/js/types/faqTypes.ts';
+import { getFaqForPath } from '@/js/data/getFaqForPath.ts';
+
+interface Props { items?: FaqItem[]; visual?: boolean }
+const { items: provided, visual = true } = Astro.props;
+const items = provided ?? getFaqForPath(Astro.url.pathname);
 ---
 
-<div class="wrapper-982-black">
-  <section class="faq section-height90 " itemscope itemtype="https://schema.org/FAQPage">
-    <h2 class="faq__title subTitle">FAQ</h2>
-    <h3 class="faq__subTitle title">Questions fréquentes</h3>
+{items.length > 0 && (
+  <script type="application/ld+json">
+    {JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: items.map((it) => ({
+        '@type': 'Question',
+        name: it.question,
+        acceptedAnswer: { '@type': 'Answer', text: it.answer },
+      })),
+    })}
+  </script>
+)}
 
-    <div class="faq__list">
-      {faq.map((item) => (
-        <article class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-          <div class="faq__question">
-            <h4 itemprop="name">{item.question}</h4>
-            <button class="faq__btn-more" aria-expanded="false"></button>
-          </div>
-          <div class="faq__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-            <p itemprop="text">{item.answer}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-</div>
+{visual && items.length > 0 && (
+  <div class="wrapper-982-black">
+    <section class="faq section-height90 " itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq__title subTitle">FAQ</h2>
+      <h3 class="faq__subTitle title">Questions fréquentes</h3>
+
+      <div class="faq__list">
+        {items.map((item) => (
+          <article class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <div class="faq__question">
+              <h4 itemprop="name">{item.question}</h4>
+              <button class="faq__btn-more" aria-expanded="false"></button>
+            </div>
+            <div class="faq__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">{item.answer}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+)}
 
 <!-- Le script est ici car il doit être chargé après le DOM pour les interactions -->
 <script>

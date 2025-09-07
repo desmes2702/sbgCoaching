@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { companyInfos } from "@/js/data/CompanyData.ts";
+import Faq from "@partials/components/Faq.astro";
 ---
 
 <BaseLayout
@@ -90,5 +91,5 @@ import { companyInfos } from "@/js/data/CompanyData.ts";
       </p>
     </section>
   </main>
+  <Faq visual={false} />
 </BaseLayout>
-

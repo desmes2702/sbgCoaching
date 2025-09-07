@@ -6,6 +6,7 @@ import Football from '@partials/general/Football.astro';
 import TestimonialsPreview from "@/partials/components/TestimonialsPreview.tsx";
 /* import Faq from "@partials/components/Faq.astro"; */
 import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
+import Faq from "@partials/components/Faq.astro";
 ---
 
 <BaseLayout
@@ -32,8 +33,5 @@ import LazyFadeIn from "@partials/performance/LazyFadeIn.tsx";
       <TestimonialsPreview client:visible category="general" />
     </LazyFadeIn>
   </main>
-  <!-- <LazyFadeIn client:visible>
   <Faq />
-  </LazyFadeIn> -->
 </BaseLayout>
-

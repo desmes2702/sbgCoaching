@@ -5,6 +5,8 @@ import Footer from "@partials/components/Footer.astro";
 import FooterMenu from "@partials/components/FooterMenu.astro";
 import { getSeoKeywords, getSchemaForPage } from "@js/data/CompanyData.ts";
 import "../scss/main.scss";
+import SpeedInsights from '@vercel/speed-insights/astro';
+import VercelAnalytics from '@/partials/analytics/VercelAnalytics.tsx';
 
 export interface Props {
   title: string;
@@ -206,5 +208,7 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     }); */
   })();
 </script>
+    <SpeedInsights />
+    <VercelAnalytics client:idle />
   </body>
 </html>

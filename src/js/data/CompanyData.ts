@@ -216,7 +216,8 @@ export const getSeoKeywords = (type: "entreprise" | "general" | "all" = "all") =
 };
 
 export const getSchemaForPage = (pageType: "home" | "entreprise" | "general") => {
-  const baseSchema: any = { ...(companyInfos.schemaOrg as Record<string, unknown>) };
+  type Schema = Record<string, unknown> & { name?: string; description?: string };
+  const baseSchema: Schema = { ...(companyInfos.schemaOrg as Record<string, unknown>) };
 
   switch (pageType) {
     case "entreprise":
@@ -235,4 +236,3 @@ export const getSchemaForPage = (pageType: "home" | "entreprise" | "general") =>
 };
 
 export default companyInfos;
-
