@@ -1,10 +1,10 @@
 {
   "buildCommand": "npm run build",
-  "devCommand": "npm run dev", 
+  "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "astro",
   "outputDirectory": "dist",
-  
+
   "headers": [
     {
       "source": "/_astro/(.*)\\.css$",
@@ -14,7 +14,7 @@
       ]
     },
     {
-      "source": "/_astro/(.*)\\.js$", 
+      "source": "/_astro/(.*)\\.js$",
       "headers": [
         { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
@@ -28,11 +28,32 @@
       ]
     }
   ],
-  
+
+  "cleanUrls": true,
   "redirects": [
     {
       "source": "/programme",
-      "destination": "/coaching-sportif-video", 
+      "destination": "/coaching-sportif-video",
+      "permanent": true
+    },
+    {
+      "source": "/mention-legale",
+      "destination": "/mentions-legales",
+      "permanent": true
+    },
+    {
+      "source": "/mention-légale",
+      "destination": "/mentions-legales",
+      "permanent": true
+    },
+    {
+      "source": "/mentions-legale",
+      "destination": "/mentions-legales",
+      "permanent": true
+    },
+    {
+      "source": "/mentions-légale",
+      "destination": "/mentions-legales",
       "permanent": true
     }
   ]
