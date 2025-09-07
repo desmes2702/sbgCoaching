@@ -1,3 +1,5 @@
+/* eslint-env browser */
+/* global document, window, setTimeout */
 import { formatText, formatNumber, formatEmail } from '../global/__utils.js';
 
 // =============================
@@ -80,7 +82,7 @@ function isCurrentQuestionValid() {
 
     const nomValid = nom && nom.value.trim().length >= 2;
     const prenomValid = prenom && prenom.value.trim().length >= 2;
-    const telephoneValid = telephone && telephone.value.trim().length >= 8;
+    const telephoneValid = telephone && telephone.value.trim().length >= 8; // eslint-disable-line @typescript-eslint/no-unused-vars
     const emailValid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
 
     return nomValid && prenomValid && emailValid;
@@ -495,7 +497,7 @@ function renderQuestion() {
           <div class="form__summary__legal">
             <label>
               <input type="checkbox" id="accept-legal" required>
-              <span>J’accepte que mes données personnelles, y compris celles relatives à ma santé, soient utilisées dans le cadre de mon suivi personnalisé. Ces données ne seront ni partagées ni revendues. <a href="/legal__mention.php" target="_blank" rel="noopener">En savoir plus</a>.</span>
+              <span>J’accepte que mes données personnelles, y compris celles relatives à ma santé, soient utilisées dans le cadre de mon suivi personnalisé. Ces données ne seront ni partagées ni revendues. <a href="/mentions-legales" target="_blank" rel="noopener">En savoir plus</a>.</span>
             </label>
           </div>
   

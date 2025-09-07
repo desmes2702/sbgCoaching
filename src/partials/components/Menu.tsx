@@ -12,6 +12,7 @@ interface MenuProps {
   "client:media"?: string;
   "client:only"?: boolean | string;
   // Props Astro génériques
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 

@@ -1,3 +1,5 @@
+/* eslint-env browser */
+/* global document, alert */
 export function sendFormData() {
   const acceptLegal = document.getElementById("accept-legal");
   if (!acceptLegal || !acceptLegal.checked) {
@@ -43,3 +45,4 @@ export function sendFormData() {
 	  });
 	}
   } */
+ 

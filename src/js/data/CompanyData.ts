@@ -19,7 +19,7 @@ export interface CompanyInfos {
     facebook: string;
     instagram: string;
   };
-  schemaOrg?: Record<string, any>;
+  schemaOrg?: Record<string, unknown>;
   seo?: {
     keywords: string[];
     areaServed: string[];

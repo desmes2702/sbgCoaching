@@ -17,7 +17,7 @@ export default function StepDuration({ data, onChange, onPrev, onNext, canNext =
   const canProceed = canNext && localValid;
 
   function setVal<K extends keyof StepDurationProps["data"]>(key: K, v: StepDurationProps["data"][K]) {
-    onChange({ [key]: v } as any);
+    onChange({ [key]: v } as Partial<StepDurationProps["data"]>);
   }
 
   function handleSelect(id: StepDurationProps["data"]["durationId"]) {

@@ -18,7 +18,25 @@ export default function StepCoords({ data, onChange, onPrev, onNext, canNext = f
     consent: false,
   });
 
-  const show = (k: keyof typeof touched) => Boolean((touched[k] || (data as any)[k]) && (warnings as any)[k]);
+  const show = (k: keyof typeof touched) => {
+    const mapData: Record<keyof typeof touched, unknown> = {
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email,
+      phone: data.phone,
+      notes: data.notes,
+      consent: data.consentAccepted,
+    };
+    const mapWarn: Record<keyof typeof touched, unknown> = {
+      firstname: warnings.firstname,
+      lastname: warnings.lastname,
+      email: warnings.email,
+      phone: warnings.phone,
+      notes: undefined,
+      consent: warnings.consentAccepted,
+    };
+    return Boolean((touched[k] || mapData[k]) && mapWarn[k]);
+  };
   const localValid = canProceedCoords(data);
   const canProceed = canNext && localValid;
 

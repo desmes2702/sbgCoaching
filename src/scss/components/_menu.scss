@@ -265,7 +265,7 @@
             order: 1;
 
             &::after {
-                width: calc(100vw - $padding-x-mobile*2);
+                width: calc(100vw - $padding-x-mobile * 2);
                 max-width: 1440px;
             }
 
@@ -292,7 +292,7 @@
     .header {
         &__logo {
             &::after {
-                width: calc(100vw - $padding-x-tablet*2);
+                width: calc(100vw - $padding-x-tablet * 2);
                 max-width: 1440px;
             }
         }

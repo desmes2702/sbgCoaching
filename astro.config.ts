@@ -43,6 +43,13 @@ export default defineConfig({
   site: 'https://sbgcoaching.be',
   base: '/',
   trailingSlash: 'never',
+  // Redirects to ensure clean canonical paths (no JS hacks)
+  redirects: {
+    '/mention-légale': '/mentions-legales',
+    '/mentions-légale': '/mentions-legales',
+    '/mention-legale': '/mentions-legales',
+    '/mentions-legale': '/mentions-legales',
+  },
 
 
   /* ---------- INTÉGRATIONS ---------- */

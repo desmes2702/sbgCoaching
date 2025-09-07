@@ -49,7 +49,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
                     className={cx(ui.radio)}
                     name="fragility"
                     checked={checked}
-                    onChange={() => onChange({ isSeniorOrFragile: opt.id as any })}
+                    onChange={() => onChange({ isSeniorOrFragile: opt.id as import('@/js/types/rdvTypes').YesNoNa })}
                   />
                   <span>{opt.label}</span>
                 </label>

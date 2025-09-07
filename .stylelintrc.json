@@ -6,22 +6,7 @@
     "stylelint-order"
   ],
   "rules": {
-    "at-rule-no-unknown": [true, {
-      "ignoreAtRules": [
-        "apply",
-        "variants",
-        "responsive",
-        "screen",
-        "layer",
-        "forward",
-        "use",
-        "include",
-        "mixin",
-        "if",
-        "else",
-        "for"
-      ]
-    }],
+    "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": null,
     "no-invalid-double-slash-comments": null,
     "selector-class-pattern": null,
@@ -73,6 +58,8 @@
       "overflow",
       "cursor",
       "visibility"
-    ]
+    ],
+    "scss/at-extend-no-missing-placeholder": null,
+    "scss/at-mixin-pattern": null
   }
 }

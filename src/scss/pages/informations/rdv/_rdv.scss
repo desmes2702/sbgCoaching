@@ -420,7 +420,9 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
 
-  &:disabled { opacity: 0.5; cursor: not-allowed; }
+&:disabled { opacity: 0.5;
+  cursor: not-allowed;
+  };
   &:active { transform: translateY(1px); }
 }
 
@@ -430,7 +432,10 @@
   border-color: $primary-color;
 
   &:hover { filter: brightness(1.02); }
-  &:focus-visible { box-shadow: 0 0 0 0.125rem rgb(255 0 170 / 25%); outline: none; }
+
+&:focus-visible { box-shadow: 0 0 0 0.125rem rgb(255 0 170 / 25%);
+  outline: none;
+  };
 }
 
 .btn--ghost {
@@ -439,12 +444,20 @@
   border-color: rgb(255 255 255 / 30%);
 
   &:hover { background: rgb(255 255 255 / 5%); }
-  &:focus-visible { box-shadow: 0 0 0 0.125rem rgb(255 255 255 / 20%); outline: none; }
+
+&:focus-visible { box-shadow: 0 0 0 0.125rem rgb(255 255 255 / 20%);
+  outline: none;
+  };
 }
 
 /* ---------- Animations ---------- */
 @keyframes fadeIn {
-  from { transform: translateY(-0.2rem); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+from { transform: translateY(-0.2rem);
+  opacity: 0;
+  };
+
+to { transform: translateY(0);
+  opacity: 1;
+  };
 }
 

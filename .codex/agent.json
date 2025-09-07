@@ -1,5 +1,8 @@
 {
   "mode": "full",
+  "approval_policy": "never",
+  "sandbox_mode": "workspace-write",
+  "network_access": "restricted",
   "confirmEdits": false,                 
   "shell": "pwsh -NoProfile",
   "includeGlobs": ["src/**/*.astro","src/**/*.tsx","src/**/*.ts","public/robots.txt","vercel.json","astro.config.ts","package.json"],

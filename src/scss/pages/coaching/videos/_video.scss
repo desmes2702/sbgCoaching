@@ -171,8 +171,13 @@
 			pointer-events: auto;
 			user-select: none;
 
-			&--3 { right: -36%; bottom: -7%; }
-			&--4 { right: -54%; bottom: -6%; }
+&--3 { right: -36%;
+			bottom: -7%;
+			};
+
+&--4 { right: -54%;
+			bottom: -6%;
+			};
 			&--5 { right: -28%;}
 			&--6 { right: -41%; }
 			&--7 { right: -15%; }

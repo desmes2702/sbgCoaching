@@ -65,7 +65,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     await transporter.verify();
     console.log("✅ Connexion SMTP valide.");
-  } catch (verifyError: any) {
+  } catch (verifyError: unknown) {
     console.error("❌ Échec de connexion SMTP :", verifyError);
     return new Response(
       JSON.stringify({ success: false, error: "Connexion SMTP échouée." }),

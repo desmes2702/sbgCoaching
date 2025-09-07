@@ -71,7 +71,7 @@ export function useRdvCache<T extends object>(totalSteps: number, defaults: T) {
     };
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    } catch {}
+    } catch { /* noop */ }
   }, [step, data]);
 
   const reset = useCallback(() => {

@@ -54,7 +54,7 @@ export default function AppointmentForm() {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch {}
+    } catch { /* noop */ }
   }, [data]);
 
   const goNext = () => setStepIndex((i) => Math.min(i + 1, STEPS.length - 1));
@@ -110,8 +110,11 @@ export default function AppointmentForm() {
       await new Promise((r) => setTimeout(r, 600));
       setOk(true);
       localStorage.removeItem(STORAGE_KEY);
-    } catch (err: any) {
-      setError(err?.message || "Impossible de valider pour le moment.");
+    } catch (err: unknown) {
+      const msg = typeof err === 'object' && err !== null && 'message' in err
+        ? String((err as { message?: unknown }).message || '')
+        : '';
+      setError(msg || "Impossible de valider pour le moment.");
     } finally {
       setSubmitting(false);
     }

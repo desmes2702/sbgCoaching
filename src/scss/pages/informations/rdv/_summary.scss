@@ -64,8 +64,8 @@
       font-size: 1.1rem;
       font-weight: 500;
       text-transform: uppercase;
-      font-family: $font-secondary;
-      font-family: white;
+      font-family: $font-secondary, sans-serif;
+      font-family: white, sans-serif;
     }
 
     .step-review__badge{

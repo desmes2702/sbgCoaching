@@ -89,6 +89,27 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     <meta property="og:site_name" content="SBG Coaching" />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <style>
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #000;
+        color: #fff;
+        padding: 8px 12px;
+        z-index: 10000;
+      }
+      .skip-link:focus { top: 8px; }
+      /* Utility: screen-reader only */
+      .sr-only {
+        position: absolute !important;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0, 0, 1px, 1px);
+        white-space: nowrap; border: 0;
+      }
+    </style>
+
     <script type="application/ld+json" set:html={JSON.stringify(getSchemaForPage(pageType))}></script>
     {GA_BUILD_ID && (
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_BUILD_ID}`}></script>
@@ -102,6 +123,7 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     data-module={dataModules ?? ""}
     data-variant={dataVariant}
   >
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
     <Menu client:only="react" variant={dataVariant as "white" | "black"} />
     <slot />
     {["legal", "privacy-policy", "thanks", "program"].includes(dataPage ?? "")

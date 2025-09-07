@@ -4,8 +4,8 @@
 
 declare global {
   interface Window {
-    dataLayer: any[];
-    gtag: (...args: any[]) => void;
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
   }
 }
 
@@ -38,11 +38,11 @@ interface ImportMeta {
 }
 
 declare module 'web-vitals' {
-  export function getCLS(cb: (m: any) => void): void;
-  export function getFID(cb: (m: any) => void): void;
-  export function getFCP(cb: (m: any) => void): void;
-  export function getLCP(cb: (m: any) => void): void;
-  export function getTTFB(cb: (m: any) => void): void;
+  export function getCLS(cb: (m: unknown) => void): void;
+  export function getFID(cb: (m: unknown) => void): void;
+  export function getFCP(cb: (m: unknown) => void): void;
+  export function getLCP(cb: (m: unknown) => void): void;
+  export function getTTFB(cb: (m: unknown) => void): void;
 }
 
 export {};
