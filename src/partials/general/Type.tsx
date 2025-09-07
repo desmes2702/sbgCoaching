@@ -129,7 +129,7 @@ const Type = () => {
   return (
     <div className="wrapper-1440-black " id="page__coaching__wrapper__types">
       <section className="coaching__types" role="list" aria-label="Nos types de coaching">
-        <h2 className="coaching__types__title">Nos types de coaching</h2>
+        <h2 className="coaching__types__title">Nos types de coaching à Liège</h2>
         <div
           className={`type__slider3d ${isDragging ? "is-grabbing" : ""}`}
           role="list"

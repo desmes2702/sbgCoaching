@@ -36,6 +36,7 @@ const TestimonialsPreview: FC<Props> = ({ category }) => {
   const lastThree = filtered.slice(-3);
 
   const { title, subtitle, intro } = TITLES[category];
+  const titleWithLocation = `${title} à Liège`;
 
   return (
     <div className="wrapper-1440-black testimonials__preview">
@@ -43,7 +44,7 @@ const TestimonialsPreview: FC<Props> = ({ category }) => {
         className="testimonials-last"
         aria-labelledby={`testimonials-last-title-${category}`}
       >
-        <h2 className="testimonials__title subTitle">{title}</h2>
+        <h2 className="testimonials__title subTitle">{titleWithLocation}</h2>
         <h3
           id={`testimonials-last-title-${category}`}
           className="testimonials__subtitle title"
