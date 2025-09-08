@@ -7,8 +7,8 @@ Disallow: /_astro/*.map
 # Laisser /.well-known/ accessible (ne rien bloquer ici)
 # Ne pas mentionner /dist/ ni /.vercel/ (non publics)
 
-# Sitemap
-Sitemap: https://sbgcoaching.be/sitemap.xml
+# Sitemap SEO-compliant
+Sitemap: https://sbgcoaching.be/sitemap-index.xml
 
 # Optionnel (non pris en compte par Google) :
 # Crawl-delay: 1
