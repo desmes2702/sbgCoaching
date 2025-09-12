@@ -36,11 +36,13 @@ export type AppointmentData = {
   notes: string;
 
   // Divers
-  consentAccepted: boolean; // RGPD
-  website: string;          // honeypot anti‑spam
+  consentAccepted: boolean; // RGPD (contact)
+  website: string;          // honeypot anti-spam
+  // Consentement explicite pour données sensibles (étape 3)
+  sensitiveConsentAccepted?: boolean;
 };
 
-/* --------- événements envoyés par le step Review --------- */
+/* --------- Événements envoyés par le step Review --------- */
 export type SubmitEvent =
   | { type: "change"; payload: Partial<AppointmentData> }
   | { type: "submit" };
@@ -57,9 +59,10 @@ export interface StepNavProps {
 
 /* --------- header --------- */
 export interface StepHeaderProps {
-  step: number;   // 1‑based
+  step: number;   // 1-based
   total: number;
   timeLeftMin?: number;
+  onGotoStep?: (oneBasedIndex: number) => void; // navigation via les points
 }
 
 /* --------- chaque step --------- */
@@ -75,7 +78,9 @@ export interface StepObjectiveProps extends StepNavProps {
 
 export interface StepAgeFragilityProps extends StepNavProps {
   data: AppointmentData;
-  onChange: (partial: Partial<Pick<AppointmentData, "age" | "isSeniorOrFragile" | "fragilityNotes">>) => void;
+  onChange: (
+    partial: Partial<Pick<AppointmentData, "age" | "isSeniorOrFragile" | "fragilityNotes" | "sensitiveConsentAccepted">>
+  ) => void;
 }
 
 export interface StepDurationProps extends StepNavProps {
@@ -96,3 +101,4 @@ export interface StepReviewProps {
   onSubmit: SubmitEventFn;
   submitting?: boolean;
 }
+

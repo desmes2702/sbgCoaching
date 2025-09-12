@@ -14,7 +14,8 @@ import { ui, cx } from "@/js/forms/uiClasses.ts";
 
 const STEPS: StepKey[] = ["type", "objective", "ageFragility", "duration", "coords", "review"];
 const STORAGE_KEY = "rdvFormDraft_v2";
-const MIN_SUBMIT_DELAY_MS = 1500;
+const AUTOSAVE_ENABLED = false; // RGPD: opt-in (désactivé par défaut)
+const MIN_SUBMIT_DELAY_MS = 2000; // anti-spam: délai minimal ≥ 2s
 
 const INITIAL_DATA: AppointmentData = {
   typeId: "",
@@ -31,6 +32,7 @@ const INITIAL_DATA: AppointmentData = {
   notes: "",
   consentAccepted: false,
   website: "",
+  sensitiveConsentAccepted: false,
 };
 
 export default function AppointmentForm() {
@@ -50,12 +52,34 @@ export default function AppointmentForm() {
 
   const currentStep = STEPS[stepIndex];
 
-  // autosave
+  // autosave (opt-in) — ne sauvegarde PAS les données sensibles
   useEffect(() => {
+    if (!AUTOSAVE_ENABLED) return;
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      const draft: Partial<AppointmentData> = {
+        typeId: data.typeId,
+        objectiveNotes: data.objectiveNotes,
+        durationId: data.durationId,
+        durationCustom: data.durationCustom,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        phone: data.phone,
+        notes: data.notes,
+        // Ne PAS stocker: age, isSeniorOrFragile, fragilityNotes, sensitiveConsentAccepted
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
     } catch { /* noop */ }
   }, [data]);
+
+  // Focus management: focus sur le titre de l'étape courante
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      const el = document.querySelector<HTMLElement>("[data-step-title]");
+      el?.focus({ preventScroll: true });
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, [stepIndex]);
 
   const goNext = () => setStepIndex((i) => Math.min(i + 1, STEPS.length - 1));
   const goPrev = () => setStepIndex((i) => Math.max(i - 1, 0));

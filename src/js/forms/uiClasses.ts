@@ -3,44 +3,52 @@
 // Conservé + enrichi (ajouts non-breaking).
 
 export const ui = {
-  // existants
-  control: "field__control control",
-  label: "field__label",
-  error: "field__error",
-  choice: "choice",
+  // Classes alignées sur le "classique" (réutilisation BEM existant)
+  // Contrôles
+  control: "input",
+  label: "rdv-form__label form__label",
+  error: "form__error",
+  choice: "form__question__choice",
   choiceSelected: "is-selected",
 
-  // formulaires
-  form: "form",
+  // Formulaire / structure
+  form: "form form--multistep rdv-form",
   fieldset: "form__fieldset",
   legend: "form__legend",
-  group: "form__group",
-  grid: "form__grid",
-  title: "step__title",
+  group: "form__question__group",
+  // Grille de choix (radios/checkboxes)
+  grid: "rdv-form__choices",
+  // Titres
+  title: "rdv-form__step-title",
+  // Texte d'aide
   hint: "form__hint",
-  actions: "form__actions",
+  // Actions navigation
+  actions: "rdv-form__nav",
+  // Boutons (SCSS existant rdv: .btn, .btn--primary, .btn--ghost)
   button: "btn",
   buttonPrimary: "btn btn--primary",
   buttonGhost: "btn btn--ghost",
-  next: "btn btn--primary",
-  prev: "btn btn--ghost",
-  submit: "btn btn--primary",
-  textarea: "control control--textarea",
-  input: "control control--input",
+  next: "btn btn--primary rdv-form__next",
+  prev: "btn btn--ghost rdv-form__prev",
+  submit: "btn btn--primary rdv-form__submit",
+
+  // Champs
+  textarea: "input",
+  input: "input",
   chip: "chip",
   chips: "chips",
-  check: "check",
-  radio: "radio",
+  check: "choice choice--checkbox",
+  radio: "",
   srOnly: "sr-only",
 
-  // Step header
-  stepHeader: "step-header",
-  stepHeaderBar: "step-header__bar",
-  stepHeaderFill: "step-header__fill",
-  stepHeaderMeta: "step-header__meta",
-  counter: "step-header__counter",
-  eta: "step-header__eta",
-  info: "step-header__info",
+  // Step header (utilisé par compat mais le header sort ses propres classes rdv-form__*)
+  stepHeader: "rdv-form__header",
+  stepHeaderBar: "rdv-form__progress",
+  stepHeaderFill: "rdv-form__progress-bar",
+  stepHeaderMeta: "rdv-form__headline",
+  counter: "rdv-form__counter",
+  eta: "rdv-form__eta",
+  info: "rdv-form__steps",
 };
 
 // Tiny utilitaire pour concaténer des classes

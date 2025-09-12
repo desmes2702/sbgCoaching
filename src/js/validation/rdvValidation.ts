@@ -27,6 +27,7 @@ export type AgeFragWarnings = Partial<{
   age: string;
   isSeniorOrFragile: string;
   fragilityNotes: string;
+  sensitiveConsentAccepted: string;
 }>;
 
 export function validateAgeFragility(data: AppointmentData): AgeFragWarnings {
@@ -42,12 +43,15 @@ export function validateAgeFragility(data: AppointmentData): AgeFragWarnings {
   if (data.isSeniorOrFragile === "yes" && (data.fragilityNotes || "").trim().length < MIN_FRAGILITY_CHARS) {
     w.fragilityNotes = `Merci de préciser vos limitations (min. ${MIN_FRAGILITY_CHARS} caractères).`;
   }
+  if (!data.sensitiveConsentAccepted) {
+    w.sensitiveConsentAccepted = "Le consentement explicite est requis pour traiter ces informations sensibles.";
+  }
   return w;
 }
 
 export function canProceedAgeFragility(data: AppointmentData): boolean {
   const w = validateAgeFragility(data);
-  return !w.age && !w.isSeniorOrFragile && !w.fragilityNotes;
+  return !w.age && !w.isSeniorOrFragile && !w.fragilityNotes && !w.sensitiveConsentAccepted;
 }
 
 /* ============== DURÉE ============== */

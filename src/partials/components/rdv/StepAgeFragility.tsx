@@ -1,5 +1,5 @@
 // src/partials/components/rdv/StepAgeFragility.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { StepAgeFragilityProps } from "@/js/types/rdvTypes.ts";
 import { ui, cx } from "@/js/forms/uiClasses.ts";
 import { AGE_MIN, AGE_MAX, MIN_FRAGILITY_CHARS, validateAgeFragility, canProceedAgeFragility } from "@/js/validation/rdvValidation.ts";
@@ -7,6 +7,21 @@ import { AGE_MIN, AGE_MAX, MIN_FRAGILITY_CHARS, validateAgeFragility, canProceed
 export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNext }: StepAgeFragilityProps) {
   const warnings = validateAgeFragility(data);
   const valid = canProceedAgeFragility(data);
+  // Upload photo optionnel (non persisté)
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [photoErr, setPhotoErr] = useState<string>("");
+
+  useEffect(() => () => { if (photoUrl) URL.revokeObjectURL(photoUrl); }, [photoUrl]);
+
+  function handlePhotoChange(file?: File) {
+    setPhotoErr("");
+    if (!file) { setPhotoUrl(null); return; }
+    const max = 3 * 1024 * 1024; // 3MB
+    const okType = /^(image\/(png|jpeg|webp))$/i.test(file.type);
+    if (!okType) { setPhotoErr("Format non supporté (PNG, JPEG, WebP)."); setPhotoUrl(null); return; }
+    if (file.size > max) { setPhotoErr("Fichier trop volumineux (≤ 3 Mo)."); setPhotoUrl(null); return; }
+    setPhotoUrl(URL.createObjectURL(file));
+  }
 
   return (
     <section className={cx("step", "step-agefragility", ui.form)} data-step="ageFragility">
@@ -73,6 +88,40 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
             />
             {warnings.fragilityNotes && <p className={cx(ui.error)} role="alert">{warnings.fragilityNotes}</p>}
           </div>
+        )}
+        {/* Upload photo optionnel (non requis) */}
+        <div className={cx(ui.group)}>
+          <label htmlFor="frag-photo" className={cx(ui.label)}>Photo (optionnel)</label>
+          <input
+            id="frag-photo"
+            className={cx(ui.input)}
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/*"
+            aria-describedby="frag-photo-hint"
+            aria-invalid={Boolean(photoErr)}
+            onChange={(e) => handlePhotoChange((e.target as HTMLInputElement).files?.[0])}
+          />
+          <p id="frag-photo-hint" className={cx(ui.hint)}>
+            Max 3 Mo. PNG/JPEG/WebP. Les métadonnées EXIF peuvent contenir des informations personnelles.
+          </p>
+          {photoErr && <p className={cx(ui.error)} role="alert">{photoErr}</p>}
+          {photoUrl && (
+            <img src={photoUrl} alt="Aperçu de la photo importée" style={{ maxWidth: "12rem", borderRadius: ".5rem" }} />
+          )}
+        </div>
+
+        {/* Consentement explicite pour données sensibles */}
+        <label className={cx(ui.check)}>
+          <input
+            type="checkbox"
+            checked={Boolean(data.sensitiveConsentAccepted)}
+            onChange={(e) => onChange({ sensitiveConsentAccepted: e.target.checked })}
+            aria-invalid={Boolean((warnings as any).sensitiveConsentAccepted)}
+          />
+          <span>J’accepte explicitement le traitement de données de santé (âge/fragilités) pour l’étude de ma demande.</span>
+        </label>
+        {(warnings as any).sensitiveConsentAccepted && (
+          <p className={cx(ui.error)} role="alert">{(warnings as any).sensitiveConsentAccepted}</p>
         )}
       </fieldset>
 
