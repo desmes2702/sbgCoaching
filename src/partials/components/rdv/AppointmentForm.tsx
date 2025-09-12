@@ -9,7 +9,7 @@ import StepCoords from "@/partials/components/rdv/StepCoords.tsx";
 import StepReview from "@/partials/components/rdv/StepReview.tsx";
 
 import type { AppointmentData, StepKey, SubmitEvent } from "@/js/types/rdvTypes.ts";
-import { canProceedObjective, canProceedAgeFragility, canProceedDuration, canProceedCoords, isFormValid } from "@/js/validation/rdvValidation.ts";
+import { canProceedObjective, canProceedAgeFragility, canProceedDuration, canProceedCoords, isFormValid, validateAgeFragility, validateDuration, validateCoords } from "@/js/validation/rdvValidation.ts";
 import { ui, cx } from "@/js/forms/uiClasses.ts";
 
 const STEPS: StepKey[] = ["type", "objective", "ageFragility", "duration", "coords", "review"];
