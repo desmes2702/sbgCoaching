@@ -1,0 +1,23 @@
+{
+  "mapping": {
+    "form": "form form--multistep rdv-form",
+    "form__fieldset": "form__fieldset",
+    "form__legend": "form__legend",
+    "form__question__group": "form__question__group",
+    "form__label": "rdv-form__label form__label",
+    "form__input": "input",
+    "form__textarea": "input",
+    "form__error": "form__error",
+    "form__question__choices": "rdv-form__choices (grid)",
+    "form__question__choice": "form__question__choice",
+    "buttons": {
+      "classic": ["button", "button-red", "button-darker"],
+      "multimodal": ["btn", "btn--primary", "btn--ghost"]
+    },
+    "progress": {
+      "classic": "form__timeline*",
+      "multimodal": ["rdv-form__header", "rdv-form__progress", "rdv-form__progress-bar", "rdv-form__counter"]
+    }
+  },
+  "note": "Source de vérité: docs/rdv/BEM-MAPPING.md"
+}

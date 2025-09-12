@@ -31,21 +31,20 @@ export default function StepDuration({ data, onChange, onPrev, onNext, canNext =
     onChange({ durationId: "other", durationCustom: txt });
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  function handleNextClick() {
     setTouched({ durationId: true, durationCustom: true });
-    if (canProceed) onNext?.();
+    onNext?.();
   }
 
   return (
     <section className={cx("step", "step-duration", ui.form)} data-step="duration">
-      <form onSubmit={handleSubmit} noValidate>
+      
         <fieldset className={cx(ui.fieldset)}>
           <legend className={cx(ui.legend)} data-step-title tabIndex={-1}>
             Durée souhaitée
           </legend>
 
-          <div className={cx(ui.grid)}>
+          <div className={cx(ui.grid)} id="duration-options">
             {DURATION_OPTIONS.map(opt => {
               const id = `${baseId}-${opt.id}`;
               const checked = data.durationId === opt.id;
@@ -67,7 +66,7 @@ export default function StepDuration({ data, onChange, onPrev, onNext, canNext =
           </div>
 
           {isOther && (
-            <div className={cx(ui.group)}>
+            <div className={cx(ui.group)} id="duration-custom">
               <label htmlFor={`${baseId}-custom`} className={cx(ui.label)}>Précision(s)</label>
               <input
                 id={`${baseId}-custom`}
@@ -86,11 +85,10 @@ export default function StepDuration({ data, onChange, onPrev, onNext, canNext =
 
         <div className={cx(ui.actions)}>
           <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-          <button type="submit" className={cx(ui.next)} disabled={!canProceed} aria-disabled={!canProceed}>
+          <button type="button" className={cx(ui.next)} aria-disabled={!canProceed} onClick={handleNextClick}>
             Continuer
           </button>
         </div>
-      </form>
     </section>
   );
 }

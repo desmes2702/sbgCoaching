@@ -1,5 +1,5 @@
 // src/partials/components/rdv/AppointmentForm.tsx
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import StepHeader from "@/partials/components/rdv/StepHeader.tsx";
 import StepType from "@/partials/components/rdv/StepType.tsx";
 import StepObjective from "@/partials/components/rdv/StepObjective.tsx";
@@ -49,6 +49,8 @@ export default function AppointmentForm() {
   const [submitting, setSubmitting] = useState(false);
   const [ok, setOk] = useState(false);
   const [error, setError] = useState("");
+  const [showSummary, setShowSummary] = useState(false);
+  const summaryRef = useRef<HTMLDivElement | null>(null);
 
   const currentStep = STEPS[stepIndex];
 
@@ -84,6 +86,12 @@ export default function AppointmentForm() {
   const goNext = () => setStepIndex((i) => Math.min(i + 1, STEPS.length - 1));
   const goPrev = () => setStepIndex((i) => Math.max(i - 1, 0));
   const setField = (partial: Partial<AppointmentData>) => setData((prev) => ({ ...prev, ...partial }));
+  const total = STEPS.length;
+
+  // Clamp defensively if total evolves
+  useEffect(() => {
+    setStepIndex((s) => Math.min(Math.max(0, s), total - 1));
+  }, [total]);
 
   const canContinue = useMemo(() => {
     switch (currentStep) {
@@ -111,6 +119,55 @@ export default function AppointmentForm() {
     // estimation ~20s par step -> mn
     return Math.max(1, Math.round((remaining * 20) / 60));
   }, [stepIndex]);
+
+  // Next wrapper to show error summary when invalid
+  function tryNext() {
+    if (canContinue) {
+      setShowSummary(false);
+      goNext();
+      return;
+    }
+    setShowSummary(true);
+    // focus summary block
+    requestAnimationFrame(() => {
+      summaryRef.current?.focus();
+    });
+  }
+
+  // Build error summary for current step
+  const errorItems = useMemo(() => {
+    const items: Array<{ href: string; label: string }> = [];
+    switch (currentStep) {
+      case "objective": {
+        if (!canProceedObjective(data)) items.push({ href: "#objectiveNotes", label: "Précisez votre objectif (minimum requis)" });
+        break;
+      }
+      case "ageFragility": {
+        const w = validateAgeFragility(data);
+        if (w.age) items.push({ href: "#age", label: w.age });
+        if (w.isSeniorOrFragile) items.push({ href: "#frag-yes", label: w.isSeniorOrFragile });
+        if (w.fragilityNotes) items.push({ href: "#fragilityNotes", label: w.fragilityNotes });
+        if (w.sensitiveConsentAccepted) items.push({ href: "#sensitive-consent", label: w.sensitiveConsentAccepted });
+        break;
+      }
+      case "duration": {
+        const w = validateDuration(data);
+        if (w.durationId) items.push({ href: "#duration-options", label: w.durationId });
+        if (w.durationCustom) items.push({ href: "#duration-custom", label: w.durationCustom });
+        break;
+      }
+      case "coords": {
+        const w = validateCoords(data);
+        if (w.firstname) items.push({ href: `#coords-firstname`, label: w.firstname });
+        if (w.lastname) items.push({ href: `#coords-lastname`, label: w.lastname });
+        if (w.email) items.push({ href: `#coords-email`, label: w.email });
+        if (w.phone) items.push({ href: `#coords-phone`, label: w.phone });
+        if (w.consentAccepted) items.push({ href: `#coords-consent`, label: w.consentAccepted });
+        break;
+      }
+    }
+    return items;
+  }, [currentStep, data]);
 
   async function handleSubmitFinal() {
     setError("");
@@ -165,6 +222,17 @@ export default function AppointmentForm() {
     <form className={cx(ui.form)} onSubmit={(e) => e.preventDefault()} noValidate>
       <StepHeader step={stepIndex + 1} total={STEPS.length} timeLeftMin={timeLeftMin} />
 
+      {showSummary && !canContinue && errorItems.length > 0 && (
+        <div ref={summaryRef} role="alert" tabIndex={-1} style={{ border: "1px solid rgba(255,255,255,.2)", borderRadius: ".5rem", padding: ".75rem", marginBottom: "1rem" }}>
+          <p style={{ margin: 0, marginBottom: ".5rem" }}>Veuillez corriger les points suivants&nbsp;:</p>
+          <ul style={{ margin: 0, paddingLeft: "1rem" }}>
+            {errorItems.map((it, i) => (
+              <li key={i}><a href={it.href} style={{ color: "inherit", textDecoration: "underline" }}>{it.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {currentStep === "type" && (
         <StepType
           data={data}
@@ -177,19 +245,19 @@ export default function AppointmentForm() {
       )}
 
       {currentStep === "objective" && (
-        <StepObjective data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={goNext} canNext={canContinue} />
+        <StepObjective data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={tryNext} canNext={canContinue} />
       )}
 
       {currentStep === "ageFragility" && (
-        <StepAgeFragility data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={goNext} canNext={canContinue} />
+        <StepAgeFragility data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={tryNext} canNext={canContinue} />
       )}
 
       {currentStep === "duration" && (
-        <StepDuration data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={goNext} canNext={canContinue} />
+        <StepDuration data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={tryNext} canNext={canContinue} />
       )}
 
       {currentStep === "coords" && (
-        <StepCoords data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={goNext} canNext={canContinue} />
+        <StepCoords data={data} onChange={(p) => setField(p)} onPrev={goPrev} onNext={tryNext} canNext={canContinue} />
       )}
 
       {currentStep === "review" && (

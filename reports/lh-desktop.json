@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "tool": "Lighthouse",
+    "device": "desktop",
+    "note": "Générer via lighthouse CI/CLI et remplacer. Cibles: Perf>=95, A11y=100, BP=100, SEO=100"
+  },
+  "scores": {
+    "performance": null,
+    "accessibility": null,
+    "bestPractices": null,
+    "seo": null
+  }
+}

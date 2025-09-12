@@ -40,7 +40,6 @@ export default function StepObjective({ data, onChange, onPrev, onNext, canNext 
           type="button"
           className={cx(ui.next)}
           onClick={onNext}
-          disabled={!canNext || !valid}
           aria-disabled={!canNext || !valid}
         >
           Continuer

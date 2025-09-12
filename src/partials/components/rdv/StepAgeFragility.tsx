@@ -113,6 +113,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
         {/* Consentement explicite pour données sensibles */}
         <label className={cx(ui.check)}>
           <input
+            id="sensitive-consent"
             type="checkbox"
             checked={Boolean(data.sensitiveConsentAccepted)}
             onChange={(e) => onChange({ sensitiveConsentAccepted: e.target.checked })}
@@ -127,7 +128,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
 
       <div className={cx(ui.actions)}>
         <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-        <button type="button" className={cx(ui.next)} onClick={onNext} disabled={!canNext || !valid} aria-disabled={!canNext || !valid}>
+        <button type="button" className={cx(ui.next)} onClick={onNext} aria-disabled={!canNext || !valid}>
           Continuer
         </button>
       </div>

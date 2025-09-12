@@ -49,7 +49,7 @@ export default function StepCoords({ data, onChange, onPrev, onNext, canNext = f
     <section className={cx("step", "step-coords", ui.form)} role="group" aria-labelledby={`${baseId}-title`}>
       <h3 id={`${baseId}-title`} className={cx(ui.title)} data-step-title tabIndex={-1}>Vos coordonnées</h3>
 
-      <div className={cx(ui.group)}>
+      <div className={cx(ui.group)} id="coords-firstname">
         <label htmlFor={`${baseId}-firstname`} className={cx(ui.label)}>Prénom <span aria-hidden="true">*</span></label>
         <input
           id={`${baseId}-firstname`}
@@ -64,7 +64,7 @@ export default function StepCoords({ data, onChange, onPrev, onNext, canNext = f
         {show("firstname") && <p className={cx(ui.error)} role="alert">{warnings.firstname}</p>}
       </div>
 
-      <div className={cx(ui.group)}>
+      <div className={cx(ui.group)} id="coords-lastname">
         <label htmlFor={`${baseId}-lastname`} className={cx(ui.label)}>Nom <span aria-hidden="true">*</span></label>
         <input
           id={`${baseId}-lastname`}
@@ -79,7 +79,7 @@ export default function StepCoords({ data, onChange, onPrev, onNext, canNext = f
         {show("lastname") && <p className={cx(ui.error)} role="alert">{warnings.lastname}</p>}
       </div>
 
-      <div className={cx(ui.group)}>
+      <div className={cx(ui.group)} id="coords-email">
         <label htmlFor={`${baseId}-email`} className={cx(ui.label)}>E‑mail <span aria-hidden="true">*</span></label>
         <input
           id={`${baseId}-email`}
@@ -95,7 +95,7 @@ export default function StepCoords({ data, onChange, onPrev, onNext, canNext = f
         {show("email") && <p className={cx(ui.error)} role="alert">{warnings.email}</p>}
       </div>
 
-      <div className={cx(ui.group)}>
+      <div className={cx(ui.group)} id="coords-phone">
         <label htmlFor={`${baseId}-phone`} className={cx(ui.label)}>Téléphone <span aria-hidden="true">*</span></label>
         <input
           id={`${baseId}-phone`}
@@ -124,7 +124,7 @@ export default function StepCoords({ data, onChange, onPrev, onNext, canNext = f
         />
       </div>
 
-      <label className={cx(ui.check)}>
+      <label className={cx(ui.check)} id="coords-consent">
         <input
           type="checkbox"
           checked={data.consentAccepted}
@@ -138,7 +138,7 @@ export default function StepCoords({ data, onChange, onPrev, onNext, canNext = f
 
       <div className={cx(ui.actions)}>
         <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-        <button type="button" className={cx(ui.next)} onClick={onNext} disabled={!canProceed} aria-disabled={!canProceed}>
+        <button type="button" className={cx(ui.next)} onClick={onNext} aria-disabled={!canProceed}>
           Continuer
         </button>
       </div>
