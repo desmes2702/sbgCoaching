@@ -138,7 +138,7 @@ export default function StepCoords({ data, onChange, onPrev, onNext, canNext = f
 
       <div className={cx(ui.actions)}>
         <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-        <button type="button" className={cx(ui.next)} onClick={onNext} aria-disabled={!canProceed}>
+        <button type="button" className={cx(ui.next)} onClick={onNext} aria-disabled={!canProceed} tabIndex={!canProceed ? -1 : 0}>
           Continuer
         </button>
       </div>

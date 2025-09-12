@@ -1,5 +1,5 @@
 // src/partials/components/rdv/StepAgeFragility.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { StepAgeFragilityProps } from "@/js/types/rdvTypes.ts";
 import { ui, cx } from "@/js/forms/uiClasses.ts";
 import { AGE_MIN, AGE_MAX, MIN_FRAGILITY_CHARS, validateAgeFragility, canProceedAgeFragility } from "@/js/validation/rdvValidation.ts";
@@ -10,6 +10,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
   // Upload photo optionnel (non persisté)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [photoErr, setPhotoErr] = useState<string>("");
+  const fileRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => () => { if (photoUrl) URL.revokeObjectURL(photoUrl); }, [photoUrl]);
 
@@ -21,6 +22,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
     if (!okType) { setPhotoErr("Format non supporté (PNG, JPEG, WebP)."); setPhotoUrl(null); return; }
     if (file.size > max) { setPhotoErr("Fichier trop volumineux (≤ 3 Mo)."); setPhotoUrl(null); return; }
     setPhotoUrl(URL.createObjectURL(file));
+    if (fileRef.current) fileRef.current.value = "";
   }
 
   return (
@@ -96,10 +98,11 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
             id="frag-photo"
             className={cx(ui.input)}
             type="file"
-            accept="image/png,image/jpeg,image/webp,image/*"
+            accept="image/png,image/jpeg,image/webp"
             aria-describedby="frag-photo-hint"
             aria-invalid={Boolean(photoErr)}
             onChange={(e) => handlePhotoChange((e.target as HTMLInputElement).files?.[0])}
+            ref={fileRef}
           />
           <p id="frag-photo-hint" className={cx(ui.hint)}>
             Max 3 Mo. PNG/JPEG/WebP. Les métadonnées EXIF peuvent contenir des informations personnelles.
@@ -128,7 +131,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
 
       <div className={cx(ui.actions)}>
         <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-        <button type="button" className={cx(ui.next)} onClick={onNext} aria-disabled={!canNext || !valid}>
+        <button type="button" className={cx(ui.next)} onClick={onNext} aria-disabled={!canNext || !valid} tabIndex={!canNext || !valid ? -1 : 0}>
           Continuer
         </button>
       </div>

@@ -32,7 +32,7 @@ export default function StepHeader({ step, total, timeLeftMin }: StepHeaderProps
           Votre demande de rendez‑vous
         </h2>
         <div className={cx(ui.info)}>
-          <span id={`${regionId}-counter`} className={cx(ui.counter)}>
+          <span id={`${regionId}-counter`} className={cx(ui.counter)} aria-current="step">
             Étape <strong>{human}</strong>
           </span>
           {timeLabel && <span className={cx(ui.eta)}>{timeLabel}</span>}

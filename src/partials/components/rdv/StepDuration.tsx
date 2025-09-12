@@ -44,7 +44,7 @@ export default function StepDuration({ data, onChange, onPrev, onNext, canNext =
             Durée souhaitée
           </legend>
 
-          <div className={cx(ui.grid)} id="duration-options">
+          <div className={cx(ui.grid)} id="duration-options" aria-describedby={`${baseId}-hint`}>
             {DURATION_OPTIONS.map(opt => {
               const id = `${baseId}-${opt.id}`;
               const checked = data.durationId === opt.id;
@@ -80,12 +80,12 @@ export default function StepDuration({ data, onChange, onPrev, onNext, canNext =
             </div>
           )}
 
-          {touched.durationId && warnings.durationId && <p className={cx(ui.error)} role="alert">{warnings.durationId}</p>}
+          {touched.durationId && warnings.durationId && <p id={`${baseId}-hint`} className={cx(ui.error)} role="alert">{warnings.durationId}</p>}
         </fieldset>
 
         <div className={cx(ui.actions)}>
           <button type="button" className={cx(ui.prev)} onClick={onPrev}>Retour</button>
-          <button type="button" className={cx(ui.next)} aria-disabled={!canProceed} onClick={handleNextClick}>
+          <button type="button" className={cx(ui.next)} aria-disabled={!canProceed} tabIndex={!canProceed ? -1 : 0} onClick={handleNextClick}>
             Continuer
           </button>
         </div>

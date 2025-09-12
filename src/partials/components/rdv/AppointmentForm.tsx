@@ -1,5 +1,5 @@
 // src/partials/components/rdv/AppointmentForm.tsx
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import StepHeader from "@/partials/components/rdv/StepHeader.tsx";
 import StepType from "@/partials/components/rdv/StepType.tsx";
 import StepObjective from "@/partials/components/rdv/StepObjective.tsx";
@@ -55,6 +55,7 @@ export default function AppointmentForm() {
   const currentStep = STEPS[stepIndex];
 
   // autosave (opt-in) — ne sauvegarde PAS les données sensibles
+  // Audit 2025-09-12: vérifié que age / fragility / notes sensibles / consentements ne sont pas écrits dans le storage
   useEffect(() => {
     if (!AUTOSAVE_ENABLED) return;
     try {
@@ -121,18 +122,25 @@ export default function AppointmentForm() {
   }, [stepIndex]);
 
   // Next wrapper to show error summary when invalid
-  function tryNext() {
+  const tryNext = useCallback(() => {
     if (canContinue) {
       setShowSummary(false);
       goNext();
       return;
     }
     setShowSummary(true);
-    // focus summary block
+    // focus the first error link and scroll to top of summary
     requestAnimationFrame(() => {
-      summaryRef.current?.focus();
+      const firstLink = summaryRef.current?.querySelector<HTMLAnchorElement>('a');
+      if (firstLink) {
+        firstLink.focus({ preventScroll: true });
+        firstLink.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        summaryRef.current?.focus({ preventScroll: true });
+        summaryRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
-  }
+  }, [canContinue, goNext]);
 
   // Build error summary for current step
   const errorItems = useMemo(() => {
@@ -171,6 +179,9 @@ export default function AppointmentForm() {
 
   async function handleSubmitFinal() {
     setError("");
+    if (submitting) return; // prevent double-submit
+    if (!isFormValid(data)) { setError("Le formulaire contient des erreurs."); return; }
+    if (data.isSeniorOrFragile === "yes" && !data.sensitiveConsentAccepted) { setError("Le consentement explicite est requis."); return; }
 
     // honeypot
     if (data.website.trim() !== "") {
@@ -223,7 +234,8 @@ export default function AppointmentForm() {
       <StepHeader step={stepIndex + 1} total={STEPS.length} timeLeftMin={timeLeftMin} />
 
       {showSummary && !canContinue && errorItems.length > 0 && (
-        <div ref={summaryRef} role="alert" tabIndex={-1} style={{ border: "1px solid rgba(255,255,255,.2)", borderRadius: ".5rem", padding: ".75rem", marginBottom: "1rem" }}>
+        <div ref={summaryRef} role="alert" tabIndex={-1} style={{ border: "1px solid rgba(255,255,255,.2)", borderRadius: ".5rem", padding: ".75rem", marginBottom: "1rem", minHeight: "2.5rem" }}>
+          <p role="status" aria-live="polite" className={cx(ui.srOnly)}>Erreurs détectées dans le formulaire</p>
           <p style={{ margin: 0, marginBottom: ".5rem" }}>Veuillez corriger les points suivants&nbsp;:</p>
           <ul style={{ margin: 0, paddingLeft: "1rem" }}>
             {errorItems.map((it, i) => (

@@ -41,6 +41,7 @@ export default function StepObjective({ data, onChange, onPrev, onNext, canNext 
           className={cx(ui.next)}
           onClick={onNext}
           aria-disabled={!canNext || !valid}
+          tabIndex={!canNext || !valid ? -1 : 0}
         >
           Continuer
         </button>
