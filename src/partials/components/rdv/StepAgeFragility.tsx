@@ -116,12 +116,12 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
             type="checkbox"
             checked={Boolean(data.sensitiveConsentAccepted)}
             onChange={(e) => onChange({ sensitiveConsentAccepted: e.target.checked })}
-            aria-invalid={Boolean((warnings as any).sensitiveConsentAccepted)}
+            aria-invalid={Boolean(warnings.sensitiveConsentAccepted)}
           />
           <span>J’accepte explicitement le traitement de données de santé (âge/fragilités) pour l’étude de ma demande.</span>
         </label>
-        {(warnings as any).sensitiveConsentAccepted && (
-          <p className={cx(ui.error)} role="alert">{(warnings as any).sensitiveConsentAccepted}</p>
+        {warnings.sensitiveConsentAccepted && (
+          <p className={cx(ui.error)} role="alert">{warnings.sensitiveConsentAccepted}</p>
         )}
       </fieldset>
 
