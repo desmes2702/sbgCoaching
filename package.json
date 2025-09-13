@@ -8,6 +8,7 @@
     "build": "astro build",
     "build:check": "astro check && astro build",
     "preview": "astro preview",
+    "preview:ci": "npm run build && npm run preview -- --host --port 4321",
     "clean:cache": "rimraf node_modules/.vite .vite dist .astro tsconfig.tsbuildinfo",
     "clean:all": "rimraf node_modules dist .astro && npm install",
     "refresh": "npm run clean:cache && npm run dev",
@@ -24,6 +25,9 @@
     "lint:ts:fix": "eslint ./src --ext .ts,.tsx --fix --cache",
     "lint:all": "npm run lint:scss && npm run lint:ts",
     "lint:fix": "npm run lint:scss:fix && npm run lint:ts:fix",
+    "a11y": "node scripts/a11y-check.mjs",
+    "a11y:ci": "A11Y_URL=http://localhost:4321/rdv A11Y_OUT=reports/axe.json node scripts/a11y-check.mjs",
+    "qa": "npm run preview:ci & npx wait-on http://localhost:4321 && npm run a11y:ci",
     "analyze": "npm run build && npx rollup-plugin-visualizer dist/client --open",
     "perf:audit": "npm run build && npx lighthouse http://localhost:4321 --view",
     "precodex": "node scripts/snapshot.mjs",
@@ -69,7 +73,10 @@
     "vite": "^6.3.5",
     "vite-plugin-sass": "^0.1.0",
     "vite-plugin-static-copy": "^3.0.0",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "@axe-core/puppeteer": "^4.8.2",
+    "puppeteer": "^22.15.0",
+    "wait-on": "^7.2.0"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
