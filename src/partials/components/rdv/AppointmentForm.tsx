@@ -234,7 +234,7 @@ export default function AppointmentForm() {
       <StepHeader step={stepIndex + 1} total={STEPS.length} timeLeftMin={timeLeftMin} />
 
       {showSummary && !canContinue && errorItems.length > 0 && (
-        <div ref={summaryRef} role="alert" tabIndex={-1} style={{ border: "1px solid rgba(255,255,255,.2)", borderRadius: ".5rem", padding: ".75rem", marginBottom: "1rem", minHeight: "2.5rem" }}>
+        <div ref={summaryRef} role="alert" aria-live="polite" tabIndex={-1} style={{ border: "1px solid rgba(255,255,255,.2)", borderRadius: ".5rem", padding: ".75rem", marginBottom: "1rem", minHeight: "2.5rem" }}>
           <p role="status" aria-live="polite" className={cx(ui.srOnly)}>Erreurs détectées dans le formulaire</p>
           <p style={{ margin: 0, marginBottom: ".5rem" }}>Veuillez corriger les points suivants&nbsp;:</p>
           <ul style={{ margin: 0, paddingLeft: "1rem" }}>

@@ -10,10 +10,50 @@ jobs:
           node-version: '20'
       - run: npm ci
       - run: npm run preview:ci & npx wait-on http://localhost:4321
+      - run: npx lighthouse http://localhost:4321/rdv --output=json --output-path=reports/lh-mobile.json --quiet --chrome-flags="--headless=new"
+      - run: npx lighthouse http://localhost:4321/rdv --preset=desktop --output=json --output-path=reports/lh-desktop.json --quiet --chrome-flags="--headless=new"
       - run: npm run a11y:ci
+      - name: Comment PR with QA summary
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            function readJSON(p) { return JSON.parse(fs.readFileSync(p,'utf8')); }
+            const mob = readJSON('reports/lh-mobile.json');
+            const desk = readJSON('reports/lh-desktop.json');
+            const axe = readJSON('reports/axe.json');
+            const s = c => Math.round((c?.score || 0)*100);
+            const mPerf=s(mob.categories.performance), mA11y=s(mob.categories.accessibility), mBP=s(mob.categories['best-practices']), mSEO=s(mob.categories.seo);
+            const dPerf=s(desk.categories.performance), dA11y=s(desk.categories.accessibility), dBP=s(desk.categories['best-practices']), dSEO=s(desk.categories.seo);
+            const crit = axe.violations.filter(v=>v.impact==='critical').length;
+            const serious = axe.violations.filter(v=>v.impact==='serious').length;
+            const bd = fs.readFileSync('reports/bundle-diff.md','utf8').split('\n').slice(0,6).join('\n');
+            const body = [
+              '**QA Summary**',
+              '',
+              '| Metric | Mobile | Desktop |',
+              '|---|---:|---:|',
+              `| Performance | ${mPerf} | ${dPerf} |`,
+              `| Accessibility | ${mA11y} | ${dA11y} |`,
+              `| Best Practices | ${mBP} | ${dBP} |`,
+              `| SEO | ${mSEO} | ${dSEO} |`,
+              '',
+              `axe-core: critical=${crit}, serious=${serious} (target 0/0)`,
+              '',
+              'Bundle diff:',
+              '```',
+              bd,
+              '```'
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
       - name: Upload reports
         uses: actions/upload-artifact@v4
         with:
           name: reports
           path: reports/**
-

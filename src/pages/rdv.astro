@@ -9,6 +9,11 @@ import Faq from "@partials/components/Faq.astro";
     <section class="rdv rdv--dark wrapper-1440-black" aria-labelledby="rdv-title">
       <div class="container rdv__container">
         <h1 id="rdv-title" class="rdv__title">COACHING SPORTIF<span class="rdv__title-accent">_</span></h1>
+        <noscript>
+          <div style="border:1px solid rgb(255 255 255 / 20%); border-radius: 8px; padding: 12px; margin: 12px 0; color: white;">
+            Pour utiliser ce formulaire, activez JavaScript dans votre navigateur. Vous pouvez aussi nous contacter directement via la page <a href="/contact" style="text-decoration: underline; color: inherit;">Contact</a>.
+          </div>
+        </noscript>
         <AppointmentForm client:visible />
       </div>
     </section>
