@@ -1,5 +1,5 @@
+// @use "@scss/abstracts/globals" as *;
 @use "../abstracts/mixins" as m;
 @use "../abstracts/tokens" as t;
 
-.container { @include m.container(90rem); }
-
+.container { @include m.container; }

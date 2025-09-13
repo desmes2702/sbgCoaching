@@ -1,19 +1,21 @@
+// @use "@scss/abstracts/globals" as *; // (commenté si le watcher l'injecte automatiquement)
 // Tokens — source of truth for design values
-// Use rem units; document each token for design/dev parity.
+// Unités: rem. Pas de clamp().
 
-// Colors
-$color-primary: #F0A; // Couleur principale des CTA et accents
-$color-secondary: #111; // Fond sombre principal (sections dark)
-$color-surface: #0b0b0b; // Surface par défaut
-$color-text: #fff; // Texte sur fond sombre
-$color-text-muted: rgb(255 255 255 / 60%); // Texte atténué
-$color-border: rgb(255 255 255 / 18%); // Bordures discrètes
-$color-warning: #FFC107; // Avertissements neutres
-$color-danger: #E01E5A; // Erreur / états invalides
+// Colors (harmonised palette)
+$color-primary: #F0A; // Couleur principale des CTA (fonds clairs).
+$color-text: #2F2F2F;    // Texte principal.
+$color-text-muted: rgb(47 47 47 / 60%);
+$color-bg: #F0F0F0;      // Surface claire.
+$color-surface: #FFF; // Cartes/blocs sur fond clair.
+$color-border: rgb(47 47 47 / 20%);
+$color-border-inverse: rgb(240 240 240 / 20%);
+$color-warning: #D49700;
+$color-danger: #B00020;
 
 // Typography
-$font-family-base: var(--font-primary, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, sans-serif); // Police par défaut
-$font-family-accent: var(--font-secondary, $font-family-base); // Police titres/accents
+$font-family-base: 'Roboto','Nexa',sans-serif; // Police par défaut.
+$font-family-accent: 'Nexa','Roboto',sans-serif; // Police titres/accents.
 $font-size-root: 16px; // Base 1rem = 16px
 
 // Spacing scale (in rem)
@@ -28,10 +30,12 @@ $space-2xl: 3rem; // 48px
 // Radius
 $radius-sm: 0.25rem; // 4px
 $radius-md: 0.5rem;  // 8px
-$radius-lg: 0.75rem; // 12px
+$radius-lg: 1rem; // 16px
 
 // Shadows
 $shadow-focus: 0 0 0 0.125rem rgb(255 0 170 / 25%); // Anneau focus
+$shadow-elev-1: 0 1px 2px rgb(0 0 0 / 4%), 0 1px 1px rgb(0 0 0 / 2%);
+$shadow-elev-2: 0 4px 12px rgb(0 0 0 / 8%);
 
 // Z-index
 $z-base: 1;
@@ -39,7 +43,10 @@ $z-overlay: 1000;
 $z-toast: 1100;
 
 // Breakpoints (rem)
-$bp-mobile: 22.5rem; // 360px
-$bp-tablet: 48rem; // 768px
-$bp-desktop: 64rem;    // 1024px
-$bp-wide: 90rem; // 1440px
+$bp-mobile: 48rem; // 768px
+$bp-tablet: 64rem; // 1024px
+$bp-desktop: 90rem; // 1440px
+$bp-wide: 110rem; // 1760px (optionnel)
+
+// Container
+$container-max: 90rem;

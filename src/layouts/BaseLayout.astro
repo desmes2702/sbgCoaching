@@ -4,7 +4,11 @@ import Menu from "@partials/components/Menu.tsx";
 import Footer from "@partials/components/Footer.astro";
 import FooterMenu from "@partials/components/FooterMenu.astro";
 import { getSeoKeywords, getSchemaForPage } from "@js/data/CompanyData.ts";
-import "../scss/main.scss";
+const DS_ENABLED = import.meta.env.PUBLIC_DS_ENABLED === 'true';
+let dsHref: string | undefined = undefined;
+if (DS_ENABLED) {
+  dsHref = (await import('@scss/main.scss?url')).default as string;
+}
 import SpeedInsights from '@vercel/speed-insights/astro';
 import VercelAnalytics from '@/partials/analytics/VercelAnalytics.tsx';
 
@@ -214,3 +218,4 @@ const GA_BUILD_ID = import.meta.env.PUBLIC_GA_ID || "";       /* ← valeur .env
     <VercelAnalytics client:idle />
   </body>
 </html>
+    {DS_ENABLED && dsHref && <link rel="stylesheet" href={dsHref} />}

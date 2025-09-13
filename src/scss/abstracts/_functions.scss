@@ -4,3 +4,12 @@
   @return ($px / $base) * 1rem;
 }
 
+
+@function contrast-text($bg, $dark: #000, $light: #fff) {
+  $r: red($bg);
+  $g: green($bg);
+  $b: blue($bg);
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+  /* stylelint-disable-next-line at-rule-empty-line-before */
+  @return if($yiq >= 128, $dark, $light);
+}

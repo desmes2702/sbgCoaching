@@ -1,20 +1,25 @@
+// @use "@scss/abstracts/globals" as *;
 @use "../abstracts/tokens" as t;
 
 /* Minimal reset */
+:root { font-size: 100%; }
 *,*::before,*::after{ box-sizing: border-box; }
+html, body { height: 100%; }
 html { font-size: t.$font-size-root; }
 
 body {
   margin: 0;
-  background: t.$color-surface;
-  color: t.$color-text;
   font-family: t.$font-family-base;
+  background: t.$color-bg;
+  color: t.$color-text;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-img,svg,video{
+img,picture,video,canvas,svg {
   display: block;
+  max-inline-size: 100%;
   height: auto;
-  max-width: 100%;
 }
 
-button,input,select,textarea{ font: inherit; }
+input,button,textarea,select { font: inherit; }

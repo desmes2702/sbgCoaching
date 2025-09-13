@@ -1,40 +1,44 @@
+// @use "@scss/abstracts/globals" as *;
 @use "../abstracts/tokens" as t;
 @use "../abstracts/mixins" as m;
+@use "../abstracts/functions" as f;
 
-.btn {
+.button {
+  @include m.button-reset;
+
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 2.625rem;
-  padding-inline: 1rem;
-  border: 1px solid transparent;
+  padding: .75rem 1rem;
+  gap: t.$space-xs;
+  border: 1px solid t.$color-border;
   border-radius: t.$radius-md;
-  font-weight: 500;
-  line-height: 1;
-  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+  background: t.$color-surface;
+  color: t.$color-text;
+  transition: background-color .24s, color .24s, border-color .24s, box-shadow .24s;
   cursor: pointer;
 
-  &:active {
-    transform: translateY(1px);
+  &:focus-visible { @include m.focus-ring; }
+
+  &--primary {
+    background: t.$color-primary;
+    color: f.contrast-text(t.$color-primary);
+    border-color: transparent;
+    &:hover { box-shadow: t.$shadow-elev-2; }
   }
-  
-  @include m.focus-ring;
 
-  &:disabled,
-  &[aria-disabled="true"] {
-    opacity: .5;
-    cursor: not-allowed;
+  &--ghost {
+    background: transparent;
+    border-color: t.$color-border;
+    &:hover { background: rgb(0 0 0 / 4%); }
+  }
+
+  &__icon {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
   }
 }
 
-.btn--primary {
-  background: t.$color-primary; color: #fff; border-color: t.$color-primary;
-  &:hover { filter: brightness(1.02); }
-}
-
-.btn--ghost {
-  background: transparent;
-  color: #fff;
-  border-color: rgb(255 255 255 / 30%);
-  &:hover { background: rgb(255 255 255 / 5%); }
-}
+/* Alias temporaire pour compat migration */
+.btn { @extend .button; }
+.btn--primary { @extend .button--primary; }
+.btn--ghost { @extend .button--ghost; }

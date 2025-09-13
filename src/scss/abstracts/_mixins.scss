@@ -1,3 +1,4 @@
+// @use "@scss/abstracts/globals" as *;
 @use "./tokens" as t;
 
 // Media query helpers (min-width)
@@ -26,18 +27,18 @@
 }
 
 // Container
-@mixin container($max: 90rem) {
+@mixin container {
   width: 100%;
+  max-width: t.$container-max;
   margin-inline: auto;
-  max-width: $max;
   padding-inline: t.$space-md;
 }
 
 // Focus visible ring
-@mixin focus-ring($color: t.$shadow-focus) {
+@mixin focus-ring {
   &:focus-visible {
-    outline: none;
-    box-shadow: $color;
+    outline: 2px solid t.$color-primary;
+    outline-offset: 2px;
   }
 }
 

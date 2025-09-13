@@ -38,7 +38,10 @@ Branche: `refactor-scss` (base: `refactor/seo-hardening`)
 - Sélecteurs ajoutés: composants `btn`, `input`, `form__*` (compat BEM).
 - Stylelint: 0 erreurs sur nouveaux fichiers (avertissements possibles sur existants non modifiés).
 
+## Pipeline & Flags
+- Purge CSS prod-only via PostCSS (safelist BEM + alias `.btn`).
+- Flag `PUBLIC_DS_ENABLED` (false par défaut) pour charger le DS conditionnellement.
+
 ## Notes
 - Le DS n’est pas câblé comme entrée principale. Intégration progressive prévue via `src/scss/main.scss` après review.
 - Respect BEM strict; rem partout; focus visible; AA/AAA en cible.
-

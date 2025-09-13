@@ -45,8 +45,12 @@ src/scss/
 - Zones de hit ≥ 44px logiques quand pertinent.
 
 ## Pipeline build/purge
-- Minification: gérée par Vite/Astro.
-- Purge CSS (option): via `@fullhuman/postcss-purgecss` (déjà présent côté deps). À activer uniquement en prod avec une safelist dédiée.
+- Minification: gérée par Vite/Astro + PostCSS.
+- Purge CSS prod-only: PostCSS (`postcss.config.js`) active `@fullhuman/postcss-purgecss` uniquement si `NODE_ENV=production` avec safelist:
+  - standard: `sr-only`, `visually-hidden`
+  - deep: `/^btn/`, `/^button/`, `/^form__/`, `/^input/`, `/^is-/`, `/^has-/`
+- DS conditionnel: `PUBLIC_DS_ENABLED` (false par défaut). Si true, le layout charge `@scss/main.scss` via un `<link>` côté head.
+- Bouton primaire: couleur texte auto via `contrast-text()` selon le fond `$color-primary`.
 
 ## Migration Guide
 - Les classes BEM existentes sont conservées. Nouvelle implémentation documentée dans `components/`.
@@ -55,4 +59,3 @@ src/scss/
 ## Comment utiliser
 - Importer `src/scss/main.scss` comme point d’entrée unique.
 - Progressivement mapper les pages/composants vers les nouveaux partiels.
-
