@@ -7,22 +7,22 @@ import { AGE_MIN, AGE_MAX, MIN_FRAGILITY_CHARS, validateAgeFragility, canProceed
 export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNext }: StepAgeFragilityProps) {
   const warnings = validateAgeFragility(data);
   const valid = canProceedAgeFragility(data);
-  // Upload photo optionnel (non persisté)
+  // Upload photo optionnel (non persistant)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [photoErr, setPhotoErr] = useState<string>("");
   const fileRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => () => { if (photoUrl) URL.revokeObjectURL(photoUrl); }, [photoUrl]);
 
-  function handlePhotoChange(file?: File) {
+  function handleFileSelection(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.currentTarget.files?.[0];
     setPhotoErr("");
     if (!file) { setPhotoUrl(null); return; }
     const max = 3 * 1024 * 1024; // 3MB
     const okType = /^(image\/(png|jpeg|webp))$/i.test(file.type);
-    if (!okType) { setPhotoErr("Format non supporté (PNG, JPEG, WebP)."); setPhotoUrl(null); return; }
-    if (file.size > max) { setPhotoErr("Fichier trop volumineux (≤ 3 Mo)."); setPhotoUrl(null); return; }
+    if (!okType) { setPhotoErr("Format non supporté (PNG, JPEG, WebP)."); setPhotoUrl(null); if (fileRef.current) fileRef.current.value = ""; return; }
+    if (file.size > max) { setPhotoErr("Fichier trop volumineux (≤ 3 Mo)."); setPhotoUrl(null); if (fileRef.current) fileRef.current.value = ""; return; }
     setPhotoUrl(URL.createObjectURL(file));
-    if (fileRef.current) fileRef.current.value = "";
   }
 
   return (
@@ -66,7 +66,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
                     className={cx(ui.radio)}
                     name="fragility"
                     checked={checked}
-                    onChange={() => onChange({ isSeniorOrFragile: opt.id as import('@/js/types/rdvTypes').YesNoNa })}
+                    onChange={() => onChange({ isSeniorOrFragile: opt.id as import("@/js/types/rdvTypes").YesNoNa })}
                   />
                   <span>{opt.label}</span>
                 </label>
@@ -91,7 +91,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
             {warnings.fragilityNotes && <p className={cx(ui.error)} role="alert">{warnings.fragilityNotes}</p>}
           </div>
         )}
-        {/* Upload photo optionnel (non requis) */}
+
         <div className={cx(ui.group)}>
           <label htmlFor="frag-photo" className={cx(ui.label)}>Photo (optionnel)</label>
           <input
@@ -101,7 +101,7 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
             accept="image/png,image/jpeg,image/webp"
             aria-describedby="frag-photo-hint"
             aria-invalid={Boolean(photoErr)}
-            onChange={(e) => handlePhotoChange((e.target as HTMLInputElement).files?.[0])}
+            onChange={handleFileSelection}
             ref={fileRef}
           />
           <p id="frag-photo-hint" className={cx(ui.hint)}>
@@ -109,11 +109,18 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
           </p>
           {photoErr && <p className={cx(ui.error)} role="alert">{photoErr}</p>}
           {photoUrl && (
-            <img src={photoUrl} alt="Aperçu de la photo importée" style={{ maxWidth: "12rem", borderRadius: ".5rem" }} />
+            <img
+              src={photoUrl}
+              alt="Aperçu de la photo importée (optionnel)"
+              width={240}
+              height={240}
+              decoding="async"
+              loading="lazy"
+              style={{ width: "240px", height: "240px", objectFit: "cover", borderRadius: ".5rem" }}
+            />
           )}
         </div>
 
-        {/* Consentement explicite pour données sensibles */}
         <label className={cx(ui.check)}>
           <input
             id="sensitive-consent"
@@ -138,3 +145,4 @@ export default function StepAgeFragility({ data, onChange, onPrev, onNext, canNe
     </section>
   );
 }
+

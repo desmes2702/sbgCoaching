@@ -2,7 +2,7 @@
 
 - Méthode: build Vite/Astro, inspection `dist/client/_astro`.
 - Résultat (extrait):
-  - `AppointmentForm.*.js`: ~28.35 kB (gzip ~7.14 kB) — +1.8 kB (~+0.54 kB gzip) dû à l’erreur summary + ancres.
+- `AppointmentForm.*.js`: ~29.18 kB (gzip ~7.40 kB) — +0.83 kB (~+0.26 kB gzip) après normalisation de l’aperçu image (attributs width/height/decoding/loading).
   - Aucune nouvelle dépendance > 10 kB gzip ajoutée.
   - CSS: pas de duplication; réutilisation BEM classique.
 
