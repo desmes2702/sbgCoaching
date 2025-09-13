@@ -1,0 +1,42 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+<BaseLayout title="Contact — DS Review" dataPage="ds-review">
+  <main class="container" data-testid="ds-review" id="main-content">
+    <h1>Contact — DS Review</h1>
+    <p>Page témoin pour valider le Design System (accessibilité, styles, purge CSS).</p>
+
+    <section aria-labelledby="buttons">
+      <h2 id="buttons">Boutons</h2>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <button class="button" type="button">Button</button>
+        <button class="button button--primary" type="button">CTA primaire</button>
+        <button class="button button--ghost" type="button">Ghost</button>
+        <button class="btn btn--primary" type="button">Legacy .btn</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="form">
+      <h2 id="form">Formulaire</h2>
+      <form class="form" aria-describedby="form-help">
+        <p id="form-help" class="is-visually-muted">Tous les champs sont requis.</p>
+
+        <label class="form__label" for="name">Nom</label>
+        <input class="input" id="name" name="name" type="text" autocomplete="name" required />
+
+        <label class="form__label" for="email">Email</label>
+        <input class="input" id="email" name="email" type="email" autocomplete="email" required />
+
+        <p class="form__error" role="alert">Message d’erreur exemple</p>
+
+        <button class="button button--primary" type="submit">Envoyer</button>
+      </form>
+    </section>
+
+    <section aria-labelledby="links">
+      <h2 id="links">Liens</h2>
+      <p><a href="#" class="link">Lien d’exemple</a></p>
+    </section>
+  </main>
+</BaseLayout>
+

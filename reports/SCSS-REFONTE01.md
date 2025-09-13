@@ -45,3 +45,14 @@ Branche: `refactor-scss` (base: `refactor/seo-hardening`)
 ## Notes
 - Le DS n’est pas câblé comme entrée principale. Intégration progressive prévue via `src/scss/main.scss` après review.
 - Respect BEM strict; rem partout; focus visible; AA/AAA en cible.
+
+## Page témoin
+- `src/pages/contact-ds-review.astro` (chargée avec DS uniquement si `PUBLIC_DS_ENABLED=true`)
+
+## Pipeline & Flags (rappel)
+- Purge CSS prod-only via PostCSS (`@fullhuman/postcss-purgecss`) + `cssnano`
+- Safelist: `sr-only`, `visually-hidden`, `/^btn/`, `/^button/`, `/^form__/`, `/^input/`, `/^is-/`, `/^has-/`
+- Flag `PUBLIC_DS_ENABLED` pour charger `@scss/main.scss`
+
+## Métriques (à jour après build flag ON local)
+*Voir section “Build métriques (flag ON local)” ajoutée automatiquement par le script.*
