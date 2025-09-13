@@ -1,0 +1,11 @@
+.lazy-fade {
+  transform: var(--from-transform, translateY(2rem));
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-timing-function: ease;
+
+  &.is-visible {
+    transform: none;
+    opacity: 1;
+  }
+}

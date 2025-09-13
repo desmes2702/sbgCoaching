@@ -1,0 +1,53 @@
+@use "./tokens" as t;
+
+// Media query helpers (min-width)
+@mixin mq($min) {
+  @media (min-width: $min) {
+    @content;
+  }
+}
+
+@mixin mq-tablet {
+  @include mq(t.$bp-tablet) {
+    @content;
+  }
+}
+
+@mixin mq-desktop {
+  @include mq(t.$bp-desktop) {
+    @content;
+  }
+}
+
+@mixin mq-wide {
+  @include mq(t.$bp-wide) {
+    @content;
+  }
+}
+
+// Container
+@mixin container($max: 90rem) {
+  width: 100%;
+  margin-inline: auto;
+  max-width: $max;
+  padding-inline: t.$space-md;
+}
+
+// Focus visible ring
+@mixin focus-ring($color: t.$shadow-focus) {
+  &:focus-visible {
+    outline: none;
+    box-shadow: $color;
+  }
+}
+
+// Button reset
+@mixin button-reset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  appearance: none;
+}

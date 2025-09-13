@@ -106,9 +106,9 @@
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
+  min-height: 3.25rem; // stabilize header area to avoid CLS
   gap: 1rem;
   margin-bottom: 2rem;
-  min-height: 3.25rem; // stabilize header area to avoid CLS
 }
 
 .rdv-form__progress {

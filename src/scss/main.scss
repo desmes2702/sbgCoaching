@@ -1,14 +1,25 @@
-// src/scss/main.scss - VERSION CORRIGÉE POUR HOT-RELOAD
+// SCSS Design System entrypoint (not yet wired in production)
+// Import order: abstracts → base → layout → components → utilities → pages → themes
 
-@use "./abstracts" as *;
+// abstracts
+@use "./abstracts/tokens";
+@use "./abstracts/functions";
+@use "./abstracts/mixins";
 
-// 🔥 IMPORTS DIRECTS pour hot-reload fonctionnel
-@use "base/global";
-@use "base/reset"; 
-@use "base/typography";
+// base
+@use "./base/reset";
+@use "./base/typography";
+@use "./base/accessibility";
 
-// 📦 SCSS forwards (après les imports directs)
-@forward "base/index";
-@forward "components/index"; 
-@forward "layout/index";
-@forward "pages/index";
+// layout
+@use "./layout/container";
+
+// components
+@use "./components/buttons";
+@use "./components/forms";
+
+// utilities
+@use "./utilities/helpers";
+
+// pages and themes can be integrated progressively
+

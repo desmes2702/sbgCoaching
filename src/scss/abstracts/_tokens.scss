@@ -1,0 +1,45 @@
+// Tokens — source of truth for design values
+// Use rem units; document each token for design/dev parity.
+
+// Colors
+$color-primary: #F0A; // Couleur principale des CTA et accents
+$color-secondary: #111; // Fond sombre principal (sections dark)
+$color-surface: #0b0b0b; // Surface par défaut
+$color-text: #fff; // Texte sur fond sombre
+$color-text-muted: rgb(255 255 255 / 60%); // Texte atténué
+$color-border: rgb(255 255 255 / 18%); // Bordures discrètes
+$color-warning: #FFC107; // Avertissements neutres
+$color-danger: #E01E5A; // Erreur / états invalides
+
+// Typography
+$font-family-base: var(--font-primary, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, sans-serif); // Police par défaut
+$font-family-accent: var(--font-secondary, $font-family-base); // Police titres/accents
+$font-size-root: 16px; // Base 1rem = 16px
+
+// Spacing scale (in rem)
+$space-2xs: 0.25rem; // 4px
+$space-xs: 0.5rem; // 8px
+$space-sm: 0.75rem; // 12px
+$space-md: 1rem; // 16px
+$space-lg: 1.5rem; // 24px
+$space-xl: 2rem; // 32px
+$space-2xl: 3rem; // 48px
+
+// Radius
+$radius-sm: 0.25rem; // 4px
+$radius-md: 0.5rem;  // 8px
+$radius-lg: 0.75rem; // 12px
+
+// Shadows
+$shadow-focus: 0 0 0 0.125rem rgb(255 0 170 / 25%); // Anneau focus
+
+// Z-index
+$z-base: 1;
+$z-overlay: 1000;
+$z-toast: 1100;
+
+// Breakpoints (rem)
+$bp-mobile: 22.5rem; // 360px
+$bp-tablet: 48rem; // 768px
+$bp-desktop: 64rem;    // 1024px
+$bp-wide: 90rem; // 1440px

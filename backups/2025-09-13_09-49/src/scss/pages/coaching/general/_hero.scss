@@ -1,0 +1,33 @@
+
+
+	.coaching__hero__content-secondary {
+		position: relative;
+		box-shadow: 0 4px 10px rgb(0 0 0 / 40%);
+		overflow: hidden;
+
+		&::after {
+		  position: absolute;
+		  z-index: 1;
+		  background: linear-gradient(to bottom, rgb(0 0 0 / 0%), transparent 40%, rgb(0 0 0 / 60%));
+		  transition: opacity 0.4s ease;
+		  opacity: 0.3;
+		  content: "";
+		  inset: 0;
+		  pointer-events: none;
+		}
+
+		&:hover{
+			transform: scale(1.02);
+		}
+
+		&:hover::after {
+		  opacity: 1;
+
+		}
+
+		.gallery__button {
+		  position: relative;
+		  z-index: 2;
+		}
+
+  }

@@ -1,69 +1,40 @@
-@use "../abstracts" as *;
+@use "../abstracts/tokens" as t;
+@use "../abstracts/mixins" as m;
 
-
-// ===============================
-// BUTTONS GLOBAUX
-// ===============================
-
-.button {
-  position: relative;
-  display: inline-block;
-  max-width: fit-content;
-  padding: 0.7rem 70px 0.7rem 3rem;
-  border-radius: 5px;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.625rem;
+  padding-inline: 1rem;
+  border: 1px solid transparent;
+  border-radius: t.$radius-md;
   font-weight: 500;
-  font-style: italic;
-  text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  line-height: 1;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+  cursor: pointer;
 
-  &::before {
-    position: absolute;
-    top: 50%;
-    right: 49px;
-    width: 12px;
-    height: 12px;
-    transition: transform 0.3s ease;
-    transform: translateY(-50%);
-    content: "";
-    background-image: url('../../img/icon__button__arrow.svg');
-    background-repeat: no-repeat;
-    background-size: contain;
+  &:active {
+    transform: translateY(1px);
   }
+  
+  @include m.focus-ring;
 
-  &:hover {
-    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
-    transform: translateY(-2px);
-
-    &::before {
-      transform: translate(4px, -50%); // flèche glisse subtilement vers la droite
-    }
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: .5;
+    cursor: not-allowed;
   }
-
-
-	&-red {
-	  background-color: $primary-color;
-	  color: white;
-	}
-
-	&-black {
-	  background-color: $secondary-color;
-	  color: white;
-	}
-
-	&-darker{
-		background-color: $darker-color;
-	}
-
-	&-disabled{
-		border: $border-secondary-color;
-		background-color: transparent;
-		opacity: 0.5;
-	}
 }
 
+.btn--primary {
+  background: t.$color-primary; color: #fff; border-color: t.$color-primary;
+  &:hover { filter: brightness(1.02); }
+}
 
-.no-hover:hover {
-	background: inherit;
-	color: inherit;
-	cursor: default;
+.btn--ghost {
+  background: transparent;
+  color: #fff;
+  border-color: rgb(255 255 255 / 30%);
+  &:hover { background: rgb(255 255 255 / 5%); }
 }
